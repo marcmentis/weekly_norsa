@@ -1,4 +1,5 @@
-module Sessionvalues
+module SessionValues
+
 	def check_session
 		if session[:authen].blank?
 			create_session

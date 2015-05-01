@@ -1,16 +1,18 @@
 class ForSelectsController < ApplicationController
-  include Sessionvalues
   before_action :set_for_select, only: [:show, :edit, :update, :destroy]
   before_action :check_session
 
   # GET /for_selects
   # GET /for_selects.json
   def index
+    # byebug
+    # reset_session
+    if current_user.authen == 'pgmdmjm'
     # if session[:authen] == 'pgmdmjm'
-    #   flash[:notice] = 'YES session[:authen] = pgmdmjm'
-    # else
-    #   flash[:notice] = 'no session[:authen]'
-    # end
+      flash[:notice] = 'YES modify current user = pgmdmjm'
+    else
+      flash[:notice] = 'no current user not known'
+    end
     @for_selects = ForSelect.all
   end
 
