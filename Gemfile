@@ -43,6 +43,9 @@ gem 'faker'
 # Authentication
 gem 'pundit'
 
+# Multiple Role capability
+gem 'rolify'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
