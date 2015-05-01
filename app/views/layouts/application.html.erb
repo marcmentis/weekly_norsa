@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rollify</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body class="<%= params[:controller] %>">
+<%= render 'layouts/menu.html.erb' %>
+<%= yield %>
+
+<script>
+
+	jQuery(document).ready(function() {
+		jQuery('ul.sf-menu').superfish();
+	});
+
+</script>
+</body>
+</html>

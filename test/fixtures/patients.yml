@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  firstname: MyString
+  lastname: MyString
+  number: MyString
+  facility: MyString
+  ward: MyString
+  doa: 2015-04-30
+  dob: 2015-04-30
+  dod: 2015-04-30
+  updated_by: MyString
+  facility: MyString
+  ward: MyString
+
+two:
+  firstname: MyString
+  lastname: MyString
+  number: MyString
+  facility: MyString
+  ward: MyString
+  doa: 2015-04-30
+  dob: 2015-04-30
+  dod: 2015-04-30
+  updated_by: MyString
+  facility: MyString
+  ward: MyString

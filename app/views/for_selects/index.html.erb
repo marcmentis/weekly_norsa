@@ -1,0 +1,41 @@
+<h1>Listing for_selects</h1>
+
+<p><%= flash[:notice] %></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Value</th>
+      <th>Text</th>
+      <th>Grouper</th>
+      <th>Option order</th>
+      <th>Facility</th>
+      <th>Code</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @for_selects.each do |for_select| %>
+      <tr>
+        <td><%= for_select.code %></td>
+        <td><%= for_select.value %></td>
+        <td><%= for_select.text %></td>
+        <td><%= for_select.grouper %></td>
+        <td><%= for_select.option_order %></td>
+        <td><%= for_select.facility %></td>
+        <td><%= for_select.code %></td>
+        <td><%= link_to 'Show', for_select %></td>
+        <td><%= link_to 'Edit', edit_for_select_path(for_select) %></td>
+        <td><%= link_to 'Destroy', for_select, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New For select', new_for_select_path %>

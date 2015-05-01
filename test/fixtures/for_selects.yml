@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  code: MyString
+  value: MyString
+  text: MyString
+  grouper: MyString
+  option_order: 1
+  facility: MyString
+  code: MyString
+
+two:
+  code: MyString
+  value: MyString
+  text: MyString
+  grouper: MyString
+  option_order: 1
+  facility: MyString
+  code: MyString
