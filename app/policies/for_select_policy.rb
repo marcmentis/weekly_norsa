@@ -8,5 +8,6 @@ class ForSelectPolicy
 
 	def index?
 		@current_user.role == 'admin2'
+
 	end
 end
