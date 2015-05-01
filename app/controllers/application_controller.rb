@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
 	# I.E. DON"T have to have 'include SessionValues' in each controller
   include SessionValues
   include CurrentUser
+  include Pundit
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.

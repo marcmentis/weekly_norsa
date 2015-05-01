@@ -1,18 +1,25 @@
 class ForSelectsController < ApplicationController
   before_action :set_for_select, only: [:show, :edit, :update, :destroy]
   before_action :check_session
+  # after_action :verify_authorized
+  # def pundit_user
+  #   current_user
+  # end
+
 
   # GET /for_selects
   # GET /for_selects.json
   def index
     # byebug
     # reset_session
-    if current_user.authen == 'pgmdmjm'
-    # if session[:authen] == 'pgmdmjm'
-      flash[:notice] = 'YES modify current user = pgmdmjm'
-    else
-      flash[:notice] = 'no current user not known'
-    end
+    # if current_user == 'pgmdmjm'
+    # # if session[:authen] == 'pgmdmjm'
+    #   flash[:notice] = "Yes: #{session[:authen]}"
+    # else
+    #   flash[:notice] = 'no current user not known'
+    # end
+
+    authorize ForSelect
     @for_selects = ForSelect.all
   end
 
