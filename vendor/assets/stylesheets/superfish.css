@@ -35,7 +35,7 @@
 /*** DEMO SKIN ***/
 .sf-menu {
 	float: left;
-	margin-bottom: 1em;
+	/*margin-bottom: 1em;*/
 }
 .sf-menu ul {
 	box-shadow: 2px 2px 6px rgba(0,0,0,.2);

@@ -7,15 +7,8 @@
   <%= csrf_meta_tags %>
 </head>
 <body class="<%= params[:controller] %>">
-<%= render 'layouts/menu.html.erb' %>
+<%= render 'layouts/header.html.erb' %>
 <%= yield %>
 
-<script>
-
-	jQuery(document).ready(function() {
-		jQuery('ul.sf-menu').superfish();
-	});
-
-</script>
 </body>
 </html>
