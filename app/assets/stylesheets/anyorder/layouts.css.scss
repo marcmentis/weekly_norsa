@@ -1,0 +1,20 @@
+/* GENERIC */
+
+.float_left {
+	float: left;
+}
+.clear_both {
+	clear:both;
+}
+.clear_after {
+	content: " ";
+	display: table;
+	clear: both;
+}
+
+/* _HEADER PARTIAL  */
+.header {
+	background-color: #78BCE8;
+	// padding-top: 0.25em;
+	// background-color: #202020
+}
