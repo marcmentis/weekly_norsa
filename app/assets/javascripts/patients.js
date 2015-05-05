@@ -1,5 +1,5 @@
-// $(function(){
-$(document).on("ready page:change", function(){ 
+$(function(){
+// $(document).on("ready page:change", function(){ 
 if ($('body.patients').length) {
 	// alert('patients.js');
 

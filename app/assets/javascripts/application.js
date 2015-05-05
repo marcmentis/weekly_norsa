@@ -13,11 +13,13 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
 //= require jquery-ui
 //= require grid.locale-en.js
 //= require jquery.jqGrid.min.js
 //= require hoverintent.js
 //= require superfish.js
-//= require turbolinks
 //= require_tree .
+//= require turbolinks
+
