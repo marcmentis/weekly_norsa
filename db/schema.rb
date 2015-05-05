@@ -59,7 +59,6 @@ ActiveRecord::Schema.define(version: 20150501225242) do
     t.string   "lastname"
     t.string   "authen"
     t.string   "facility"
-    t.string   "role"
     t.string   "email"
     t.string   "firstinitial"
     t.string   "middleinitial"
