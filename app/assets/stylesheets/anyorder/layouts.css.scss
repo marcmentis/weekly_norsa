@@ -1,5 +1,9 @@
 /* GENERIC */
 
+$header-blue: #78BCE8;
+$background_gray: #D0D0D0;
+$background_light_gray: #E0E0E0;
+
 .float_left {
 	float: left;
 }
@@ -14,10 +18,24 @@
 	display: table;
 	clear: both;
 }
+.pad_all_sides {
+	padding: 0.25em;
+}
+
+.pad_3_sides {
+	padding: 0.25em 0.25em 0 0.25em; //top, rt, bottom, lt
+}
+.pad_4_back_color {
+	padding: 0.25em; //top, rt, bottom, lt
+	background-color: $background_light_gray;
+}
+
+
 
 /* _HEADER PARTIAL  */
 .header {
-	background-color: #78BCE8;
+	background-color: $header-blue;
+	// padding: 0.25em 0.25em 0 0.25em
 	// padding-top: 0.25em;
 	// background-color: #202020
 }

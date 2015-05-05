@@ -1,136 +1,89 @@
 
+<div id="divTotalWrapper2">
 
-<aside id="divRt">
-  Right aside
-</aside>
+  <aside id="divRt">
+    <div id="divRtPad">
+      <div id="divFields">
+        <form id="fFields">
+          <div class="field">
+            <input id="id" type="hidden" />
+          </div>
+          <div class="field">
+              <input id="firstname" type="text" />
+              <label>first_name</label>      
+          </div>
+          <div class="field">
+              <input id="lastname" type="text" />
+              <label>last_name</label> (Client Validation Added)    
+          </div>
+          <div class="field">
+            <input id="number" type="text" />
+            <label>number</label>
+          </div>
+          <div class="field">       
+            <input id="facility" type="text" />
+            <label>facility</label>
+          </div>
+          <div class="field">       
+            <input id="ward" type="text" />
+            <label>ward</label>
+          </div>
+          <div id="divButtonEdit" class="actions">
+              <input id="bEdit" type="button" value="Edit Inpatient">
+              <input id="bNew" type="button" value="New Inpatient">
+              <input id="bDelete" type="button" value="Delete Inpatient">
+              <input id="bBack" type="button" value="Back">
+          </div>
+      </div> 
+    </div>
+    
+  </aside>
 
 
-<article id="divMain">
-  <div id="divSearch">
-    <form id="fSearch">
-      <div class="field">
-          <input id="s_firstname" type="text" />
-          <label>first_name</label>      
+  <article id="divMain">
+    <div id="divMainPad">
+      <div id="divSearch">
+        <form id="fSearch">
+          <div class="field">
+              <input id="s_firstname" type="text" />
+              <label>first_name</label>      
+          </div>
+          <div class="field">
+              <input id="s_lastname" type="text" />
+              <label>last_name</label>    
+          </div>
+          <div class="field">
+            <input id="s_number" type="text" />
+            <label>number</label>
+          </div>
+          <div class="field">       
+            <input id="s_facility" type="text" />
+            <label>facility</label>
+          </div>
+          <div class="field">       
+            <input id="s_ward" type="text" />
+            <label>ward</label>
+          </div>
+          <input id="bSearch" type="button" value="Search">
+        </form>
       </div>
-      <div class="field">
-          <input id="s_lastname" type="text" />
-          <label>last_name</label>    
-      </div>
-      <div class="field">
-        <input id="s_number" type="text" />
-        <label>number</label>
-      </div>
-      <div class="field">       
-        <input id="s_facility" type="text" />
-        <label>facility</label>
-      </div>
-      <div class="field">       
-        <input id="s_ward" type="text" />
-        <label>ward</label>
-      </div>
-      <input id="bSearch" type="button" value="Search">
-    </form>
-  </div>
 
-  <div id="divGrid"></div>
+    </div>
+    <div id="divGrid"></div>
 
-  <div id="divFields">
-    <form id="fFields">
-      <div class="field">
-        <input id="id" type="hidden" />
-      </div>
-      <div class="field">
-          <input id="firstname" type="text" />
-          <label>first_name</label>      
-      </div>
-      <div class="field">
-          <input id="lastname" type="text" />
-          <label>last_name</label> (Client Validation Added)    
-      </div>
-      <div class="field">
-        <input id="number" type="text" />
-        <label>number</label>
-      </div>
-      <div class="field">       
-        <input id="facility" type="text" />
-        <label>facility</label>
-      </div>
-      <div class="field">       
-        <input id="ward" type="text" />
-        <label>ward</label>
-      </div>
-      <div id="divButtonEdit" class="actions">
-          <input id="bEdit" type="button" value="Edit Inpatient">
-          <input id="bNew" type="button" value="New Inpatient">
-          <input id="bDelete" type="button" value="Delete Inpatient">
-          <input id="bBack" type="button" value="Back">
-      </div>
-  </div>
-
-</article>
+   
+  </article>
 
 
-<section id="divBelow">
-  Below section
-</section>
+  <section id="divBelow">
+    BELOW
+  </section>
+
+
+</div>
 
 
 
 
 
 
-
-
-
-<!-- <h1>Listing patients</h1>
-
-  <table>
-    <thead
-
-
-
-
-    >
-      <tr>
-        <th>Firstname</th>
-        <th>Lastname</th>
-        <th>Number</th>
-        <th>Facility</th>
-        <th>Ward</th>
-        <th>Doa</th>
-        <th>Dob</th>
-        <th>Dod</th>
-        <th>Updated by</th>
-        <th>Facility</th>
-        <th>Ward</th>
-        <th></th>
-        <th></th>
-        <th></th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @patients.each do |patient| %>
-        <tr>
-          <td><%= patient.firstname %></td>
-          <td><%= patient.lastname %></td>
-          <td><%= patient.number %></td>
-          <td><%= patient.facility %></td>
-          <td><%= patient.ward %></td>
-          <td><%= patient.doa %></td>
-          <td><%= patient.dob %></td>
-          <td><%= patient.dod %></td>
-          <td><%= patient.updated_by %></td>
-          <td><%= patient.facility %></td>
-          <td><%= patient.ward %></td>
-          <td><%= link_to 'Show', patient %></td>
-          <td><%= link_to 'Edit', edit_patient_path(patient) %></td>
-          <td><%= link_to 'Destroy', patient, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-
-  <br>
-
-<%= link_to 'New Patient', new_patient_path %> -->

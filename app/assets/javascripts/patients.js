@@ -12,7 +12,10 @@ if ($('body.patients').length) {
 	refreshgrid('nil');
 
 	// STYLING
-	$('#divRt').addClass('float_right something')
+	$('#divTotalWrapper2').addClass('pad_3_sides');
+	$('#divRt').addClass('float_right');
+	$('#divRtPad').addClass('pad_4_back_color');
+
 	$('#divFields').hide();
 
 	// BUTTONS
@@ -86,6 +89,7 @@ if ($('body.patients').length) {
 			pager:"#divPager",
 			height:350,
 			width: 700,
+			altRows: true,
 			rowNum:10,
 			rowList:[10,20,30],
 			sortname:"firstname",
