@@ -1,10 +1,54 @@
 class PatientsController < ApplicationController
+  include JqgridHelper
   before_action :set_patient, only: [:show, :edit, :update, :destroy]
 
   # GET /patients
   # GET /patients.json
   def index
     @patients = Patient.all
+    if params[:page] != nil
+      total_query_count = Patient.all.count     
+      # Run query and extract just those rows needed
+      extract = Patient.order("#{params[:sidx]} #{params[:sord]}")
+                        .limit(params[:rows].to_i)
+                        .offset((params[:page].to_i - 1) * params[:rows].to_i)
+      # Create jsGrid object from 'extract' data
+      @jsGrid_obj = create_jsGrid_obj(extract, params, total_query_count)
+    end
+
+    respond_to do |format|
+      format.html
+      format.json {render json: @jsGrid_obj }
+    end
+  end
+
+  def complex_search
+    # ActiveRecord relations are lazy loaders and can be chained
+    # Therefore, sequental .where searches IF PARAM not zero will filter with an 'AND' relationship
+    # Database will not be hit (lazy loading) until data needed by app
+    conditions = Patient.all 
+    conditions = conditions.where("facility = :facility", {facility: params[:facility]}) if params[:facility]!= ''
+    conditions = conditions.where("firstname = :firstname", {firstname: params[:firstname]}) if params[:firstname]!= ''
+    conditions = conditions.where("lastname = :lastname", {lastname: params[:lastname]}) if params[:lastname]!= ''
+    conditions = conditions.where("number = :number", {number: params[:number]}) if params[:number]!= ''
+    conditions = conditions.where("ward = :ward", {ward: params[:ward]}) if params[:ward]!= ''
+
+
+    # total_query = Patient.where("facility = :facility", {facility: params[:diagnosis]}
+                            # ).where("firstname = :firstname", {firstname: params[:first_name]});
+    total_query = conditions
+    total_query_count = total_query.count
+
+# Run query and extract just those rows needed
+      extract = conditions
+                    .order("#{params[:sidx]} #{params[:sord]}")
+                    .limit(params[:rows].to_i)
+                    .offset((params[:page].to_i - 1) * params[:rows].to_i)
+      @jsGrid_obj = create_jsGrid_obj(extract, params, total_query_count)
+    respond_to do |format|
+      format.html
+      format.json {render json: @jsGrid_obj }
+    end
   end
 
   # GET /patients/1
@@ -29,7 +73,7 @@ class PatientsController < ApplicationController
     respond_to do |format|
       if @patient.save
         format.html { redirect_to @patient, notice: 'Patient was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @patient }
+        format.json { head :no_content}
       else
         format.html { render action: 'new' }
         format.json { render json: @patient.errors, status: :unprocessable_entity }
