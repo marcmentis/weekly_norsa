@@ -43,7 +43,7 @@ production:
   # password: "gan1dolf2"
   # socket_mysql: "/var/run/mysqld/mysqld.sock"
 
-  adapter: <%= CONFIG[:adapter_oracle] %>
+  adapter: <%= CONFIG[:adapter1_oracle] %>
   database: <%= CONFIG[:database1] %>
   username: <%= CONFIG[:username1] %>
   password: <%= CONFIG[:password1] %>
