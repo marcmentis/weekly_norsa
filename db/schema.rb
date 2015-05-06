@@ -74,6 +74,6 @@ ActiveRecord::Schema.define(version: 20150501225242) do
     t.integer "role_id"
   end
 
-  add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
+  add_index "users_roles", ["user_id", "role_id"], name: "index_usersRoles_user_role_id"
 
 end
