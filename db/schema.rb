@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 20150501225242) do
     t.datetime "updated_at"
   end
 
-  add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
+  add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_name_res_type_id"
   add_index "roles", ["name"], name: "index_roles_on_name"
 
   create_table "users", force: true do |t|
