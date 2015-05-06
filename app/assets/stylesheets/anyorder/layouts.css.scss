@@ -29,13 +29,15 @@ $background_light_gray: #E0E0E0;
 	padding: 0.25em; //top, rt, bottom, lt
 	background-color: $background_light_gray;
 }
-
+.highest_level_blue_background {
+	background-color: $header-blue;
+}
+.centered {
+	margin: 0.25em auto 0 auto
+}
 
 
 /* _HEADER PARTIAL  */
 .header {
 	background-color: $header-blue;
-	// padding: 0.25em 0.25em 0 0.25em
-	// padding-top: 0.25em;
-	// background-color: #202020
 }

@@ -12,9 +12,10 @@ if ($('body.patients').length) {
 	refreshgrid('nil');
 
 	// STYLING
-	$('#divTotalWrapper2').addClass('pad_3_sides');
-	$('#divRt').addClass('float_right');
-	$('#divRtPad').addClass('pad_4_back_color');
+	$('#divPatientTotalWrapper').addClass('pad_3_sides');
+	$('#divPatientTotalInnerWrapper').addClass('centered').css({'width':'75em'});
+	$('#divPatientAsideRt').addClass('float_right');
+	$('#divPatientAsideRtPad').addClass('pad_4_back_color');
 
 	$('#divFields').hide();
 
