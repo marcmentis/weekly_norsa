@@ -24,6 +24,8 @@ gem 'jquery-ui-themes'
 gem 'pundit'
 # Multiple Role capability
 gem 'rolify'
+# Got error on dev - rake not in bundle
+gem 'rake'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
