@@ -51,7 +51,7 @@ group :test do
 end
 # Can run bundle --without production on Mac and not have Oracle error
 group :production do
-	#DB's NB CHANGE for deploy to VM GITLAB and OMH
+	#DB's NB CHANGE for deploy to VM GITLAB and OMH.
 	gem "activerecord-oracle_enhanced-adapter", "~> 1.5.0"
 	gem 'ruby-oci8', '~> 2.1.0'
 	# gem 'mysql2'
