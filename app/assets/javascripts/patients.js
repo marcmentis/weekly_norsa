@@ -12,12 +12,23 @@ if ($('body.patients').length) {
 	refreshgrid('nil');
 
 	// STYLING
-	$('#divPatientTotalWrapper').addClass('pad_3_sides');
-	$('#divPatientTotalInnerWrapper').addClass('centered').css({'width':'75em'});
+	$('#divPatientPageWrapper').addClass('pad_3_sides');
+	$('#divPatientPageInnerWrapper').addClass('centered').css({'width':'75em'});
+
 	$('#divPatientAsideRt').addClass('float_right');
 	$('#divPatientAsideRtPad').addClass('pad_4_back_color');
-
 	$('#divFields').hide();
+	$('#PatientAsideRtHeaderWrapper').addClass('spanWrapper_to_center')
+	$('#spanPatientAsideRtHeader').addClass('span_centered_in_wrapper moderate_increase bold');
+
+	$('#divMain').addClass('float_left pad_4_back_color');
+	$('#PatientFilterHeaderWrapper').addClass('spanWrapper_to_center')
+	$('#spanPatientFilterHeader').addClass('span_centered_in_wrapper moderate_increase bold');
+
+	$('[id^=b]').addClass('button');
+	$('#lastname').addClass('input_field')
+
+
 
 	// BUTTONS
 	$('#bNew').click(function(){
@@ -67,7 +78,7 @@ if ($('body.patients').length) {
 		
 		//Create Table and Div for grid and navigation "pager" 
 	 	// $("#gridWork").remove();         
-		$('#divGrid').html('<table id="divTable"></table><div id="divPager"></div>');
+		$('#divGrid').html('<table id="divTable" style="background-color:#E0E0E0"></table><div id="divPager"></div>');
 		//Define grid
 		$("#divTable").jqGrid({
 			url: url,

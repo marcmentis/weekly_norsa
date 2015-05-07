@@ -24,7 +24,7 @@ gem 'jquery-ui-themes'
 gem 'pundit'
 # Multiple Role capability
 gem 'rolify'
-# Got error on dev - rake not in bundle
+# Got error on omhdev - rake not in bundle
 gem 'rake'
 
 group :doc do
@@ -54,9 +54,9 @@ end
 # Can run bundle --without production on Mac and not have Oracle error
 group :production do
 	#DB's NB CHANGE for deploy to VM GITLAB and OMH.
-	gem "activerecord-oracle_enhanced-adapter", "~> 1.5.0"
-	gem 'ruby-oci8', '~> 2.1.0'
-	# gem 'mysql2'
+	# gem "activerecord-oracle_enhanced-adapter", "~> 1.5.0"
+	# gem 'ruby-oci8', '~> 2.1.0'
+	gem 'mysql2'
 	gem 'sqlite3'
 	gem 'faker'
 end
