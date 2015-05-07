@@ -25,8 +25,14 @@ if ($('body.patients').length) {
 	$('#PatientFilterHeaderWrapper').addClass('spanWrapper_to_center')
 	$('#spanPatientFilterHeader').addClass('span_centered_in_wrapper moderate_increase bold');
 
-	$('[id^=b]').addClass('button');
+	//button
+	$('[id^=b]').button().addClass('reduce_button')
 	$('#lastname').addClass('input_field')
+			$('#bEdit').click(function(){
+				alert('from alert')
+			});
+	//dates
+	$('[id^=dt]').datepicker().css({'width':'7em'});
 
 
 
