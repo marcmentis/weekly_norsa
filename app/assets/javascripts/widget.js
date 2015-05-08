@@ -59,12 +59,8 @@ if ($('body.widgets').length) {
 
 	//form
 		$('#fForm1').addClass('form_container');
-		$('[id^=ftxt]').addClass('texts');
-		$('[id^=fs]').addClass('selects')
 		$('#btnSubmit').addClass('submit-button').hide();
 		// Treat the select specially
-		$('#selectField').css({'width':'150px'});
-		$('#sInField').addClass('selects').css({'width':'80px'});
 		// Use the hidden submit button to submit whole form
 			//Use event 'e' to prevent non-ajax submit
 		$('#btnSubmit').click(function(e){

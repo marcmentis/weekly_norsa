@@ -14,19 +14,19 @@ if ($('body.patients').length) {
 	// STYLING
 	$('#divPatientPageWrapper').addClass('pad_3_sides');
 	$('#divPatientPageInnerWrapper').addClass('centered').css({'width':'75em'});
+	$('#divPatientAsideRt').addClass('float_right').hide();
 
-	$('#divPatientAsideRt').addClass('float_right');
-	$('#divPatientAsideRtPad').addClass('pad_4_back_color');
-	$('#divFields').hide();
-	$('#PatientAsideRtHeaderWrapper').addClass('spanWrapper_to_center')
-	$('#spanPatientAsideRtHeader').addClass('span_centered_in_wrapper moderate_increase bold');
+	// $('#divPatientAsideRt').addClass('float_right');
+	// $('#divPatientAsideRtPad').addClass('pad_4_back_color');
+	// $('#divPatientAsideRt').hide();
+	// $('#PatientAsideRtHeaderWrapper').addClass('spanWrapper_to_center')
+	// $('#spanPatientAsideRtHeader').addClass('span_centered_in_wrapper moderate_increase bold');
 
-	// $('#divMain').addClass('float_left pad_4_back_color');
-	// $('#PatientFilterHeaderWrapper').addClass('spanWrapper_to_center')
-	// $('#spanPatientFilterHeader').addClass('span_centered_in_wrapper moderate_increase bold');
+
 	$('#fPatientSearch').addClass('form_container').css({'width':'692px'});
-	$('[id^=ftx]').addClass('texts');
 	$('#btnSubmit').addClass('submit-button').hide();
+
+	$('#divPatientAsideRt').addClass('form_container').css({'width':'250px'})
 
 	//button
 	$('[id^=b]').button().addClass('reduce_button')
@@ -66,18 +66,18 @@ if ($('body.patients').length) {
 		e.preventDefault();
 	});
 
-	$('#bSearch').click(function(){
-			var firstname = $('#ftx_S_Firstname').val();
-			var lastname = $('#ftx_S_lastname').val();
-			var number = $('#ftx_S_number').val();
-			var facility = $('#ftx_S_facility').val();
-			var ward = $('#ftx_S_ward').val();
+	// $('#bSearch').click(function(){
+	// 		var firstname = $('#ftx_S_Firstname').val();
+	// 		var lastname = $('#ftx_S_lastname').val();
+	// 		var number = $('#ftx_S_number').val();
+	// 		var facility = $('#ftx_S_facility').val();
+	// 		var ward = $('#ftx_S_ward').val();
 
-			$("#gridGrid").remove();         
-			// $('#divGrid').html('<table id="divTable"></table><div id="divPager"></div>');
-			url = '/patients_search?firstname='+firstname+'&lastname='+lastname+'&number='+number+'&facility='+facility+'&ward='+ward+''
-			refreshgrid(url);
-	});
+	// 		$("#gridGrid").remove();         
+	// 		// $('#divGrid').html('<table id="divTable"></table><div id="divPager"></div>');
+	// 		url = '/patients_search?firstname='+firstname+'&lastname='+lastname+'&number='+number+'&facility='+facility+'&ward='+ward+''
+	// 		refreshgrid(url);
+	// });
 
 	$('#bDelete').click(function(){
 		if(confirm("Are you sure you want to delete this patient")){
@@ -89,7 +89,7 @@ if ($('body.patients').length) {
 	});
 
 	$('#bBack').click(function(){
-		$('#divFields, #bEdit, #bNew, #bDelete, #bBack').hide();
+		$('#divPatientAsideRt, #bEdit, #bNew, #bDelete, #bBack').hide();
 		clearFields();
 	});
 
@@ -125,11 +125,11 @@ if ($('body.patients').length) {
 			],
 			editurl:"/patient/update",
 			pager:"#divPager",
-			height:350,
+			height:390,
 			width: 700,
 			altRows: true,
-			rowNum:10,
-			rowList:[10,20,30],
+			rowNum:15,
+			rowList:[15,25,40],
 			sortname:"firstname",
 			sortorder:"asc",
 			viewrecords:true,
@@ -154,7 +154,7 @@ if ($('body.patients').length) {
 							  dataType: 'json'
 						}).done(function(data){
 							clearFields();
-							$('#divFields, #bEdit, #bDelete, #bBack').show();
+							$('#divPatientAsideRt, #bEdit, #bDelete, #bBack').show();
 							$('#bNew').hide();
 							$('#id').val(data.id);
 							$('#firstname').val(data.firstname);
@@ -207,7 +207,7 @@ if ($('body.patients').length) {
 			buttonicon: '',
 			onClickButton: function(){
 				clearFields();
-				$('#divFields, #bNew, #bBack').show();
+				$('#divPatientAsideRt, #bNew, #bBack').show();
 				$('#bDelete, #bEdit').hide();
 			},
 			position:'last'
@@ -243,7 +243,7 @@ if ($('body.patients').length) {
 		}).done(function(data){
 			refreshgrid('nil');
 			clearFields();
-			$('#divFields, #bEdit, #bNew, #bDelete, #bBack').hide();
+			$('#divPatientAsideRt, #bEdit, #bNew, #bDelete, #bBack').hide();
 
 		}).fail(function(){
 			alert('Error in invoicenew');
