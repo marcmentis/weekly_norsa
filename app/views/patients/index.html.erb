@@ -1,7 +1,32 @@
 
+    
 <div id="divPatientPageWrapper">
+
 <div id="divPatientPageInnerWrapper">
-  
+<form id="fPatientSearch">
+      <div id="PatientSearchTitle"><h2>Search Criteria</h2></div>
+      <div class="field">
+        <label>first_name</label>
+        <input id="ftx_S_Firstname" type="text" />                
+      </div>
+      <div class="field">
+        <label>last_name</label>
+        <input id="ftx_S_lastname" type="text" />             
+      </div>
+        <div class="field">
+          <label>number</label>
+          <input id="ftx_S_number" type="text" />          
+        </div>
+        <div class="field"> 
+          <label>facility</label>      
+          <input id="ftx_S_facility" type="text" />         
+        </div>
+        <div class="field"> 
+          <label>ward</label>      
+          <input id="ftx_S_ward" type="text" />         
+        </div>
+        <input id="btnSubmit" type="submit" value="Search" />  
+    </form>
 
 
   <aside id="divPatientAsideRt">
@@ -46,10 +71,10 @@
     
   </aside>
 
+    
 
-  <article id="divMain">
-    <div id="divSearch">
-
+  <div id="divMain">
+    <!-- <div id="divSearch">
       <div id="PatientFilterHeaderWrapper" >
         <span id="spanPatientFilterHeader">Search Criteria</span>
       </div>
@@ -82,9 +107,12 @@
         <input id="bSearch" type="button" value="Search">
 
       </form>
-    </div>
+    </div> -->
+
+    
+
     <div id="divGrid"></div>  
-  </article>
+  </div>
   <br style="clear:both" >
 
 

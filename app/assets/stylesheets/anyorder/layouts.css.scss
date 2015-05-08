@@ -93,7 +93,7 @@ $background_light_gray: #F5F5F5;
 	left: -50%;
 }
 
-/* TEXT */
+/* text */
 .moderate_increase {
 	font-size: 120%;
 }
@@ -105,27 +105,39 @@ $background_light_gray: #F5F5F5;
 
 //forms  (livetools.uiparade.com form-builder)
 .form_container {
-   border: 1px solid $background_gray;
-   background: $background_light_gray;
-   background: -webkit-gradient(linear, left top, left bottom, from($background_gray), to($background_light_gray));
-   background: -webkit-linear-gradient(top, $background_gray, $background_light_gray);
-   background: -moz-linear-gradient(top, $background_gray, $background_light_gray);
-   background: -ms-linear-gradient(top, $background_gray, $background_light_gray);
-   background: -o-linear-gradient(top, $background_gray, $background_light_gray);
-   background-image: -ms-linear-gradient(top, $background_gray 0%, $background_light_gray 100%);
-   -webkit-border-radius: 8px;
-   -moz-border-radius: 8px;
-   border-radius: 8px;
-   -webkit-box-shadow: rgba(000,000,000,0.9) 0 0px 0px, inset rgba(255,255,255,0.4) 0 0px 0;
-   -moz-box-shadow: rgba(000,000,000,0.9) 0 0px 0px, inset rgba(255,255,255,0.4) 0 0px 0;
-   box-shadow: rgba(000,000,000,0.9) 0 0px 0px, inset rgba(255,255,255,0.4) 0 0px 0;
-   font-family: $r_font_family;
-   text-decoration: none;
-   vertical-align: middle;
-   // min-width:300px;
-   padding:4px;
-   width:600px;
+	border: 1px solid $background_gray;
+	background: $background_light_gray;
+	background: -webkit-gradient(linear, left top, left bottom, from($background_gray), to($background_light_gray));
+	background: -webkit-linear-gradient(top, $background_gray, $background_light_gray);
+	background: -moz-linear-gradient(top, $background_gray, $background_light_gray);
+	background: -ms-linear-gradient(top, $background_gray, $background_light_gray);
+	background: -o-linear-gradient(top, $background_gray, $background_light_gray);
+	background-image: -ms-linear-gradient(top, $background_gray 0%, $background_light_gray 100%);
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+	-webkit-box-shadow: rgba(000,000,000,0.9) 0 0px 0px, inset rgba(255,255,255,0.4) 0 0px 0;
+	-moz-box-shadow: rgba(000,000,000,0.9) 0 0px 0px, inset rgba(255,255,255,0.4) 0 0px 0;
+	box-shadow: rgba(000,000,000,0.9) 0 0px 0px, inset rgba(255,255,255,0.4) 0 0px 0;
+	font-family: $r_font_family;
+	text-decoration: none;
+	vertical-align: middle;
+	// min-width:300px;
+	padding:4px;
+	width:600px;
+	label {
+		color: $r_click_default_text;
+	}
+	h2 {
+	   text-shadow: #fdf2e4 0 1px 0;
+	   font-size:18px;
+	   color: $r_click_default_text;
+	   margin: 0 0 10px 0;
+	   font-weight:bold;
+	   text-align:center;		
+	}
    }
+
 .texts {
 	font-family: $s_font_family;
 	text-align: center;
@@ -146,25 +158,8 @@ $background_light_gray: #F5F5F5;
 	display: inline-block;
 	width: 210px;
 	text-align: right;
-}
+	}
 
-// .form-field:focus {
-//    background: #fff;
-//    color: $r_click_default_text;
-//    }
-.form_container h2 {
-   text-shadow: #fdf2e4 0 1px 0;
-   font-size:18px;
-   margin: 0 0 10px 0;
-   font-weight:bold;
-   text-align:center;
-    }
-.form_title {
-   margin-bottom:10px;
-   color: $r_click_default_text;
-   // color: #2e6e9e;
-   // text-shadow: #fdf2e4 0 1px 0;
-   }
 //selects
 .selects {
 	font-family: $r_font_family;

@@ -21,9 +21,12 @@ if ($('body.patients').length) {
 	$('#PatientAsideRtHeaderWrapper').addClass('spanWrapper_to_center')
 	$('#spanPatientAsideRtHeader').addClass('span_centered_in_wrapper moderate_increase bold');
 
-	$('#divMain').addClass('float_left pad_4_back_color');
-	$('#PatientFilterHeaderWrapper').addClass('spanWrapper_to_center')
-	$('#spanPatientFilterHeader').addClass('span_centered_in_wrapper moderate_increase bold');
+	// $('#divMain').addClass('float_left pad_4_back_color');
+	// $('#PatientFilterHeaderWrapper').addClass('spanWrapper_to_center')
+	// $('#spanPatientFilterHeader').addClass('span_centered_in_wrapper moderate_increase bold');
+	$('#fPatientSearch').addClass('form_container').css({'width':'692px'});
+	$('[id^=ftx]').addClass('texts');
+	$('#btnSubmit').addClass('submit-button').hide();
 
 	//button
 	$('[id^=b]').button().addClass('reduce_button')
@@ -46,12 +49,29 @@ if ($('body.patients').length) {
 		ajax_call('/patients/'+ID+'', 'PATCH');
 	});
 
+	// Use the hidden submit button to submit whole form
+			//Use event 'e' to prevent non-ajax submit
+	$('#btnSubmit').click(function(e){
+		alert('click and nothing else');
+			var firstname = $('#ftx_S_Firstname').val();
+			var lastname = $('#ftx_S_lastname').val();
+			var number = $('#ftx_S_number').val();
+			var facility = $('#ftx_S_facility').val();
+			var ward = $('#ftx_S_ward').val();
+
+			$("#gridGrid").remove();         
+			// $('#divGrid').html('<table id="divTable"></table><div id="divPager"></div>');
+			url = '/patients_search?firstname='+firstname+'&lastname='+lastname+'&number='+number+'&facility='+facility+'&ward='+ward+''
+			refreshgrid(url);
+		e.preventDefault();
+	});
+
 	$('#bSearch').click(function(){
-			var firstname = $('#s_firstname').val();
-			var lastname = $('#s_lastname').val();
-			var number = $('#s_number').val();
-			var facility = $('#s_facility').val();
-			var ward = $('#s_ward').val();
+			var firstname = $('#ftx_S_Firstname').val();
+			var lastname = $('#ftx_S_lastname').val();
+			var number = $('#ftx_S_number').val();
+			var facility = $('#ftx_S_facility').val();
+			var ward = $('#ftx_S_ward').val();
 
 			$("#gridGrid").remove();         
 			// $('#divGrid').html('<table id="divTable"></table><div id="divPager"></div>');
