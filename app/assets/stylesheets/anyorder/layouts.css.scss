@@ -133,12 +133,13 @@ div.ui-datepicker, .ui-datepicker td{
    font-family: $r_font_family;
    text-decoration: none;
    vertical-align: middle;
-   min-width:300px;
+   // min-width:300px;
    padding:4px;
-   width:500px;
+   width:600px;
    }
 .texts {
 	font-family: $s_font_family;
+	text-align: center;
 	border: 1px solid $r_content_border;
 	background: $r_content_background;
 	-webkit-border-radius: 4px;
@@ -152,12 +153,10 @@ div.ui-datepicker, .ui-datepicker td{
 	// margin-bottom:10px;
 	width:100px;
    }
-.labels {
-	display: block;
-	// width: 100px;
-	// float: left;
-	background-color: red;
-
+.field {
+	display: inline-block;
+	width: 210px;
+	text-align: right;
 }
 
 .form-field:focus {

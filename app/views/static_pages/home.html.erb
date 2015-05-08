@@ -45,26 +45,32 @@
 
 	<form id="fForm1">
 		<div id="fTitle"><h2>Sign up</h2></div>
-		<div style="float:left; width:50%">
-			<label id="lblLabel1">Name 
-			<input id="fNameField" type="text" name="fNameField" /></label>
-			<label id="lblLabel2">Email
-			<input id="fEmailField" type="text" name="fEmailField" /></label>			
+		<div class="field">
+			<label>Name</label>
+			<input id="fNameField" type="text" name="fNameField" />
+		</div>
+		<div class="field">
+			<label>Email</label>
+			<input id="fEmailField" type="text" name="fEmailField" />		
+		</div>
+		<!-- <br style="clear:both"> -->
+		
+		<div class="field">
+			<label>Company</label>
+			<input id="fNameField" type="text" name="fNameField" />
+		</div>
+		<div class="field">
+			<label>VeryLongName</label>
+			<input id="fEmailField" type="text" name="fEmailField" />		
+		</div>
+		<div id='selectField' class="field">
+			<label>Select</label>
+			<select id="sInField" type="text" name="sInField" class="select_base" style="width:80px" />		
 		</div>
 		
-		<div>
-			<label id="lblLabel3">Company 
-			<input id="fNameField" type="text" name="fNameField" /></label>
-			<label id="lblLabel4">VeryLongName
-			<input id="fEmailField" type="text" name="fEmailField" /></label>			
-		</div>
-		
 
+		<input id="bSubmit" type="submit" value="Submit" />
 
-
-		<!-- <div id="bWrapper" class="submit-container">
-			<input id="bSubmit" type="submit" value="Submit" />
-		</div> -->
 	</form>
 	
 	
