@@ -3,6 +3,7 @@ Rollify::Application.routes.draw do
   resources :patients
   resources :users
   resources :for_selects
+  get "widgets" => 'widgets#index'
 
   get '/patients_search' => 'patients#complex_search', as: :complex_search_patients
 
