@@ -53,8 +53,17 @@
           <input id="ftx_S_facility" type="text" />         
         </div>
         <div class="field"> 
-          <label>ward</label>      
-          <input id="ftx_S_ward" type="text" />         
+          <label>ward</label>
+          <select id="slt_s_ward" name="sltWard">
+            <option value="-1">Choose car</option>
+            <optgroup label="Bad">
+              <option value="81/101">Volvo</option>
+              <option value="saab">Saab</option>
+            <optgroup label="Good">
+              <option value="lexus">Lexus</option>
+              <option value="merc">Merc</option>
+          </select>       
+          <!-- <input id="ftx_S_ward" type="text" /> -->         
         </div>
         <input id="btnSubmit" type="submit" value="Search" />  
     </form>

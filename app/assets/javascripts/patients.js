@@ -16,13 +16,6 @@ if ($('body.patients').length) {
 	$('#divPatientPageInnerWrapper').addClass('centered').css({'width':'75em'});
 	$('#divPatientAsideRt').addClass('float_right').hide();
 
-	// $('#divPatientAsideRt').addClass('float_right');
-	// $('#divPatientAsideRtPad').addClass('pad_4_back_color');
-	// $('#divPatientAsideRt').hide();
-	// $('#PatientAsideRtHeaderWrapper').addClass('spanWrapper_to_center')
-	// $('#spanPatientAsideRtHeader').addClass('span_centered_in_wrapper moderate_increase bold');
-
-
 	$('#fPatientSearch').addClass('form_container').css({'width':'692px'});
 	$('#btnSubmit').addClass('submit-button').hide();
 
@@ -57,7 +50,7 @@ if ($('body.patients').length) {
 			var lastname = $('#ftx_S_lastname').val();
 			var number = $('#ftx_S_number').val();
 			var facility = $('#ftx_S_facility').val();
-			var ward = $('#ftx_S_ward').val();
+			var ward = $('#slt_s_ward').val();
 
 			$("#gridGrid").remove();         
 			// $('#divGrid').html('<table id="divTable"></table><div id="divPager"></div>');
@@ -214,9 +207,83 @@ if ($('body.patients').length) {
 		});
 	};
 
+
 	function clearFields(){
 		$('#firstname, #lastname, #number, #facility, #ward').val('');
 	 };
+
+	$('#ftx_S_Firstname').click(function(){
+		add_options();
+	});
+
+	$('#ftx_S_lastname').click(function(){
+		$('#ftx_S_facility').mjm_addOptions();
+	});
+	
+
+	
+	function add_options(){
+		// var $element = $(this);
+		var element = $('#slt_s_ward');
+		var html = '';  //declare html
+		var firstLine = 'Ward'
+		var allValues = null
+		var group = 'grouper' //can be boolean don't use 'group' value
+		var asynch = null
+
+
+		var code = 'ward'
+		url = '/for_selects_search'
+		type = 'GET'
+
+		if(firstLine != null){html+='<option value="-1">Choose ' + firstLine + '</option>';}
+		if(allValues != null){html+='<option value="allValues">All '+allValues+'</option>';}
+
+		//Clear Select of both 'options' and 'optgroup'
+			element.find('option').remove();
+			element.find('optgroup').remove();
+		// data_for_params = {'code': code, 'grouper': group}
+		data_for_params = {'code': code}
+		$.ajax({
+			url: url,
+			type: type,
+			data: data_for_params,
+			dataType: 'json'
+		}).done(function(data){
+			if (group != null) {
+				//Enter the first Grouping Category ONLY if data exists i.e., .length>0
+				if(data.length != 0){
+					var grpName = data[0].grouper;
+					   html+='<optgroup label="'+grpName+'">';
+				} 
+				//Loop through all data	and add group when it changes
+				for(var i = 0; i < data.length; i++) {
+					if (grpName == data[i].grouper){
+					  html += '<option value="' + data[i].value + '">' + data[i].text + '</option>';
+					}else{
+					  grpName = data[i].grouper;
+					  html+='<optgroup label="'+grpName+'">';
+					  html += '<option value="' + data[i].value + '">' + data[i].text + '</option>';
+					}		  
+				}
+
+			}else{
+				for(var i = 0; i < data.length; i++){
+					html += '<option value="'+data[i].value+'">' + data[i].text + '</option>'
+				}
+			}
+
+
+			
+			element.append(html);
+			
+		}).fail(function(){
+			alert('Error in add_options');
+		});
+
+
+
+	};
 
 	function ajax_call (url, type) {
 		var firstname = $('#firstname').val();

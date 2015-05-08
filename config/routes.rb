@@ -6,6 +6,7 @@ Rollify::Application.routes.draw do
   get "widgets" => 'widgets#index'
 
   get '/patients_search' => 'patients#complex_search', as: :complex_search_patients
+  get '/for_selects_search' => 'for_selects#options_search', as: :options_search
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
