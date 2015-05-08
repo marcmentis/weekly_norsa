@@ -1,47 +1,73 @@
 $(function(){
 if ($('body.static_pages').length) {
+
+	//Style
+		$('#homePageWrapper').addClass('pad_3_sides');
+
 	//button
-	$('[id^=bt]').button().addClass('reduce_button')
-	$('#lastname').addClass('input_field')
-			$('#bEdit').click(function(){
-				alert('from alert')
-			});
+		$('[id^=bt]').button().addClass('reduce_button')
+		$('#lastname').addClass('input_field')
+				$('#bEdit').click(function(){
+					alert('from alert')
+				});
 	//dates
-	$('[id^=dt]').datepicker().css({'width':'7em'});
+		$('[id^=dt]').datepicker({
+			changeMonth: true,
+			changeYear: true,
+			yearRange: "-100: +10"
+		}).addClass('texts').css({'width':'7em'});
 
 	//dialog
-	$('[id^=dbx]').hide();
-	$('#btModalDialog').click(function(){
-		$('#dbxModalDialog').dialog({
-			modal: true, 
-			buttons: {
-		        Ok: function() {
-		          $( this ).dialog( "close" );
-		        }
-	      }
-	    });
-	});
-	$('#btDialogConfirm').click(function(){
-		$('#dbxDialogConfirm').dialog({
-			resizable: false,
-			height:240,
-			modal: true,
-			buttons: {
-				"Delete all items": function(){
-					$(this).dialog('close');
-				},
-				Cancel: function(){
-					$(this).dialog('close')
-				}
-			}
+		$('[id^=dbx]').hide();
+		$('#btModalDialog').click(function(){
+			$('#dbxModalDialog').dialog({
+				modal: true, 
+				buttons: {
+			        Ok: function() {
+			          $( this ).dialog( "close" );
+			        }
+		      }
+		    });
 		});
+		$('#btDialogConfirm').click(function(){
+			$('#dbxDialogConfirm').dialog({
+				resizable: false,
+				height:240,
+				modal: true,
+				buttons: {
+					"Delete all items": function(){
+						$(this).dialog('close');
+					},
+					Cancel: function(){
+						$(this).dialog('close')
+					}
+				}
+			});
 	});
 
+	//select
+		$('#sltSelect1').addClass('select_base');
 
+	//input-text
+		$('#txbText1').addClass('texts').css({'width':'100px'})
 
-	$('[id^=dt]').datepicker();
+	//textarea
+		$('#txaTextArea1').addClass('texts').css({'cols':'30','rows':'10'})
 
-	$('[id^=bt]').button();
+	//labels
+		$('[id^=lbl]').addClass('labels');
+
+	//form
+		$('#fForm1').addClass('form_container');
+		$('#fTitle, #fNameLabel, #fEmailLabel').addClass('form-title');
+		$('#fNameField, #fEmailField').addClass('texts');
+		$('#bWrapper').addClass('submit-container')
+		$('#bSubmit').addClass('submit-button').hide();
+
+		$('#bSubmit').click(function(e){
+			alert('click and nothing else');
+			e.preventDefault();
+		});
 
 };
 });

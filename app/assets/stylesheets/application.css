@@ -15,7 +15,7 @@
  *= require jquery-ui
  *= require ../../../vendor/assets/stylesheets/ui.jqgrid.css
  *= require ../../../vendor/assets/stylesheets/superfish.css
- *+ require jquery-ui/redmond
+ *= require jquery-ui/redmond
  *= require reset
  *= require_tree ./anyorder
  */

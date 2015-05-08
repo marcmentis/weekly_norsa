@@ -1,30 +1,77 @@
-<div id="dbxModalDialog" title="Basic dialog">
-  <p>This is a modal dialog box</p>
-</div>
-<div id="dbxDialogConfirm" title="Empty the recycle bin?">
-  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>These items will be permanently deleted and cannot be recovered. Are you sure?</p>
+<div id="homePageWrapper">
+	<div id="dbxModalDialog" title="Basic dialog">
+	  <p>This is a modal dialog box</p>
+	</div>
+	<div id="dbxDialogConfirm" title="Empty the recycle bin?">
+	  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>These items will be permanently deleted and cannot be recovered. Are you sure?</p>
+	</div>
+
+	<h1>StaticPages#home</h1>
+	<p>
+		Dialogs: <br>
+		<input id="btModalDialog" class="button" type="button" value="ModalDialog">
+		<input id="btDialogConfirm" type="button" value="Confirm">
+	</p>
+	<p>
+		Dates <br>
+		<input id="dtDate1" type="text">
+	</p>
+	<p>
+		Buttons <br>
+		<input id="btButton1" type="button" value="Button1">
+	</p>
+	<p>
+		Text Input <br>
+		<input id="txbText1" type="text">Input</input>
+	</p>
+	<p>
+		TextArea <br>
+		<textarea id="txaTextArea1" name="txaTextArea1"></textarea>
+	</p>
+	<p>
+		Selects: <br>
+		<label for="files">Select a file</label>
+	    <select id="sltSelect1" name="sltSelect1">
+	      <optgroup label="Scripts">
+	        <option value="jquery">jQuery.js</option>
+	        <option value="jqueryui">ui.jQuery.js</option>
+	      </optgroup>
+	      <optgroup label="Other files">
+	        <option value="somefile">Some unknown file</option>
+	        <option value="someotherfile">Some other file with a very long option text</option>
+	      </optgroup>
+	    </select>
+	</p>
+
+	<form id="fForm1">
+		<div id="fTitle"><h2>Sign up</h2></div>
+		<div style="float:left; width:50%">
+			<label id="lblLabel1">Name 
+			<input id="fNameField" type="text" name="fNameField" /></label>
+			<label id="lblLabel2">Email
+			<input id="fEmailField" type="text" name="fEmailField" /></label>			
+		</div>
+		
+		<div>
+			<label id="lblLabel3">Company 
+			<input id="fNameField" type="text" name="fNameField" /></label>
+			<label id="lblLabel4">VeryLongName
+			<input id="fEmailField" type="text" name="fEmailField" /></label>			
+		</div>
+		
+
+
+
+		<!-- <div id="bWrapper" class="submit-container">
+			<input id="bSubmit" type="submit" value="Submit" />
+		</div> -->
+	</form>
+	
+	
 </div>
 
-<h1>StaticPages#home</h1>
-<p>
-	Dialogs: <br>
-	<input id="btModalDialog" class="button" type="button" value="ModalDialog">
-	<input id="btDialogConfirm" type="button" value="Confirm">
-</p>
-<p>
-	Dates <br>
-	<input id="dtDate1" type="text">
-</p>
-<p>
-	Buttons <br>
-	<input id="btButton1" type="button" value="Button1">
-</p>
-<p>
-	Text Input <br>
-	<input id="txtText1" type="text">Input</input>
-</p>
-<p>
-	Input long text
-</p>
+
+
+
 
         
