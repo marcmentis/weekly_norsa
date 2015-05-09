@@ -24,9 +24,7 @@ if ($('body.patients').length) {
 	//button
 	$('[id^=b]').button().addClass('reduce_button')
 	$('#lastname').addClass('input_field')
-			$('#bEdit').click(function(){
-				alert('from alert')
-			});
+
 	//dates
 	$('[id^=dt]').datepicker().css({'width':'7em'});
 
