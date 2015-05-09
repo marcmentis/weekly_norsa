@@ -1,16 +1,16 @@
 /*
 ****   POPULATE SELECT BOX.  ******************
-    USE:  $('#SelectID').mjm_addOptions(action, value, display, [firstLine], [allValues]);
-	i.e., $('#selectTest').mjm_addOptions('../cfc/entryForm.cfc?method=sForDrops_json&Code=Alphabet','VALUE','DISPLAY',{firstLine: 'Letters',allValues: 'Letters', group: 'DEPARTMENT',asynchranous: 'false'});
-	action (required) = url, 
-	value (required) = option value of select box, 
-	display (required) = option display value
-	firstLine (optional) = The string that will follow "Choose" as in "Choose string" as the FIRST value in the option list
-	allValues (optional) = The string that will follow "All" as in "ALL string" as the SECOND value in the option list
-	group (optional) = The value taken from the query that group the list using the <optgroup> tab.
-	   $('#selectNote').mjm_addOptions('../cfc/schedule.cfc?method=sForDrops_json2&Code=noteExpiration','VALUE','DISPLAY',{firstLine: 'Note', group: 'GROUPER'}); 
-	     N.B., Need to ORDER THE QUERY appropriately as this function will just loop through results, won't perform grouping   
-   asynchranous:  ONLY use 'false', default is true. All values beside 'false' are treated as 'true'.
+   USE:  $('#SelectID').mjm_addOptions(code, [firstLine], [allValues], [group], [facility], [asynchranous]);
+   i.e., $('#fFacility').mjm_addOptions('ward');
+   		 $('#fFacility').mjm_addOptions('ward',{firstline: 'All wards', group: true});
+   		 Values:
+   		 	code:  one of the values in for_selects table
+   		 	options:
+   		 		firstLine:  'All facilities'  # will print whatever is entered. Value set to '-1'
+   		 		allValues: 'All wards'  # will print whatever is entered. 'Value' set to "allValues"
+   		 		group: true  # Doesn't matter what is entered. Anything will be converted to 'grouper'
+   		 		asynchranous false   # Will be true by default.
+   		 		facility: '0013'  # will use whatever is entered - use one of values in for_selects table
 */
 
 (function($){
