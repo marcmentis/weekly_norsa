@@ -212,82 +212,10 @@ if ($('body.patients').length) {
 		$('#firstname, #lastname, #number, #facility, #ward').val('');
 	 };
 
-	$('#ftx_S_Firstname').click(function(){
-		add_options();
+
+	$('#ftx_S_facility').click(function(){
+		$('#slt_s_ward').mjm_addOptions('ward',{firstLine: 'All Wards', group: true});
 	});
-
-	$('#ftx_S_lastname').click(function(){
-		$('#slt_s_ward').mjm_addOptions('ward',{firstLine: 'All Wards'});
-	});
-	
-
-	
-	function add_options(){
-		// var $element = $(this);
-		var element = $('#slt_s_ward');
-		var html = '';  //declare html
-		var firstLine = 'Ward'
-		var allValues = null
-		var group = 'grouper' //can be boolean don't use 'group' value
-		var async = true
-
-
-		var code = 'ward'
-		url = '/for_selects_search'
-		type = 'GET'
-
-		
-		
-		// data_for_params = {'code': code, 'grouper': group}
-		data_for_params = {'code': code}
-		$.ajax({
-			url: url,
-			type: type,
-			data: data_for_params,
-			dataType: 'json',
-			async: async
-		}).done(function(data){
-			//Clear Select of both 'options' and 'optgroup'
-			element.find('option').remove();
-			element.find('optgroup').remove();
-			//Set type of first line in html
-			if(firstLine != null){html+='<option value="-1">Choose ' + firstLine + '</option>';}
-			if(allValues != null){html+='<option value="allValues">All '+allValues+'</option>';}
-
-
-			if (group != null) {
-				//Enter the first Grouping Category ONLY if data exists i.e., .length>0
-				if(data.length != 0){
-					var grpName = data[0].grouper;
-					   html+='<optgroup label="'+grpName+'">';
-				} 
-				//Loop through all data	and add group when it changes
-				for(var i = 0; i < data.length; i++) {
-					if (grpName == data[i].grouper){
-					  html += '<option value="' + data[i].value + '">' + data[i].text + '</option>';
-					}else{
-					  grpName = data[i].grouper;
-					  html+='<optgroup label="'+grpName+'">';
-					  html += '<option value="' + data[i].value + '">' + data[i].text + '</option>';
-					}		  
-				}
-
-			}else{
-				for(var i = 0; i < data.length; i++){
-					html += '<option value="'+data[i].value+'">' + data[i].text + '</option>'
-				}
-			}
-
-
-			element.append(html);
-			
-		}).fail(function(){
-			alert('Error in add_options');
-		});
-
-
-
-	};
 
 	function ajax_call (url, type) {
 		var firstname = $('#firstname').val();

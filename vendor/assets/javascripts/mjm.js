@@ -27,21 +27,25 @@
 			var html = '';  //declare html
 			var firstLine = settings.firstLine;
 			var allValues = settings.allValues;
-			var group = 'grouper';
+			var group = settings.group;
 			var async = settings.asynchranous;
 			var facility = settings.facility;
 
 			if (async == null) {
 				async = true;
 			};
-			data_for_params = {'code': code}
+			if (group != null) {
+				group = 'grouper'
+			};
+
+			data_for_params = {'code': code, 'facility': facility}
 			$.ajax({
 				url: '/for_selects_search',
 				type: 'GET',
 				data: data_for_params,
 				dataType: 'json',
 				async: async
-			}).done(function(data){ alert('in done')
+			}).done(function(data){
 				//Clear Select of both 'options' and 'optgroup'
 				element.find('option').remove();
 				element.find('optgroup').remove();
@@ -74,11 +78,9 @@
 				}
 				element.append(html);			
 			}).fail(function(request,status,errorThrown){
-				alert(errorThrown);
 				alert('Error in add_options');
 			}); //End of ajax/done/fail
 
-				alert('still working?')
 			}); //return this.each(function(){
 
 	};  //$.fn.mjm_addOptions=function(){
