@@ -14,7 +14,72 @@
 */
 
 (function($){
-	$.fn.mjm_addOptions=function(){
-		alert('in new function')
+	$.fn.mjm_addOptions=function(code, option){
+		var settings = $.extend({
+			firstLine: null,
+			allValues: null,
+			group: null,
+			asynchranous: null,
+			facility: null
+		},option||{});
+		return this.each(function(){
+			var element = $(this);
+			var html = '';  //declare html
+			var firstLine = settings.firstLine;
+			var allValues = settings.allValues;
+			var group = 'grouper';
+			var async = settings.asynchranous;
+			var facility = settings.facility;
+
+			if (async == null) {
+				async = true;
+			};
+			data_for_params = {'code': code}
+			$.ajax({
+				url: '/for_selects_search',
+				type: 'GET',
+				data: data_for_params,
+				dataType: 'json',
+				async: async
+			}).done(function(data){ alert('in done')
+				//Clear Select of both 'options' and 'optgroup'
+				element.find('option').remove();
+				element.find('optgroup').remove();
+				//Set type of first line in html
+				if(firstLine != null){html+='<option value="-1">' + firstLine + '</option>';}
+				if(allValues != null){html+='<option value="allValues">All '+allValues+'</option>';}
+
+
+				if (group != null) {
+					//Enter the first Grouping Category ONLY if data exists i.e., .length>0
+					if(data.length != 0){
+						var grpName = data[0].grouper;
+						   html+='<optgroup label="'+grpName+'">';
+					} 
+					//Loop through all data	and add group when it changes
+					for(var i = 0; i < data.length; i++) {
+						if (grpName == data[i].grouper){
+						  html += '<option value="' + data[i].value + '">' + data[i].text + '</option>';
+						}else{
+						  grpName = data[i].grouper;
+						  html+='<optgroup label="'+grpName+'">';
+						  html += '<option value="' + data[i].value + '">' + data[i].text + '</option>';
+						}		  
+					}
+
+				}else{
+					for(var i = 0; i < data.length; i++){
+						html += '<option value="'+data[i].value+'">' + data[i].text + '</option>'
+					}
+				}
+				element.append(html);			
+			}).fail(function(request,status,errorThrown){
+				alert(errorThrown);
+				alert('Error in add_options');
+			}); //End of ajax/done/fail
+
+				alert('still working?')
+			}); //return this.each(function(){
+
 	};  //$.fn.mjm_addOptions=function(){
 })(jQuery);

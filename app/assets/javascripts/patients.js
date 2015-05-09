@@ -217,7 +217,7 @@ if ($('body.patients').length) {
 	});
 
 	$('#ftx_S_lastname').click(function(){
-		$('#ftx_S_facility').mjm_addOptions();
+		$('#slt_s_ward').mjm_addOptions('ward',{firstLine: 'All Wards'});
 	});
 	
 
@@ -229,27 +229,32 @@ if ($('body.patients').length) {
 		var firstLine = 'Ward'
 		var allValues = null
 		var group = 'grouper' //can be boolean don't use 'group' value
-		var asynch = null
+		var async = true
 
 
 		var code = 'ward'
 		url = '/for_selects_search'
 		type = 'GET'
 
-		if(firstLine != null){html+='<option value="-1">Choose ' + firstLine + '</option>';}
-		if(allValues != null){html+='<option value="allValues">All '+allValues+'</option>';}
-
-		//Clear Select of both 'options' and 'optgroup'
-			element.find('option').remove();
-			element.find('optgroup').remove();
+		
+		
 		// data_for_params = {'code': code, 'grouper': group}
 		data_for_params = {'code': code}
 		$.ajax({
 			url: url,
 			type: type,
 			data: data_for_params,
-			dataType: 'json'
+			dataType: 'json',
+			async: async
 		}).done(function(data){
+			//Clear Select of both 'options' and 'optgroup'
+			element.find('option').remove();
+			element.find('optgroup').remove();
+			//Set type of first line in html
+			if(firstLine != null){html+='<option value="-1">Choose ' + firstLine + '</option>';}
+			if(allValues != null){html+='<option value="allValues">All '+allValues+'</option>';}
+
+
 			if (group != null) {
 				//Enter the first Grouping Category ONLY if data exists i.e., .length>0
 				if(data.length != 0){
@@ -274,7 +279,6 @@ if ($('body.patients').length) {
 			}
 
 
-			
 			element.append(html);
 			
 		}).fail(function(){
