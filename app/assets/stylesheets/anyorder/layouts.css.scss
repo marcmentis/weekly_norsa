@@ -1,5 +1,10 @@
 /* CONSTANTS */
 
+/* jQuery Validate */
+.error {
+	color: red;
+}
+
 /* FONT FAMILIES*/
 //From Rails scaffold
 $s_font_family: verdana, arial, helvetica, sans-serif;
@@ -125,7 +130,7 @@ $background_light_gray: #F5F5F5;
 	// min-width:300px;
 	padding:4px;
 	width:600px;
-	label {
+	.label {
 		color: $r_click_default_text;
 	}
 	h2 {

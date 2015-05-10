@@ -1,7 +1,11 @@
 $(function(){
 // $(document).on("ready page:change", function(){ 
 if ($('body.patients').length) {
-	// alert('patients.js');
+
+	//WIP
+	$('#ftx_S_facility').click(function(){
+		$('#slt_s_ward').mjm_addOptions('ward',{firstLine: 'All Wards', group: true});
+	});
 
 	
 
@@ -13,13 +17,15 @@ if ($('body.patients').length) {
 
 	// STYLING
 	$('#divPatientPageWrapper').addClass('pad_3_sides');
-	$('#divPatientPageInnerWrapper').addClass('centered').css({'width':'75em'});
-	$('#divPatientAsideRt').addClass('float_right').hide();
+	$('#divPatientPageInnerWrapper').addClass('centered')
+									.css({'width':'75em'});
+	$('#divPatientAsideRt').addClass('float_right form_container')
+							.css({'width':'250px'})
+							.hide();
 
 	$('#fPatientSearch').addClass('form_container').css({'width':'692px'});
 	$('#btnSubmit').addClass('submit-button').hide();
 
-	$('#divPatientAsideRt').addClass('form_container').css({'width':'250px'})
 
 	//button
 	$('[id^=b]').button().addClass('reduce_button')
@@ -29,40 +35,8 @@ if ($('body.patients').length) {
 	$('[id^=dt]').datepicker().css({'width':'7em'});
 
 
-//Use validation with button
-	// 1. prepare the validation rules and messages.
-        // var rules = {
-        //     firstname: {
-        //         required: true,
-        //         minlength: 2
-        //     },
-        //     lastname: "required",
-        //     number: "required"
-        // };
-        // var messages = {
-        //     firstname: {
-        //         required: "textbox1 is required",
-        //         minlength: "textbox1 needs to be at least length 2"
-        //     },
-        //     lastname: "textbox2 is requried",
-        //     number: "textbox3 is required"
-        // };
- 
-        // // 2. Initiate the validator
-        // var validator
-        //     = new jQueryValidatorWrapper("divPatientAsideRt",
-        //         rules, messages);
- 
-        // // 3. Set the click event to do the validation
-        // $("#bNew").click(function () {
-        //     if (!validator.validate())
-        //         return;
- 
-        //     alert("Validation Success!");
-        // });
-
-
-
+	//FORMS
+	//Validate and Submit fPatientAsideRt
 	$('#fPatientAsideRt').validate({
 		rules: {
 			firstname: {
@@ -76,44 +50,35 @@ if ($('body.patients').length) {
 		},
 		messages: {
 			firstname: {
-				required: "Firstname is required"
+				required: "Firstname is required",
+				minlength: "At least two characters required"
 			},
 			lastname: {
-				required: "Lastname is required"
+				required: "Lastname is required",
+				minlength: "At least two chararcters required"
 			}
 		},
 		submitHandler: function(form){
-			alert('please work');
-			ajax_call('/patients', 'POST');
+			//Get value of submit button to determine which AJAX call to make
+			submit_value = $(form).find('input[type=submit]').attr('value')
+			switch(submit_value){
+				case 'New':
+					ajax_call('/patients', 'POST');
+					break;
+				case 'Edit':
+					ajax_call('/patients/'+ID+'', 'PATCH');
+					break;
+				default:
+					alert('submit_id not found');
+					return false;
+			};
+			
 		}
 	});
 
-
-
-
-
-	// BUTTONS
-	$('#bNew').click(function(){
-		// ajax_call('/inpatients/new2', 'POST');
-		ajax_call('/patients', 'POST');
-	});
-
-	$('#bEdit').click(function(){
-		var firstname = $('#firstname').val();
-		if (firstname == '') {
-			$('#firstname').after("<p>Please add name</p>");
-			return false
-		};
-
-		ajax_call('/patients/'+ID+'', 'PATCH');
-	});
-
-
-
-	// Use the hidden submit button to submit whole form
-			//Use event 'e' to prevent non-ajax submit
+	//Submit complex search on fPatientSearch using hidden submit button
 	$('#btnSubmit').click(function(e){
-		alert('click and nothing else');
+		e.preventDefault();
 			var firstname = $('#ftx_S_Firstname').val();
 			var lastname = $('#ftx_S_lastname').val();
 			var number = $('#ftx_S_number').val();
@@ -121,36 +86,16 @@ if ($('body.patients').length) {
 			var ward = $('#slt_s_ward').val();
 
 			$("#gridGrid").remove();         
-			// $('#divGrid').html('<table id="divTable"></table><div id="divPager"></div>');
 			url = '/patients_search?firstname='+firstname+'&lastname='+lastname+'&number='+number+'&facility='+facility+'&ward='+ward+''
-			refreshgrid(url);
-		e.preventDefault();
+			refreshgrid(url);	
 	});
 
-	// $('#bSearch').click(function(){
-	// 		var firstname = $('#ftx_S_Firstname').val();
-	// 		var lastname = $('#ftx_S_lastname').val();
-	// 		var number = $('#ftx_S_number').val();
-	// 		var facility = $('#ftx_S_facility').val();
-	// 		var ward = $('#ftx_S_ward').val();
 
-	// 		$("#gridGrid").remove();         
-	// 		// $('#divGrid').html('<table id="divTable"></table><div id="divPager"></div>');
-	// 		url = '/patients_search?firstname='+firstname+'&lastname='+lastname+'&number='+number+'&facility='+facility+'&ward='+ward+''
-	// 		refreshgrid(url);
-	// });
 
-	$('#bDelete').click(function(){
-		if(confirm("Are you sure you want to delete this patient")){
-			ajax_call('/patients/'+ID+'', 'DELETE');	
-		} else {
-			return true;
-		};
-		
-	});
 
-	$('#bBack').click(function(){
-		$('#divPatientAsideRt, #bEdit, #bNew, #bDelete, #bBack').hide();
+	// BUTTONS
+	$('#bPatientBack').click(function(){
+		$('#divPatientAsideRt, #bPatientSubmit, #bPatientBack').hide();
 		clearFields();
 	});
 
@@ -159,7 +104,7 @@ if ($('body.patients').length) {
 	//*****************************************************
 	//FUNCTIONS CALLED FROM ABOVE
 	function refreshgrid(url){
-		// var ward = $('#select_ward').val();
+
 		if (url == 'nil') {url = '/patients'};
 
 		
@@ -169,10 +114,6 @@ if ($('body.patients').length) {
 		//Define grid
 		$("#divTable").jqGrid({
 			url: url,
-			// url: "/inpatients",
-			// url: "/inpatients_search?diagnosis=Schizophrenia",
-			// url: "/inpatients?_search=true&diagnosis=Schizophrenia",
-			//url: '/select_grid?ward='+ward+'',
 			datatype:"json",
 			mtype:"GET",
 			colNames:["id","FirstName","LastName","C #","Facility", "Ward"],
@@ -215,8 +156,8 @@ if ($('body.patients').length) {
 							  dataType: 'json'
 						}).done(function(data){
 							clearFields();
-							$('#divPatientAsideRt, #bEdit, #bDelete, #bBack').show();
-							$('#bNew').hide();
+							$('#bPatientSubmit').attr('value','Edit');
+							$('#divPatientAsideRt, #bPatientSubmit, #bPatientBack').show();
 							$('#id').val(data.id);
 							$('#firstname').val(data.firstname);
 							$('#lastname').val(data.lastname);
@@ -266,10 +207,27 @@ if ($('body.patients').length) {
 		.navButtonAdd('#divPager', {
 			caption: 'New',
 			buttonicon: '',
-			onClickButton: function(){
+			onClickButton: function(){		
 				clearFields();
-				$('#divPatientAsideRt, #bNew, #bBack').show();
-				$('#bDelete, #bEdit').hide();
+				// $('#divPatientAsideRt, #bNew, #bBack').show();
+				// $('#bDelete, #bEdit').hide();
+
+				$('#divPatientAsideRt, #bPatientSubmit, #bPatientBack').show();
+				$('#bPatientSubmit').attr('value','New');
+			},
+			position:'last'
+		})
+		.navButtonAdd('#divPager', {
+			caption: 'Delete',
+			buttonicon: '',
+			onClickButton: function(){	
+				if (ID.length > 0) {	
+					if(confirm("Are you sure you want to delete this patient")){
+						ajax_call('/patients/'+ID+'', 'DELETE');	
+					} else {
+						return true;
+					};
+				};
 			},
 			position:'last'
 		});
@@ -281,9 +239,7 @@ if ($('body.patients').length) {
 	 };
 
 
-	$('#ftx_S_facility').click(function(){
-		$('#slt_s_ward').mjm_addOptions('ward',{firstLine: 'All Wards', group: true});
-	});
+
 
 	function ajax_call (url, type) {
 		var firstname = $('#firstname').val();
@@ -296,12 +252,6 @@ if ($('body.patients').length) {
 						lastname, 'number': number, 
 				  	    'facility': facility, 'ward': ward}}
 
-		//VALIDATION
-			if (lastname == '') {
-				alert('Please enter a Last Name');
-				return false;
-			};
-
 		$.ajax({
 			url: url,
 			type: type,
@@ -310,7 +260,8 @@ if ($('body.patients').length) {
 		}).done(function(data){
 			refreshgrid('nil');
 			clearFields();
-			$('#divPatientAsideRt, #bEdit, #bNew, #bDelete, #bBack').hide();
+			// $('#divPatientAsideRt, #bEdit, #bNew, #bDelete, #bBack').hide();
+			$('#divPatientAsideRt, #bPatientSubmit, #bPatientBack').hide();
 
 		}).fail(function(){
 			alert('Error in invoicenew');
