@@ -66,15 +66,21 @@ if ($('body.patients').length) {
 	$('#fPatientAsideRt').validate({
 		rules: {
 			firstname: {
-				required: "required"
+				required: true,
+				minlength: 2
 			},
-			lastname: "required"
+			lastname: {
+				required: true,
+				minlength: 4
+			}
 		},
 		messages: {
 			firstname: {
 				required: "Firstname is required"
 			},
-			lastname: "Lastname is required"
+			lastname: {
+				required: "Lastname is required"
+			}
 		},
 		submitHandler: function(form){
 			alert('please work');
