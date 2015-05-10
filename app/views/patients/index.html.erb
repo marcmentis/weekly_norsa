@@ -3,36 +3,42 @@
 <div id="divPatientPageWrapper">
 
 <div id="divPatientPageInnerWrapper">
-  <form id="divPatientAsideRt">
+  <div id="divPatientAsideRt">
     <div id="PatientAsideRtTitle"><h2>Patient Data</h2></div>
+        
+<form id="fPatientAsideRt">
+<fieldset>
         <input id="id" type="hidden" />
         <div class="field">
           <label>first_name</label>
-          <input id="firstname" type="text" />                  
+          <input id="firstname" name="firstname" type="text" />                  
         </div>         
         <div class="field">
           <label>last_name</label>
-          <input id="lastname" type="text" />    
+          <input id="lastname" name="lastname" type="text" />    
         </div>
         <div class="field">
           <label>number</label>
-          <input id="number" type="text" />            
+          <input id="number" name="number" type="text" />            
         </div>
         <div class="field"> 
           <label>facility</label>      
-          <input id="facility" type="text" />          
+          <input id="facility" name="facility" type="text" />          
         </div>
         <div class="field">   
           <label>ward</label>    
-          <input id="ward" type="text" />          
+          <input id="ward" name="ward" type="text" />          
         </div>
+        <input id="bSubmit1000" type="submit" name="bSubmit1000">
         <div id="divButtonEdit" class="actions">
             <input id="bEdit" type="button" value="Edit">
             <input id="bNew" type="button" value="New ">
             <input id="bDelete" type="button" value="Delete ">
             <input id="bBack" type="button" value="Back">
         </div>
-  </form>
+</fieldset>         
+</form>
+  </div>
   <div>
     <form id="fPatientSearch">
       <div id="PatientSearchTitle"><h2>Search Criteria</h2></div>
