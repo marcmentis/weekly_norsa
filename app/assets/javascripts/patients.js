@@ -29,6 +29,62 @@ if ($('body.patients').length) {
 	$('[id^=dt]').datepicker().css({'width':'7em'});
 
 
+//Use validation with button
+	// 1. prepare the validation rules and messages.
+        // var rules = {
+        //     firstname: {
+        //         required: true,
+        //         minlength: 2
+        //     },
+        //     lastname: "required",
+        //     number: "required"
+        // };
+        // var messages = {
+        //     firstname: {
+        //         required: "textbox1 is required",
+        //         minlength: "textbox1 needs to be at least length 2"
+        //     },
+        //     lastname: "textbox2 is requried",
+        //     number: "textbox3 is required"
+        // };
+ 
+        // // 2. Initiate the validator
+        // var validator
+        //     = new jQueryValidatorWrapper("divPatientAsideRt",
+        //         rules, messages);
+ 
+        // // 3. Set the click event to do the validation
+        // $("#bNew").click(function () {
+        //     if (!validator.validate())
+        //         return;
+ 
+        //     alert("Validation Success!");
+        // });
+
+
+
+	$('#fPatientAsideRt').validate({
+		rules: {
+			firstname: {
+				required: "required"
+			},
+			lastname: "required"
+		},
+		messages: {
+			firstname: {
+				required: "Firstname is required"
+			},
+			lastname: "Lastname is required"
+		},
+		submitHandler: function(form){
+			alert('please work');
+			ajax_call('/patients', 'POST');
+		}
+	});
+
+
+
+
 
 	// BUTTONS
 	$('#bNew').click(function(){
