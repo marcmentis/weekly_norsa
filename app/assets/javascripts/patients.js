@@ -37,8 +37,16 @@ if ($('body.patients').length) {
 	});
 
 	$('#bEdit').click(function(){
+		var firstname = $('#firstname').val();
+		if (firstname == '') {
+			$('#firstname').after("<p>Please add name</p>");
+			return false
+		};
+
 		ajax_call('/patients/'+ID+'', 'PATCH');
 	});
+
+
 
 	// Use the hidden submit button to submit whole form
 			//Use event 'e' to prevent non-ajax submit
