@@ -55,13 +55,13 @@
 	/*color: #13a;*/
 	color: #FFFFFF;  /* Font color 'above' on that opens a page */
 	font-weight: bold;
-	font-family: Lucida Grande,Lucida Sans,Arial,sans-serif;
+	font-family: 'Lucida Grande','Lucida Sans',Arial,sans-serif;
 	/*font-size: bold;*/
 }
 .sf-menu a:visited{
 	color: #FFFFFF;   /* Font color that opens a page */
 	font-weight: bold
-	font-family: Lucida Grande,Lucida Sans,Arial,sans-serif;
+	font-family: 'Lucida Grande,''Lucida Sans',Arial,sans-serif;
 }
 .sf-menu li {
 	/*background: #BDD2FF;*/
