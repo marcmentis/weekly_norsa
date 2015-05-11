@@ -60,7 +60,7 @@
 }
 .sf-menu a:visited{
 	color: #FFFFFF;   /* Font color that opens a page */
-	font-weight: bold
+	font-weight: bold;
 	font-family: 'Lucida Grande','Lucida Sans',Arial,sans-serif;
 }
 .sf-menu li {
