@@ -48,18 +48,18 @@ group :development, :test do
 	gem 'faker'
 end
 group :test do
-	gem 'selenium-webdriver', '2.35.1'  # capybara dependency
-	gem 'capybara', '2.1.0' #Simulate users BEHAVIOR.
-	gem 'spork-rails', '4.0.0'  # To Speed up RSpec
+	# gem 'selenium-webdriver', '2.35.1'  # capybara dependency
+	# gem 'capybara', '2.1.0' #Simulate users BEHAVIOR.
+	# gem 'spork-rails', '4.0.0'  # To Speed up RSpec
 	
 end
 # Can run bundle --without production on Mac and not have Oracle error
 group :production do
 	#DB's NB CHANGE for deploy to VM GITLAB and OMH.
-	gem "activerecord-oracle_enhanced-adapter", "~> 1.5.0"
-	gem 'ruby-oci8', '~> 2.1.0'
-	# gem 'mysql2'
-	# gem 'sqlite3'
+	# gem "activerecord-oracle_enhanced-adapter", "~> 1.5.0"
+	# gem 'ruby-oci8', '~> 2.1.0'
+	gem 'mysql2'
+	gem 'sqlite3'
 	gem 'faker'
 end
 
