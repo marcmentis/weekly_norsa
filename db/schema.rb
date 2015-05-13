@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 20150501225242) do
     t.datetime "updated_at"
   end
 
-  add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
+  add_index "roles", ["name", "resource_type", "resource_id"], name: "index_ronname__id", using: :btree
   add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
 
   create_table "users", force: true do |t|
@@ -74,6 +74,6 @@ ActiveRecord::Schema.define(version: 20150501225242) do
     t.integer "role_id"
   end
 
-  add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
+  add_index "users_roles", ["user_id", "role_id"], name: "index_users_id", using: :btree
 
 end
