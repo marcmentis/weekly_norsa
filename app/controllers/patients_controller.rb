@@ -1,6 +1,10 @@
 class PatientsController < ApplicationController
   include JqgridHelper
   before_action :set_patient, only: [:show, :edit, :update, :destroy]
+  after_action :create_phi, only: [:create]
+  after_action :show_phi, only: [:index, :complex_search, :show]
+  after_action :update_phi, only: [:update]
+  after_action :destroy_phi, only: [:destroy]
 
   # GET /patients
   # GET /patients.json
@@ -114,5 +118,22 @@ class PatientsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def patient_params
       params.require(:patient).permit(:firstname, :lastname, :number, :facility, :ward, :doa, :dob, :dod, :updated_by, :facility, :ward)
+    end
+
+    def create_phi
+      puts "IN CREATE_PHI CONTROLLER"
+            # AURORA
+    #Accessauditlog.find_by_sql("INSERT INTO AURORA.ACCESSAUDITLOG(ACCESS_DT,ACTION_CD,WORKSTATION_ID)VALUES(TO_DATE('1/14/2015 4:23:42 PM', 'MM/DD/YYYY HH:MI:SS PM'),'LO','10.76.232.152');")
+    # aurora = Accessauditlog.where(action_cd: 'LO')
+    # aurora1 = Accessauditlog.create(access_dt: DateTime.now, action_cd: 'LO', workstation_id: '10.76.232.152')
+    end
+    def show_phi
+      puts "IN SHOW PHI FROM CONTROLLER authen: #{session[:authen]}"
+    end
+    def update_phi
+      puts "IN UPDATE PHI FROM CONTROLLER"
+    end
+    def destroy_phi
+      puts "IN DESTROY PHI FROM CONTROLLER"
     end
 end
