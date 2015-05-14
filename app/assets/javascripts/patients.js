@@ -24,7 +24,8 @@ if ($('body.patients').length) {
 							.hide();
 
 	$('#fPatientSearch').addClass('form_container').css({'width':'692px'});
-	$('#btnSubmit').addClass('submit-button').hide();
+	// Can't use .hide() as wont work with IE 10
+	$('#btnSubmit').addClass('move_off_page')
 
 
 	//button
@@ -51,11 +52,11 @@ if ($('body.patients').length) {
 		messages: {
 			firstname: {
 				required: "Firstname is required",
-				minlength: "At least two characters required"
+				minlength: "Two characters required"
 			},
 			lastname: {
 				required: "Lastname is required",
-				minlength: "At least two chararcters required"
+				minlength: "Four chararcters required"
 			}
 		},
 		submitHandler: function(form){
@@ -76,22 +77,17 @@ if ($('body.patients').length) {
 		}
 	});
 
-	//Submit complex search on fPatientSearch using hidden submit button
-	$('#btnSubmit').click(function(e){
-		e.preventDefault();
-			var firstname = $('#ftx_S_Firstname').val();
-			var lastname = $('#ftx_S_lastname').val();
-			var number = $('#ftx_S_number').val();
-			var facility = $('#ftx_S_facility').val();
-			var ward = $('#slt_s_ward').val();
 
-			$("#gridGrid").remove();         
-			url = '/patients_search?firstname='+firstname+'&lastname='+lastname+'&number='+number+'&facility='+facility+'&ward='+ward+''
-			refreshgrid(url);	
+	//Submit complex search on fPatientSearch using hidden submit button
+	// $('#btnSubmit').click(function(e){
+	$('#fPatientSearch').submit(function(e){
+		e.preventDefault();
+		complex_search1();
 	});
 
-
-
+	$('#slt_s_ward').change(function(e){
+		complex_search1();
+	});
 
 	// BUTTONS
 	$('#bPatientBack').click(function(){
@@ -233,13 +229,9 @@ if ($('body.patients').length) {
 		});
 	};
 
-
 	function clearFields(){
 		$('#firstname, #lastname, #number, #facility, #ward').val('');
 	 };
-
-
-
 
 	function ajax_call (url, type) {
 		var firstname = $('#firstname').val();
@@ -266,6 +258,18 @@ if ($('body.patients').length) {
 		}).fail(function(){
 			alert('Error in invoicenew');
 		});
+	};
+
+	function complex_search1 (){
+		var firstname = $('#ftx_S_Firstname').val();
+		var lastname = $('#ftx_S_lastname').val();
+		var number = $('#ftx_S_number').val();
+		var facility = $('#ftx_S_facility').val();
+		var ward = $('#slt_s_ward').val();
+
+		$("#gridGrid").remove();         
+		url = '/patients_search?firstname='+firstname+'&lastname='+lastname+'&number='+number+'&facility='+facility+'&ward='+ward+''
+		refreshgrid(url);	
 	};
 
 };   //if ($('body.patients').length) {
