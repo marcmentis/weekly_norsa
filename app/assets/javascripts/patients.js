@@ -22,6 +22,8 @@ if ($('body.patients').length) {
 	$('#divPatientAsideRt').addClass('float_right form_container')
 							.css({'width':'250px'})
 							.hide();
+	$('#PatientAsideRtErrors').addClass('error_explanation')
+								.hide();
 
 	$('#fPatientSearch').addClass('form_container').css({'width':'692px'});
 	// Can't use .hide() as wont work with IE 10
@@ -40,14 +42,14 @@ if ($('body.patients').length) {
 	//Validate and Submit fPatientAsideRt
 	$('#fPatientAsideRt').validate({
 		rules: {
-			// firstname: {
-			// 	required: true,
-			// 	minlength: 2
-			// },
-			// lastname: {
-			// 	required: true,
-			// 	minlength: 4
-			// }
+			firstname: {
+				required: true,
+				minlength: 2
+			},
+			lastname: {
+				required: true,
+				minlength: 4
+			}
 		},
 		messages: {
 			firstname: {
@@ -231,6 +233,7 @@ if ($('body.patients').length) {
 
 	function clearFields(){
 		$('#firstname, #lastname, #number, #facility, #ward').val('');
+		$('#PatientAsideRtErrors').html('').hide();
 	 };
 
 	function ajax_call (url, type) {
@@ -259,11 +262,16 @@ if ($('body.patients').length) {
 			// alert('HTTP status code: ' + jqXHR.status + '\n' +
 	  //             'textStatus: ' + textStatus + '\n' +
 	  //             'errorThrown: ' + errorThrown);
-	        alert('HTTP message body (jqXHR.responseText): ' + '\n' + jqXHR.responseText);
-	        var msg = jqXHR.responseText
-	        alert(msg)
-	        first = msg[0]
-	        alert(first)
+	  //       alert('HTTP message body (jqXHR.responseText): ' + '\n' + jqXHR.responseText);
+	        var msg = JSON.parse(jqXHR.responseText)
+	        var newHTML;
+	        newHTML = '<h3>Validation Error </h3>';	
+	        newHTML += '<ul>';        
+	        $.each(msg, function(key, value){
+	        	newHTML += '<li>'+ value +'</li>';
+	        });
+	        newHTML += '</ul>';
+	        $('#PatientAsideRtErrors').show().html(newHTML)
 		});
 	};
 
