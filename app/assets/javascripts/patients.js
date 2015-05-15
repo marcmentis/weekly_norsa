@@ -40,14 +40,14 @@ if ($('body.patients').length) {
 	//Validate and Submit fPatientAsideRt
 	$('#fPatientAsideRt').validate({
 		rules: {
-			firstname: {
-				required: true,
-				minlength: 2
-			},
-			lastname: {
-				required: true,
-				minlength: 4
-			}
+			// firstname: {
+			// 	required: true,
+			// 	minlength: 2
+			// },
+			// lastname: {
+			// 	required: true,
+			// 	minlength: 4
+			// }
 		},
 		messages: {
 			firstname: {
@@ -255,8 +255,15 @@ if ($('body.patients').length) {
 			// $('#divPatientAsideRt, #bEdit, #bNew, #bDelete, #bBack').hide();
 			$('#divPatientAsideRt, #bPatientSubmit, #bPatientBack').hide();
 
-		}).fail(function(){
-			alert('Error in invoicenew');
+		}).fail(function(jqXHR,textStatus,errorThrown){
+			// alert('HTTP status code: ' + jqXHR.status + '\n' +
+	  //             'textStatus: ' + textStatus + '\n' +
+	  //             'errorThrown: ' + errorThrown);
+	        alert('HTTP message body (jqXHR.responseText): ' + '\n' + jqXHR.responseText);
+	        var msg = jqXHR.responseText
+	        alert(msg)
+	        first = msg[0]
+	        alert(first)
 		});
 	};
 

@@ -88,13 +88,14 @@ class PatientsController < ApplicationController
   # PATCH/PUT /patients/1
   # PATCH/PUT /patients/1.json
   def update
+    # byebug
     respond_to do |format|
       if @patient.update(patient_params)
         format.html { redirect_to @patient, notice: 'Patient was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
-        format.json { render json: @patient.errors, status: :unprocessable_entity }
+        format.json { render json: @patient.errors.full_messages, status: :unprocessable_entity }
       end
     end
   end
