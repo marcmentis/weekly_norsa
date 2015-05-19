@@ -265,7 +265,7 @@ if ($('body.patients').length) {
 	  //       alert('HTTP message body (jqXHR.responseText): ' + '\n' + jqXHR.responseText);
 	        var msg = JSON.parse(jqXHR.responseText)
 	        var newHTML;
-	        newHTML = '<h3>Validation Error </h3>';	
+	        newHTML = '<h3>Validation Error</h3>';	
 	        newHTML += '<ul>';        
 	        $.each(msg, function(key, value){
 	        	newHTML += '<li>'+ value +'</li>';

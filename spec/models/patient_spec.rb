@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Patient, type: :model  do
 	let(:patient) {FactoryGirl.build(:patient)}
-	subject {:patient}
+	# subject {:patient}
 
 	describe "#has Attributes:" do
 		it 'first name' do
@@ -22,8 +22,6 @@ RSpec.describe Patient, type: :model  do
 		end
 	end
 	
-
-
 	describe "#is Invalid:" do
 		let(:patient_duplicate) {FactoryGirl.build(:patient)}
 		it "without first name" do
@@ -47,7 +45,23 @@ RSpec.describe Patient, type: :model  do
 			patient_duplicate.ward = "81/102"
 			expect(patient_duplicate.save).to be_falsey
 		end
-
 	end
+
+	describe "#has scopes:" do
+		describe "#to filter by facility" do
+			it "returns no patients with non-existent facility" do
+				patient.save
+				facility_id = '0018'
+				expect(Patient.in_facility(facility_id).count).to eq 0
+			end	
+			it "returns patients with correct facility" do
+				patient.save
+				facility_id = '0013'
+				expect(Patient.in_facility(facility_id).count).to eq 1
+			end	
+		end
+	end
+
+	
 
 end

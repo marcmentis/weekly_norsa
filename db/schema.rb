@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150501225242) do
+ActiveRecord::Schema.define(version: 20150519215221) do
 
   create_table "for_selects", force: true do |t|
     t.string   "code"
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20150501225242) do
     t.datetime "updated_at"
   end
 
-  add_index "for_selects", ["code"], name: "index_for_selects_on_code"
+  add_index "for_selects", ["code"], name: "index_for_selects_on_code", using: :btree
 
   create_table "patients", force: true do |t|
     t.string   "firstname"
@@ -40,8 +40,8 @@ ActiveRecord::Schema.define(version: 20150501225242) do
     t.datetime "updated_at"
   end
 
-  add_index "patients", ["facility"], name: "index_patients_on_facility"
-  add_index "patients", ["ward"], name: "index_patients_on_ward"
+  add_index "patients", ["facility"], name: "index_patients_on_facility", using: :btree
+  add_index "patients", ["ward"], name: "index_patients_on_ward", using: :btree
 
   create_table "roles", force: true do |t|
     t.string   "name"
@@ -51,8 +51,15 @@ ActiveRecord::Schema.define(version: 20150501225242) do
     t.datetime "updated_at"
   end
 
-  add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
-  add_index "roles", ["name"], name: "index_roles_on_name"
+  add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
+  add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
+
+  create_table "states", force: true do |t|
+    t.string   "name"
+    t.string   "appreviation", limit: 2
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "firstname"
@@ -67,13 +74,13 @@ ActiveRecord::Schema.define(version: 20150501225242) do
     t.datetime "updated_at"
   end
 
-  add_index "users", ["facility"], name: "index_users_on_facility"
+  add_index "users", ["facility"], name: "index_users_on_facility", using: :btree
 
   create_table "users_roles", id: false, force: true do |t|
     t.integer "user_id"
     t.integer "role_id"
   end
 
-  add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
+  add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
 
 end
