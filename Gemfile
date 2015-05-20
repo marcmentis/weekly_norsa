@@ -46,6 +46,7 @@ group :development, :test do
 	# gem 'database_cleaner', '~> 1.3.0'
 	gem 'byebug' # Successor to 'debugger'
 	gem 'faker'
+	gem 'shoulda-matchers', require: false # association matchers v2.8.0
 end
 group :test do
 	# gem 'selenium-webdriver', '2.35.1'  # capybara dependency
