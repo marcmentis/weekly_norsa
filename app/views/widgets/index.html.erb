@@ -84,6 +84,51 @@
 			</div>
 		</form>
 	</p>
+
+	<p>
+  <h3>Request Object:</h3>
+  <ul>
+    <li><strong>headers["HTTP_CT_REMOTE_USER"]:</strong> <%= @request.headers["HTTP_CT_REMOTE_USER"]%></li>
+  	<li><strong>headers["HTTP_REMOTE_USER"]:</strong> <%= @request.headers["HTTP_REMOTE_USER"]%></li>
+  	<li><strong>headers["HTTP_USER_AGENT"]:</strong> <%= @request.headers["HTTP_USER_AGENT"]%></li>
+  	<li><strong>headers["HTTP_OMHFACILITYNUM"]:</strong> <%= @request.headers["HTTP_OMHFACILITYNUM"]%></li>
+  	<li><strong>headers["HTTP_CTFN"]:</strong> <%= @request.headers["HTTP_CTFN"]%></li>
+  	<li><strong>headers["HTTP_INITIALS"]:</strong> <%= @request.headers["HTTP_INITIALS"]%></li>
+  	<li><strong>headers["HTTP_CTLN"]:</strong> <%= @request.headers["HTTP_CTLN"]%></li>
+  	<li><strong>headers["HTTP_CTEMAIL"]:</strong> <%= @request.headers["HTTP_CTEMAIL"]%></li>
+
+  	<% @request.headers.each do |key, value| %>
+  		<li>Key: <%= key %> Value: <%= value %></li>
+  	<% end %>
+  	<br />
+  	<li><strong>host:</strong> <%= @request.host%></li>
+  	<li><strong>domain(n=2):</strong> <%= @request.domain(n=2) %></li>
+  	<li><strong>format:</strong> <%= @request.format %></li>
+  	<li><strong>method:</strong> <%= @request.method %></li>
+  	<li><strong>headers hash:</strong> <%= @request.headers %></li>
+  	<li><strong>port:</strong> <%= @request.port %></li>
+  	<li><strong>protocol:</strong> <%= @request.protocol %></li>
+  	<li><strong>query_string:</strong> <%= @request.query_string %></li>
+  	<li><strong>remote_ip:</strong> <%= @request.remote_ip %></li>
+  	<li><strong>url:</strong> <%= @request.url %></li>
+  </ul>
+</p>
+
+<p>
+  <h3>Response Object:</h3>
+  <ul>
+  	<li><strong>body:</strong>  <%= @response.body%></li>
+  	<li><strong>status:</strong>  <%= @response.status%></li>
+  	<li><strong>location:</strong>  <%= @response.location%></li>
+  	<li><strong>content_type:</strong>  <%= @response.content_type%></li>
+  	<li><strong>charset:</strong>  <%= @response.charset%></li>
+  	<li><strong>Headers hash:</strong>  <%= @response.headers%></li>
+  	<% @response.headers.each do |key, value| %>
+  		<li>Key: <%= key %> Value: <%= value %></li>
+  	<% end %>
+  </ul>
+ 
+</p>
 	
 <style type="text/css">
 	.form-container {
