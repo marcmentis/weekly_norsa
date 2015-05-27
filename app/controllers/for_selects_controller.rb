@@ -24,8 +24,10 @@ class ForSelectsController < ApplicationController
   end
 
   def options_search
+    # byebug
     options = ForSelect.all
     options = options.where("code = :code", {code: params[:code]}) if params[:code]!=''
+    options = options.where("facility = :facility", {facility: params[:facility]}) if params[:facility] != ''
     # options = options.where("grouper = :grouper",{grouper: params[:grouper]}) if params[:grouper]!=''
     options = options.order("option_order")
 

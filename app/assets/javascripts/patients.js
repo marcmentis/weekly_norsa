@@ -3,11 +3,20 @@ $(function(){
 if ($('body.patients').length) {
 
 	//WIP
-	$('#ftx_S_facility').click(function(){
-		$('#slt_s_ward').mjm_addOptions('ward',{firstLine: 'All Wards', group: true});
-	});
 
-	
+		// $('#ftx_S_facility').click(function(){
+		// 	$('#slt_S_ward').mjm_addOptions('ward',{firstLine: 'All Wards', group: true});
+		// });
+
+		// Selects
+		// Show only if Admin2
+		$('#slt_S_facility').mjm_addOptions('facility', {firstLine: 'Facilities'})
+		// Show appropriate wards in
+		$('#slt_S_facility').change(function(){
+			var chosen_facility = $('#slt_S_facility').val();
+			$('#slt_S_ward').mjm_addOptions('ward', {firstLine: 'All Wards', facility: chosen_facility, group: true})
+		});
+		
 
 	//DECLARE VARIABLES
 	var ID = '';
