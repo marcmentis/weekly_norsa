@@ -31,7 +31,7 @@ class PatientsController < ApplicationController
     # Therefore, sequental .where searches IF PARAM not zero will filter with an 'AND' relationship
     # Database will not be hit (lazy loading) until data needed by app
     conditions = Patient.all 
-    conditions = conditions.where("facility = :facility", {facility: params[:facility]}) if params[:facility]!= ''
+    conditions = conditions.where("facility = :facility", {facility: params[:facility]}) if params[:facility]!= '-1'
     conditions = conditions.where("firstname = :firstname", {firstname: params[:firstname]}) if params[:firstname]!= ''
     conditions = conditions.where("lastname = :lastname", {lastname: params[:lastname]}) if params[:lastname]!= ''
     conditions = conditions.where("number = :number", {number: params[:number]}) if params[:number]!= ''
