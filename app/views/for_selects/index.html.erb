@@ -3,6 +3,41 @@
 <div id="divForSelectPageInnerWrapper">
 
   <div id="divForSelectAsideRt">  
+    <div id="ForSelectAsideRtTitle"><h2>Patient Data</h2></div>
+    <div id="ForSelectAsideRtErrors"></div>  
+    <form id="fForSelectAsideRt">
+      <fieldset>
+        <input id="id" type="hidden" name="id" />
+        <div class="field">
+          <label for="ftx_for_select_Rt_code" class="label">Code</label>
+          <input id="ftx_for_select_Rt_code" name="ftx_for_select_Rt_code" type="text"/>
+        </div>         
+        <div class="field">
+          <label for="ftx_for_select_value" class="label">Value</label>
+          <input id="ftx_for_select_Rt_value" name="ftx_for_select_Rt_value" type="text" />    
+        </div>
+        <div class="field">
+          <label for="ftx_for_select_text" class="label">Text</label>
+          <input id="ftx_for_select_Rt_text" name="ftx_for_select_Rt_text" type="text" />    
+        </div>
+        <div class="field">
+          <label for="ftx_for_select_grouper" class="label">Grouper</label>
+          <input id="ftx_for_select_Rt_grouper" name="ftx_for_select_Rt_grouper" type="text" />    
+        </div>
+        <div class="field">
+          <label for="ftx_for_select_option_order" class="label">Order</label>
+          <input id="ftx_for_select_option_order" name="ftx_for_select_option_order" type="text" />    
+        </div>
+        <div class="field"> 
+          <label for="facility" class="label">facility</label>      
+          <select id="slt_for_select_Rt_facility" name="slt_for_select_Rt_facility"></select>          
+        </div>
+        <div>
+          <input id="b_for_select_Rt_Submit" type="submit" value="x">
+          <input id="b_for_select_Rt_Back" type="button" value="Back">
+        </div>
+      </fieldset>         
+    </form>  
   </div>  <!-- id="divForSelectAsideRt" -->
 
   <form id="fForSelectSearch">   
@@ -49,45 +84,3 @@
 
 
 
-
-<h1>Listing for_selects</h1>
-<p><%= flash[:notice] %></p>
-
-<table>
-  <thead>
-    <tr>
-      <th>id</th>
-      <th>Code</th>
-      <th>Value</th>
-      <th>Text</th>
-      <th>Grouper</th>
-      <th>Option order</th>
-      <th>Facility</th>
-
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @for_selects.each do |for_select| %>
-      <tr>
-        <td><%= for_select.id %></td>
-         <td><%= for_select.code %></td>
-        <td><%= for_select.value %></td>
-        <td><%= for_select.text %></td>
-        <td><%= for_select.grouper %></td>
-        <td><%= for_select.option_order %></td>
-        <td><%= for_select.facility %></td>      
-        <td><%= link_to 'Show', for_select %></td>
-        <td><%= link_to 'Edit', edit_for_select_path(for_select) %></td>
-        <td><%= link_to 'Destroy', for_select, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New For select', new_for_select_path %>

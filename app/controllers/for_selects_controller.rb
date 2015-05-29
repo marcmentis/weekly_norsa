@@ -75,7 +75,7 @@ class ForSelectsController < ApplicationController
     respond_to do |format|
       if @for_select.save
         format.html { redirect_to @for_select, notice: 'For select was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @for_select }
+        format.json { head :no_content}
       else
         format.html { render action: 'new' }
         format.json { render json: @for_select.errors, status: :unprocessable_entity }
@@ -86,6 +86,7 @@ class ForSelectsController < ApplicationController
   # PATCH/PUT /for_selects/1
   # PATCH/PUT /for_selects/1.json
   def update
+    # byebug
     respond_to do |format|
       if @for_select.update(for_select_params)
         format.html { redirect_to @for_select, notice: 'For select was successfully updated.' }

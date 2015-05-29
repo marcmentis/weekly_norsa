@@ -20,23 +20,77 @@ if($('body.for_selects').length) {
 		$('#b_for_selects_select').addClass('move_off_page')
 
 		//button
-		$('[id^=b]').button().addClass('reduce_button')
-		$('#lastname').addClass('input_field')
+		$('[id^=b_]').button().addClass('reduce_button')
 
 		//dates
 		// $('[id^=dt]').datepicker().css({'width':'7em'});
 
 	//SELECTS
 		//TO DO show appropriate only if Admin2
-		$('#slt_for_selects_S_facility').mjm_addOptions('facility', {firstLine: 'All Facilities'})
+		$('#slt_for_selects_S_facility, #slt_for_select_Rt_facility').mjm_addOptions('facility', {firstLine: 'All Facilities'})
 
+	//FORM VALIDATION, SUBMIT HANDLER
+		//Validate and Submit fPatientAsideRt
+		$('#fForSelectAsideRt').validate({
+			rules: {
+				ftx_for_select_Rt_code: {
+					required: true,
+					minlength: 2
+				},
+				ftx_for_select_Rt_value: {
+					required: true,
+					minlength: 2
+				}
+			},
+			messages: {
+				code: {
+					required: "Code is required",
+					minlength: "Two characters required"
+				},
+				value: {
+					required: "Value is required",
+					minlength: "Two chararcters required"
+				}
+			},
+			submitHandler: function(form){
+				//Get value of submit button to determine which AJAX call to make
+				submit_value = $(form).find('input[type=submit]').attr('value')
+				switch(submit_value){
+					case 'New':
+						for_selects_ajax1('/for_selects', 'POST');
+						break;
+					case 'Edit':
+						for_selects_ajax1('/for_selects/'+ID+'', 'PATCH');
+						break;
+					default:
+						alert('submit_id not found');
+						return false;
+				};
+				
+			}
+		});
+
+
+
+
+	// BUTTONS
+		//Submit complex search on fPatientSearch using hidden submit button
+		// $('#btnSubmit').click(function(e){
+			// $('#fPatientSearch').submit(function(e){
+			// 	e.preventDefault();
+			// 	complex_search1();
+			// });
+		$('#bPatientBack').click(function(){
+			$('#divForSelectAsideRt, #b_for_select_Rt_Submit, #b_for_select_Rt_Back').hide();
+			clearFields();
+		});
 
 	// RUN ON OPENING
-	refreshgrid_for_selects('nil');
+	for_select_refreshgrid('nil');
 	// complex_search1();
 	//*****************************************************
 	//FUNCTIONS CALLED FROM ABOVE
-	function refreshgrid_for_selects(url){
+	function for_select_refreshgrid(url){
 
 		if (url == 'nil') {url = '/for_selects'};
 
@@ -53,7 +107,7 @@ if($('body.for_selects').length) {
 			colModel:[
 				{name:"id",index:"id",width:55, hidden:true},
 				{name:"code",index:"code",width:100,align:"center"},
-				{name:"value",index:"value",width:100,align:"center",editable:true},
+				{name:"value",index:"value",width:100,align:"center"},
 				{name:"text",index:"text",width:100,align:"center"},
 				{name:"grouper",index:"grouper",width:100,align:"center"},
 				{name:"option_order",index:"option_order",width:50,align:"center"},
@@ -79,25 +133,26 @@ if($('body.for_selects').length) {
 
 				onSelectRow:function(id) { 
 					set_id(id);  //set the ID variable
-					data_for_params = {patient: {id: id}}
+					data_for_params = {for_select: {id: id}}
 
 					$.ajax({ 
 							  // url: '/inpatient_show',
-							  url: '/patients/'+id+'',
+							  url: '/for_selects/'+id+'',
 							  data: data_for_params,
 							  //type: 'POST',
 							  type: 'GET',
 							  dataType: 'json'
 						}).done(function(data){
 							clearFields();
-							$('#bPatientSubmit').attr('value','Edit');
-							$('#divPatientAsideRt, #bPatientSubmit, #bPatientBack').show();
+							$('#b_for_select_Rt_Submit').attr('value','Edit');
+							$('#divForSelectAsideRt, #b_for_select_Rt_Submit, #b_for_select_Rt_Back').show();
 							$('#id').val(data.id);
-							$('#firstname').val(data.firstname);
-							$('#lastname').val(data.lastname);
-							$('#number').val(data.number);
-							$('#facility').val(data.facility);
-							$('#ward').val(data.ward);
+							$('#ftx_for_select_Rt_code').val(data.code);
+							$('#ftx_for_select_Rt_value').val(data.value);
+							$('#ftx_for_select_Rt_text').val(data.text);
+							$('#ftx_for_select_Rt_grouper').val(data.grouper);
+							$('#ftx_for_select_option_order').val(data.option_order);
+							$('#slt_for_select_Rt_facility').val(data.facility);
 
 													  
 						}).fail(function(){
@@ -146,8 +201,8 @@ if($('body.for_selects').length) {
 				// $('#divPatientAsideRt, #bNew, #bBack').show();
 				// $('#bDelete, #bEdit').hide();
 
-				$('#divPatientAsideRt, #bPatientSubmit, #bPatientBack').show();
-				$('#bPatientSubmit').attr('value','New');
+				$('#divForSelectAsideRt, #b_for_select_Rt_Submit, #b_for_select_Rt_Back').show();
+				$('#b_for_select_Rt_Submit').attr('value','New');
 			},
 			position:'last'
 		})
@@ -156,8 +211,8 @@ if($('body.for_selects').length) {
 			buttonicon: '',
 			onClickButton: function(){	
 				if (ID.length > 0) {	
-					if(confirm("Are you sure you want to delete this patient")){
-						patients_ajax1('/patients/'+ID+'', 'DELETE');	
+					if(confirm("Are you sure you want to delete this entry")){
+						for_selects_ajax1('/for_selects/'+ID+'', 'DELETE');	
 					} else {
 						return true;
 					};
@@ -166,5 +221,52 @@ if($('body.for_selects').length) {
 			position:'last'
 		});
 	};
+
+	function clearFields(){
+		$('#ftx_for_select_Rt_code, #ftx_for_select_Rt_value, #ftx_for_select_Rt_text, #ftx_for_select_Rt_grouper, #ftx_for_select_option_order, #slt_for_select_Rt_facility').val('');
+		$('#ForSelectAsideRtErrors').html('').hide();
+	 };
+
+	function for_selects_ajax1 (url, type) {
+		var code = $('#ftx_for_select_Rt_code').val();
+		var value = $('#ftx_for_select_Rt_value').val();
+		var text = $('#ftx_for_select_Rt_text').val();
+		var grouper = $('#ftx_for_select_Rt_grouper').val();
+		var option_order = $('#ftx_for_select_option_order').val();
+		var facility = $('#slt_for_select_Rt_facility').val();
+		// Create strong parameter
+		data_for_params ={for_select: {'code': code, 'value': value, 
+						'text': text, 'grouper': grouper, 
+						'option_order': option_order,
+				  		'facility': facility}}
+
+		$.ajax({
+			url: url,
+			type: type,
+			data: data_for_params,
+			dataType: 'json'
+		}).done(function(data){
+			for_select_refreshgrid('nil');
+			// complex_search1();
+			clearFields();
+			$('#divForSelectAsideRt, #b_for_select_Rt_Submit, #b_for_select_Rt_Back').hide();
+
+		}).fail(function(jqXHR,textStatus,errorThrown){
+			// alert('HTTP status code: ' + jqXHR.status + '\n' +
+	  //             'textStatus: ' + textStatus + '\n' +
+	  //             'errorThrown: ' + errorThrown);
+	  //       alert('HTTP message body (jqXHR.responseText): ' + '\n' + jqXHR.responseText);
+	        var msg = JSON.parse(jqXHR.responseText)
+	        var newHTML;
+	        newHTML = '<h3>Validation Error</h3>';	
+	        newHTML += '<ul>';        
+	        $.each(msg, function(key, value){
+	        	newHTML += '<li>'+ value +'</li>';
+	        });
+	        newHTML += '</ul>';
+	        $('#ForSelectAsideRtErrors').show().html(newHTML)
+		});
+	};
+
 };
 });  //$(function)(){
