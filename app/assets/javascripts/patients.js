@@ -2,20 +2,10 @@ $(function(){
 // $(document).on("ready page:change", function(){ 
 if ($('body.patients').length) {
 
-	//WIP
-
-		// $('#ftx_S_facility').click(function(){
-		// 	$('#slt_S_ward').mjm_addOptions('ward',{firstLine: 'All Wards', group: true});
-		// });
-
-
-		
-
 	//DECLARE VARIABLES
 		var ID = '';
 		  	function set_id(x){ID = x};
-		// alert('in inpatients.js');
-		refreshgrid('nil');
+		
 
 	// STYLING
 		$('#divPatientPageWrapper').addClass('pad_3_sides');
@@ -34,7 +24,7 @@ if ($('body.patients').length) {
 
 		//button
 		$('[id^=b]').button().addClass('reduce_button')
-		$('#lastname').addClass('input_field')
+		// $('#lastname').addClass('input_field')
 
 		//dates
 		$('[id^=dt]').datepicker().css({'width':'7em'});
@@ -118,7 +108,9 @@ if ($('body.patients').length) {
 		});
 
 	
-
+	// RUN ON OPENING
+	// refreshgrid('nil');
+	complex_search1();
 	//*****************************************************
 	//FUNCTIONS CALLED FROM ABOVE
 	function refreshgrid(url){
@@ -309,4 +301,4 @@ if ($('body.patients').length) {
 	};
 
 };   //if ($('body.patients').length) {
-});  //$(document).on("ready page:change", function(){ 
+});  // $(function(){

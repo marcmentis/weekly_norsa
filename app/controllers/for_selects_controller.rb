@@ -1,4 +1,5 @@
 class ForSelectsController < ApplicationController
+  include JqgridHelper
   before_action :set_for_select, only: [:show, :edit, :update, :destroy]
   before_action :check_session
   # after_action :verify_authorized
@@ -21,6 +22,20 @@ class ForSelectsController < ApplicationController
 
     # authorize ForSelect
     @for_selects = ForSelect.all
+    if params[:page] != nil
+      total_query_count = ForSelect.all.count     
+      # Run query and extract just those rows needed
+      extract = ForSelect.order("#{params[:sidx]} #{params[:sord]}")
+                        .limit(params[:rows].to_i)
+                        .offset((params[:page].to_i - 1) * params[:rows].to_i)
+      # Create jsGrid object from 'extract' data
+      @jsGrid_obj = create_jsGrid_obj(extract, params, total_query_count)
+    end
+
+    respond_to do |format|
+      format.html
+      format.json {render json: @jsGrid_obj }
+    end
   end
 
   def options_search
