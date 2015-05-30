@@ -1,10 +1,25 @@
 class UsersController < ApplicationController
+  include JqgridHelper
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # GET /users
   # GET /users.json
   def index
     @users = User.all
+    if params[:page] != nil
+      total_query_count = User.all.count     
+      # Run query and extract just those rows needed
+      extract = User.order("#{params[:sidx]} #{params[:sord]}")
+                    .limit(params[:rows].to_i)
+                    .offset((params[:page].to_i - 1) * params[:rows].to_i)
+      # Create jsGrid object from 'extract' data
+      @jsGrid_obj = create_jsGrid_obj(extract, params, total_query_count)
+    end
+
+    respond_to do |format|
+      format.html
+      format.json {render json: @jsGrid_obj }
+    end
   end
 
   # GET /users/1
@@ -29,7 +44,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @user }
+        format.json { head :no_content}
       else
         format.html { render action: 'new' }
         format.json { render json: @user.errors, status: :unprocessable_entity }

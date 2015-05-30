@@ -1,43 +1,49 @@
-<h1>Listing users</h1>
+<div id="divUserPageWrapper">
+<div id="divUserPageInnerWrapper">
 
-<table>
-  <thead>
-    <tr>
-      <th>Firstname</th>
-      <th>Lastname</th>
-      <th>Authen</th>
-      <th>Facility</th>
-      <th>Email</th>
-      <th>Firstinitial</th>
-      <th>Middleinitial</th>
-      <th>Updated by</th>
-      <th>Facility</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+  <div id="divUserAsideRt">
+  </div>  <!-- id="divUserAsideRt" -->
 
-  <tbody>
-    <% @users.each do |user| %>
-      <tr>
-        <td><%= user.firstname %></td>
-        <td><%= user.lastname %></td>
-        <td><%= user.authen %></td>
-        <td><%= user.facility %></td>
-        <td><%= user.email %></td>
-        <td><%= user.firstinitial %></td>
-        <td><%= user.middleinitial %></td>
-        <td><%= user.updated_by %></td>
-        <td><%= user.facility %></td>
-        <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
-<br>
+  <form id="fUserSearch">
+    <div id="UserSearchTitle"><h2>Search Criteria</h2></div> 
+    <div class="field">
+      <label>Facility</label>
+      <select id="slt_user_S_facility" name="slt_user_S_facility"></select>
+    </div>
+    <div class="field">
+      <label>FirstName</label>
+      <input id="ftx_user_S_firstname" type="text" />             
+    </div>
+    <div class="field"> 
+      <label>LastName</label>      
+      <input id="ftx_user_S_lastname" type="text" />        
+    </div>
+    <div class="field">
+      <label>Authen</label>
+      <input id="ftx_user_S_authen" type="text" />                
+    </div>
+    <div class="field">
+      <label>eMail</label>
+      <input id="ftx_user_S_email" type="text" />          
+    </div>
+    <div class="field"> 
+      <label>FirstInit</label>
+      <input id="ftx_user_S_firstinitial" type="text" />
+    </div>
+    <div class="field"> 
+      <label>MidInit</label>
+      <input id="ftx_user_S_middleinitial" type="text" />
+    </div>
+    <input id="b_user_select" type="submit" value="Search" /> 
+  </form> <!-- id="fUserSearch" -->
+  <div id="divUserGrid"></div>
 
-<%= link_to 'New User', new_user_path %>
+
+  <section id="divBelow">
+    BELOW
+  </section>
+
+</div> <!-- id="divUserPageWrapper" -->
+</div> <!-- id="divUserPageInnerWrapper" -->
+
