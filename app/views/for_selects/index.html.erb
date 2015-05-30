@@ -3,11 +3,15 @@
 <div id="divForSelectPageInnerWrapper">
 
   <div id="divForSelectAsideRt">  
-    <div id="ForSelectAsideRtTitle"><h2>Patient Data</h2></div>
+    <div id="ForSelectAsideRtTitle"><h2>For Selects Data</h2></div>
     <div id="ForSelectAsideRtErrors"></div>  
     <form id="fForSelectAsideRt">
       <fieldset>
         <input id="id" type="hidden" name="id" />
+        <div class="field"> 
+          <label for="facility" class="label">facility</label>      
+          <select id="slt_for_select_Rt_facility" name="slt_for_select_Rt_facility"></select>          
+        </div>
         <div class="field">
           <label for="ftx_for_select_Rt_code" class="label">Code</label>
           <input id="ftx_for_select_Rt_code" name="ftx_for_select_Rt_code" type="text"/>
@@ -28,10 +32,6 @@
           <label for="ftx_for_select_option_order" class="label">Order</label>
           <input id="ftx_for_select_option_order" name="ftx_for_select_option_order" type="text" />    
         </div>
-        <div class="field"> 
-          <label for="facility" class="label">facility</label>      
-          <select id="slt_for_select_Rt_facility" name="slt_for_select_Rt_facility"></select>          
-        </div>
         <div>
           <input id="b_for_select_Rt_Submit" type="submit" value="x">
           <input id="b_for_select_Rt_Back" type="button" value="Back">
@@ -43,28 +43,28 @@
   <form id="fForSelectSearch">   
     <div id="ForSelectSearchTitle"><h2>Search Criteria</h2></div> 
       <div class="field">
-        <label>Code</label>
-        <input id="ftx_for_selects_S_code" type="text" />                
+        <label>Facility</label>
+        <select id="slt_for_selects_S_facility" name="slt_for_selects_S_facility"></select>
       </div>
       <div class="field">
         <label>Value</label>
         <input id="ftx_for_selects_S_value" type="text" />             
+      </div>
+      <div class="field"> 
+        <label>Grouper</label>      
+        <input id="ftx_for_selects_S_grouper" type="text" />        
+      </div>
+      <div class="field">
+        <label>Code</label>
+        <input id="ftx_for_selects_S_code" type="text" />                
       </div>
       <div class="field">
         <label>Text</label>
         <input id="ftx_for_selects_S_text" type="text" />          
       </div>
       <div class="field"> 
-        <label>Grouper</label>      
-        <input id="ftx_for_selects_S_grouper" type="text" />        
-      </div>
-      <div class="field"> 
         <label>Option order</label>
         <input id="ftx_for_selects_S_option_order" type="text" />
-      </div>
-      <div class="field">
-        <label>Facility</label>
-        <select id="slt_for_selects_S_facility" name="slt_for_selects_S_facility"></select>
       </div>
       <input id="b_for_selects_select" type="submit" value="Search" />  
   </form>

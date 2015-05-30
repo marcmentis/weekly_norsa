@@ -40,7 +40,7 @@
 
 			data_for_params = {'code': code, 'facility': facility}
 			$.ajax({
-				url: '/for_selects_search',
+				url: '/for_selects_options_search',
 				type: 'GET',
 				data: data_for_params,
 				dataType: 'json',

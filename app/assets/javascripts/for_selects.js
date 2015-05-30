@@ -27,8 +27,12 @@ if($('body.for_selects').length) {
 
 	//SELECTS
 		//TO DO show appropriate only if Admin2
-		$('#slt_for_selects_S_facility, #slt_for_select_Rt_facility').mjm_addOptions('facility', {firstLine: 'All Facilities'})
+		$('#slt_for_selects_S_facility, #slt_for_select_Rt_facility').mjm_addOptions('facility', {firstLine: 'Facilities'})
 
+		//Filter when facility changed
+		$('#slt_for_selects_S_facility').change(function(){
+			for_select_complex_search1();
+		});
 	//FORM VALIDATION, SUBMIT HANDLER
 		//Validate and Submit fPatientAsideRt
 		$('#fForSelectAsideRt').validate({
@@ -70,24 +74,21 @@ if($('body.for_selects').length) {
 			}
 		});
 
-
-
-
 	// BUTTONS
 		//Submit complex search on fPatientSearch using hidden submit button
 		// $('#btnSubmit').click(function(e){
-			// $('#fPatientSearch').submit(function(e){
-			// 	e.preventDefault();
-			// 	complex_search1();
-			// });
-		$('#bPatientBack').click(function(){
+		$('#fForSelectSearch').submit(function(e){
+			e.preventDefault();
+			for_select_complex_search1();
+		});
+		$('#b_for_select_Rt_Back').click(function(){
 			$('#divForSelectAsideRt, #b_for_select_Rt_Submit, #b_for_select_Rt_Back').hide();
-			clearFields();
+			for_select_clearFields();
 		});
 
 	// RUN ON OPENING
-	for_select_refreshgrid('nil');
-	// complex_search1();
+	// for_select_refreshgrid('nil');
+	for_select_complex_search1();
 	//*****************************************************
 	//FUNCTIONS CALLED FROM ABOVE
 	function for_select_refreshgrid(url){
@@ -143,7 +144,7 @@ if($('body.for_selects').length) {
 							  type: 'GET',
 							  dataType: 'json'
 						}).done(function(data){
-							clearFields();
+							for_select_clearFields();
 							$('#b_for_select_Rt_Submit').attr('value','Edit');
 							$('#divForSelectAsideRt, #b_for_select_Rt_Submit, #b_for_select_Rt_Back').show();
 							$('#id').val(data.id);
@@ -197,7 +198,7 @@ if($('body.for_selects').length) {
 			caption: 'New',
 			buttonicon: '',
 			onClickButton: function(){		
-				clearFields();
+				for_select_clearFields();
 				// $('#divPatientAsideRt, #bNew, #bBack').show();
 				// $('#bDelete, #bEdit').hide();
 
@@ -222,7 +223,7 @@ if($('body.for_selects').length) {
 		});
 	};
 
-	function clearFields(){
+	function for_select_clearFields(){
 		$('#ftx_for_select_Rt_code, #ftx_for_select_Rt_value, #ftx_for_select_Rt_text, #ftx_for_select_Rt_grouper, #ftx_for_select_option_order, #slt_for_select_Rt_facility').val('');
 		$('#ForSelectAsideRtErrors').html('').hide();
 	 };
@@ -246,9 +247,9 @@ if($('body.for_selects').length) {
 			data: data_for_params,
 			dataType: 'json'
 		}).done(function(data){
-			for_select_refreshgrid('nil');
-			// complex_search1();
-			clearFields();
+			// for_select_refreshgrid('nil');
+			for_select_complex_search1();
+			for_select_clearFields();
 			$('#divForSelectAsideRt, #b_for_select_Rt_Submit, #b_for_select_Rt_Back').hide();
 
 		}).fail(function(jqXHR,textStatus,errorThrown){
@@ -267,6 +268,21 @@ if($('body.for_selects').length) {
 	        $('#ForSelectAsideRtErrors').show().html(newHTML)
 		});
 	};
+
+	function for_select_complex_search1 (){
+		var facility = $('#slt_for_selects_S_facility').val();
+		var code = $('#ftx_for_selects_S_code').val();
+		var value = $('#ftx_for_selects_S_value').val();
+		var text = $('#ftx_for_selects_S_text').val();
+		var grouper = $('#ftx_for_selects_S_grouper').val();
+		var option_order = $('#ftx_for_selects_S_option_order').val();
+
+		// $("#gridGrid").remove();         
+		url = '/for_selects_search?facility='+facility+'&code='+code+'&value='+value+'&text='+text+'&grouper='+grouper+'&option_order='+option_order+''
+		for_select_refreshgrid(url);	
+	};
+
+
 
 };
 });  //$(function)(){

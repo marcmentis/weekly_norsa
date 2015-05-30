@@ -295,7 +295,7 @@ if ($('body.patients').length) {
 		var facility = $('#slt_S_facility').val();
 		var ward = $('#slt_S_ward').val();
 
-		$("#gridGrid").remove();         
+		// $("#gridGrid").remove();         
 		url = '/patients_search?firstname='+firstname+'&lastname='+lastname+'&number='+number+'&facility='+facility+'&ward='+ward+''
 		refreshgrid(url);	
 	};
