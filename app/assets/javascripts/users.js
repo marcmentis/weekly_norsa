@@ -97,20 +97,24 @@ if($('body.users').length) {
 							  type: 'GET',
 							  dataType: 'json'
 						}).done(function(data){
+							alert(data.id)
 							user_clearFields();
 							$('#b_user_Rt_Submit').attr('value','Edit');
 							$('#divUserAsideRt, #b_user_Rt_Submit, #b_user_Rt_Back').show();
 							$('#id').val(data.id);
-							$('#ftx_user__Rt_firstname').val(data.firstname);
-							$('#ftx_user__Rt_lastname').val(data.lastname);
-							$('#ftx_user__Rt_authen').val(data.authen);
-							$('#ftx_user__Rt_email').val(data.email);
-							$('#ftx_user__Rt_firstinitial').val(data.firstinitial);
-							$('#ftx_user__Rt_middleinitial').val(data.middleinitial);
-							$('#slt_user__Rt_facility').val(data.facility);
+							$('#ftx_user_Rt_firstname').val(data.firstname);
+							$('#ftx_user_Rt_lastname').val(data.lastname);
+							$('#ftx_user_Rt_authen').val(data.authen);
+							$('#ftx_user_Rt_email').val(data.email);
+							$('#ftx_user_Rt_firstinitial').val(data.firstinitial);
+							$('#ftx_user_Rt_middleinitial').val(data.middleinitial);
+							$('#slt_user_Rt_facility').val(data.facility);
 
 													  
-						}).fail(function(){
+						}).fail(function(jqXHR, textStatus, errorThrown){
+							alert('HTTP status code: ' + jqXHR.status + '\n' +
+			              'textStatus: ' + textStatus + '\n' +
+			              'errorThrown: ' + errorThrown);
 							alert('Error in: /user');
 						});
 				},
@@ -153,11 +157,17 @@ if($('body.users').length) {
 			buttonicon: '',
 			onClickButton: function(){		
 				user_clearFields();
-				// $('#divPatientAsideRt, #bNew, #bBack').show();
-				// $('#bDelete, #bEdit').hide();
 
 				$('#divUserAsideRt, #b_user_Rt_Submit, #b_user_Rt_Back').show();
 				$('#b_user_Rt_Submit').attr('value','New');
+			},
+			position:'last'
+		})
+		.navButtonAdd('#divPager', {
+			caption: 'Role',
+			buttonicon: '',
+			onClickButton: function(){		
+				alert('ROLES ID '+ID+'')
 			},
 			position:'last'
 		})
