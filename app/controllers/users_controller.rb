@@ -5,17 +5,43 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
-    if params[:page] != nil
-      total_query_count = User.all.count     
-      # Run query and extract just those rows needed
-      extract = User.order("#{params[:sidx]} #{params[:sord]}")
+    # @users = User.all
+    # if params[:page] != nil
+    #   total_query_count = User.all.count     
+    #   # Run query and extract just those rows needed
+    #   extract = User.order("#{params[:sidx]} #{params[:sord]}")
+    #                 .limit(params[:rows].to_i)
+    #                 .offset((params[:page].to_i - 1) * params[:rows].to_i)
+    #   # Create jsGrid object from 'extract' data
+    #   @jsGrid_obj = create_jsGrid_obj(extract, params, total_query_count)
+    # end
+
+    # respond_to do |format|
+    #   format.html
+    #   format.json {render json: @jsGrid_obj }
+    # end
+  end
+
+  # GET /users_search.json
+  def complex_search
+    conditions = User.all
+    conditions = conditions.where("facility = :facility", {facility: params[:facility]}) if params[:facility]!= '-1'
+    conditions = conditions.where("firstname LIKE ?", ''+params[:firstname]+'%') if params[:firstname]!= ''
+    conditions = conditions.where("lastname LIKE ?", ''+params[:lastname]+'%') if params[:lastname]!= ''
+    conditions = conditions.where("authen LIKE ?", ''+params[:authen]+'%') if params[:authen]!= ''
+    conditions = conditions.where("email LIKE ?", ''+params[:email]+'%') if params[:email]!= ''
+    conditions = conditions.where("firstinitial LIKE ?", ''+params[:firstinitial]+'%') if params[:firstinitial]!= ''
+    conditions = conditions.where("middleinitial LIKE ?", ''+params[:middleinitial]+'%') if params[:middleinitial]!= ''
+
+    total_query = conditions
+    total_query_count = total_query.count
+
+# Run query and extract just those rows needed
+      extract = conditions
+                    .order("#{params[:sidx]} #{params[:sord]}")
                     .limit(params[:rows].to_i)
                     .offset((params[:page].to_i - 1) * params[:rows].to_i)
-      # Create jsGrid object from 'extract' data
       @jsGrid_obj = create_jsGrid_obj(extract, params, total_query_count)
-    end
-
     respond_to do |format|
       format.html
       format.json {render json: @jsGrid_obj }

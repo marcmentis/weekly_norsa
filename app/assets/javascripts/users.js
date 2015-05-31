@@ -34,12 +34,65 @@ if($('body.users').length) {
 			user_complex_search1();
 		});
 
+	//FORM VALIDATION, SUBMIT HANDLER
+		//Validate and Submit fPatientAsideRt
+		$('#fUserAsideRt').validate({
+			rules: {
+				ftx_user_Rt_firstname: {
+					required: true,
+					minlength: 2
+				},
+				ftx_user_Rt_lastname: {
+					required: true,
+					minlength: 2
+				}
+			},
+			messages: {
+				code: {
+					required: "FirstName is required",
+					minlength: "Two characters required"
+				},
+				value: {
+					required: "LastName is required",
+					minlength: "Two chararcters required"
+				}
+			},
+			submitHandler: function(form){
+				//Get value of submit button to determine which AJAX call to make
+				submit_value = $(form).find('input[type=submit]').attr('value')
+				switch(submit_value){
+					case 'New':
+						user_ajax1('/users', 'POST');
+						break;
+					case 'Edit':
+						user_ajax1('/users/'+ID+'', 'PATCH');
+						break;
+					default:
+						alert('submit_id not found');
+						return false;
+				};
+				
+			}
+		});
+
+
+	// BUTTONS
+		//Submit complex search on fPatientSearch using hidden submit button
+		// $('#btnSubmit').click(function(e){
+		$('#fUserSearch').submit(function(e){
+			e.preventDefault();
+			user_complex_search1();
+		});
+		$('#b_user_Rt_Back').click(function(){
+			$('#divUserAsideRt, #b_user_Rt_Submit, #b_user_Rt_Back').hide();
+			user_clearFields();
+		});
 
 	$('#divUserGrid').html('<p> This should work </p>')
 
 	// RUN ON OPENING
-	user_refreshgrid('nil');
-	// user_complex_search1();
+	// user_refreshgrid('nil');
+	user_complex_search1();
 
 	//*****************************************************
 	//FUNCTIONS CALLED FROM ABOVE
@@ -97,7 +150,6 @@ if($('body.users').length) {
 							  type: 'GET',
 							  dataType: 'json'
 						}).done(function(data){
-							alert(data.id)
 							user_clearFields();
 							$('#b_user_Rt_Submit').attr('value','Edit');
 							$('#divUserAsideRt, #b_user_Rt_Submit, #b_user_Rt_Back').show();
@@ -189,10 +241,69 @@ if($('body.users').length) {
 
 
 	function user_clearFields(){
-		$('#ftx_user_Rt_firstname, #ftx_user_Rt_lastname, #ftx_user_Rt_authen, #ftx_user_Rt_email, #ftx_user_firstinitial, #ftx_user_middleinitial, #slt_user_Rt_facility').val('');
+		$('#ftx_user_Rt_firstname, #ftx_user_Rt_lastname,\
+			#ftx_user_Rt_authen, #ftx_user_Rt_email,\
+			#ftx_user_Rt_firstinitial, #ftx_user_Rt_middleinitial,\
+			#slt_user_Rt_facility').val('');
 		$('#UserAsideRtErrors').html('').hide();
 	 };
 	
+	function user_complex_search1 (){
+		var facility = $('#slt_user_S_facility').val();
+		var firstname = $('#ftx_user_S_firstname').val();
+		var lastname = $('#ftx_user_S_lastname').val();
+		var authen = $('#ftx_user_S_authen').val();
+		var email = $('#ftx_user_S_email').val();
+		var firstinitial = $('#ftx_user_S_firstinitial').val();
+		var middleinitial = $('#ftx_user_S_middleinitial').val();
+
+		// $("#gridGrid").remove();         
+		url = '/users_search?facility='+facility+'&firstname='+firstname+'&lastname='+lastname+'&authen='+authen+'&email='+email+'&firstinitial='+firstinitial+'&middleinitial='+middleinitial+''
+		user_refreshgrid(url);	
+	};
+
+	function user_ajax1 (url, type) {
+		var firstname = $('#ftx_user_Rt_firstname').val();
+		var lastname = $('#ftx_user_Rt_lastname').val();
+		var authen = $('#ftx_user_Rt_authen').val();
+		var email = $('#ftx_user_Rt_email').val();
+		var firstinitial = $('#ftx_user_Rt_firstinitial').val();
+		var middleinitial = $('#ftx_user_Rt_middleinitial').val();
+		var facility = $('#slt_user_Rt_facility').val();
+		// Create strong parameter
+		data_for_params ={user: {'firstname': firstname, 'lastname': lastname, 
+						'authen': authen, 'email': email, 
+						'firstinitial': firstinitial, 
+						'middleinitial': middleinitial,
+				  		'facility': facility}}
+
+		$.ajax({
+			url: url,
+			type: type,
+			data: data_for_params,
+			dataType: 'json'
+		}).done(function(data){
+			// for_select_refreshgrid('nil');
+			user_complex_search1();
+			user_clearFields();
+			$('#divUserAsideRt, #b_user_Rt_Submit, #b_user_Rt_Back').hide();
+
+		}).fail(function(jqXHR,textStatus,errorThrown){
+			// alert('HTTP status code: ' + jqXHR.status + '\n' +
+	  //             'textStatus: ' + textStatus + '\n' +
+	  //             'errorThrown: ' + errorThrown);
+	  //       alert('HTTP message body (jqXHR.responseText): ' + '\n' + jqXHR.responseText);
+	        var msg = JSON.parse(jqXHR.responseText)
+	        var newHTML;
+	        newHTML = '<h3>Validation Error</h3>';	
+	        newHTML += '<ul>';        
+	        $.each(msg, function(key, value){
+	        	newHTML += '<li>'+ value +'</li>';
+	        });
+	        newHTML += '</ul>';
+	        $('#UserAsideRtErrors').show().html(newHTML)
+		});
+	};
 
 };		//if($('#body.users').length) {
 });		//$(function(){
