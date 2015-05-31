@@ -25,6 +25,24 @@ if($('body.users').length) {
 		//dates
 		// $('[id^=dt]').datepicker().css({'width':'7em'});
 
+		//WIP
+		// $('#divUserRwrapper')
+		$('#divUserRwrapper').addClass('form_container')
+								.hide();
+		$('#divUserRLt').css({'float': 'left'});
+		$('#divUserRCnr').css({'float': 'left'});
+		$('#divUserRRt').css({'float': 'left'});
+		$('#divUserBreaker').css({'clear':'both'})
+
+		$('#slt_user_R_userRoles, #slt_user_R_allRoles, #slt_user_R_usersWithRoles').attr({
+						size: "12",
+						multiple: "yes"
+					});
+		$('#b_user_R_addRole').click(function(){
+			roles = $('#slt_user_R_allRoles').val();
+			alert(roles)
+		});
+
 	//SELECTS
 		//TO DO show appropriate only if Admin2
 		$('#slt_user_S_facility, #slt_user_Rt_facility').mjm_addOptions('facility', {firstLine: 'Facilities'})
@@ -219,7 +237,10 @@ if($('body.users').length) {
 			caption: 'Role',
 			buttonicon: '',
 			onClickButton: function(){		
-				alert('ROLES ID '+ID+'')
+				//get roles for selected user
+				//get all roles
+				get_user_roles(''+ID+'');
+				get_all_roles();
 			},
 			position:'last'
 		})
@@ -237,6 +258,75 @@ if($('body.users').length) {
 			},
 			position:'last'
 		});
+	};
+
+	function get_all_roles(){
+		var html = '';
+		data_for_params = '';
+		url = '/roles';
+		type = 'GET'
+
+		$.ajax({
+			url: url,
+			type: type,
+			data: data_for_params,
+			dataType: 'json'
+		}).done(function(data){
+			$('#slt_user_R_allRoles').find('option').remove();
+			if(data.length != 0){
+				for(var i = 0; i < data.length; i++){
+					html += '<option value="' + data[i].name + '">' + data[i].name + '</option>';
+				};
+			}; 
+			$('#divUserRwrapper').show();
+			$('#slt_user_R_allRoles').append(html);
+			
+		}).fail(function(jqXHR,textStatus,errorThrown){
+			alert('HTTP status code: ' + jqXHR.status + '\n' +
+	              'textStatus: ' + textStatus + '\n' +
+	              'errorThrown: ' + errorThrown);
+	        alert('HTTP message body (jqXHR.responseText): ' + '\n' + jqXHR.responseText);
+		});
+	};
+
+	function get_user_roles(userID){
+		var html = '';
+		data_for_params ={user: {'id': userID}};
+		url = '/users_roles/'+userID+'';
+		type = 'GET'
+
+		$.ajax({
+			url: url,
+			type: type,
+			data: data_for_params,
+			dataType: 'json'
+		}).done(function(data){
+			$('#slt_user_R_userRoles').find('option').remove();
+			var lastname = $('#ftx_user_Rt_lastname').val();
+			var firstinitial = $('#ftx_user_Rt_firstinitial').val();
+			name = firstinitial + '.' + lastname
+
+			if(data.length != 0){
+				for(var i = 0; i < data.length; i++){
+					html += '<option value="' + data[i].name + '">' + data[i].name + '</option>';
+				};
+			}; 
+			$('#divUserRwrapper').show();
+
+			$('#s_user_R_name').empty();
+			$('#s_user_R_name').text(name);
+			$('#slt_user_R_userRoles').append(html);
+			
+		}).fail(function(jqXHR,textStatus,errorThrown){
+			alert('HTTP status code: ' + jqXHR.status + '\n' +
+	              'textStatus: ' + textStatus + '\n' +
+	              'errorThrown: ' + errorThrown);
+	        alert('HTTP message body (jqXHR.responseText): ' + '\n' + jqXHR.responseText);
+		});
+
+
+
+		
 	};
 
 

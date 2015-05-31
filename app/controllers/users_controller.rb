@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   include JqgridHelper
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :user_roles]
 
   # GET /users
   # GET /users.json
@@ -45,6 +45,22 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html
       format.json {render json: @jsGrid_obj }
+    end
+  end
+
+  # GET/users/1.json
+  def user_roles
+    @user_roles = @user.roles
+    respond_to do |format|
+      format.json {render json: @user_roles }
+    end
+  end
+
+  # GET /roles/
+  def all_roles
+    @roles = Role.all
+    respond_to do |format|
+      format.json {render json: @roles}
     end
   end
 
