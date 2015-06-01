@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   include JqgridHelper
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :user_roles, :add_role]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :user_roles, :add_role, :remove_role]
 
   # GET /users
   # GET /users.json
@@ -28,8 +28,8 @@ class UsersController < ApplicationController
     conditions = conditions.where("facility = :facility", {facility: params[:facility]}) if params[:facility]!= '-1'
     conditions = conditions.where("firstname LIKE ?", ''+params[:firstname]+'%') if params[:firstname]!= ''
     conditions = conditions.where("lastname LIKE ?", ''+params[:lastname]+'%') if params[:lastname]!= ''
-    conditions = conditions.where("authen LIKE ?", ''+params[:authen]+'%') if params[:authen]!= ''
-    conditions = conditions.where("email LIKE ?", ''+params[:email]+'%') if params[:email]!= ''
+    conditions = conditions.where("authen LIKE ?", ''+params[:authen]+'%') if not params[:authen].blank?
+    # conditions = conditions.where("email LIKE ?", ''+params[:email]+'%') if not params[:email].blank?
     conditions = conditions.where("firstinitial LIKE ?", ''+params[:firstinitial]+'%') if params[:firstinitial]!= ''
     conditions = conditions.where("middleinitial LIKE ?", ''+params[:middleinitial]+'%') if params[:middleinitial]!= ''
 
@@ -48,14 +48,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET/users/1.json
-  def user_roles
-    @user_roles = @user.roles
-    respond_to do |format|
-      format.json {render json: @user_roles }
-    end
-  end
-
   # GET /users/1
   # GET /users/1.json
   def show
@@ -68,17 +60,6 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-  end
-
-  # POST /users_add_role/1.json
-
-  def add_role
-    # byebug
-    role_name = params[:user][:role_name][0]
-    @user.add_role ''+role_name+''
-    respond_to do |format|
-      format.json {render json: @user}
-    end
   end
 
   # POST /users
@@ -118,6 +99,33 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html { redirect_to users_url }
       format.json { head :no_content }
+    end
+  end
+
+  # USER-ROLE RELATIONSHIP
+  # GET/users/1.json
+  def user_roles
+    @user_roles = @user.roles.order('name')
+    respond_to do |format|
+      format.json {render json: @user_roles }
+    end
+  end
+
+  # POST /users_add_role/1.json
+  def add_role
+    role_name = params[:user][:role_name]
+    @user.add_role ''+role_name+''
+    respond_to do |format|
+      format.json {render json: @user}
+    end
+  end
+
+  # DELETE /users_remove_role/1.json
+  def remove_role
+    role_name = params[:user][:role_name]
+    @user.remove_role ''+role_name+''
+    respond_to do |format|
+      format.json {render json: @user}
     end
   end
 

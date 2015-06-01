@@ -38,6 +38,7 @@ if($('body.users').length) {
 						size: "12",
 						multiple: "no"
 					});
+		$('#slt_user_R_usersWithRoles').css({'width':'220px'})
 		
 
 	//SELECTS
@@ -47,6 +48,14 @@ if($('body.users').length) {
 		//Filter when facility changed
 		$('#slt_user_S_facility').change(function(){
 			user_complex_search1();
+		});
+
+		//Get all users for selected role
+		$('#slt_user_R_allRoles').change(function(){
+			role_name = $('#slt_user_R_allRoles').val();
+			url = '/roles_users/';
+			type = 'GET'
+			get_all_users(role_name, url, type);
 		});
 
 	//FORM VALIDATION, SUBMIT HANDLER
@@ -98,37 +107,43 @@ if($('body.users').length) {
 			e.preventDefault();
 			user_complex_search1();
 		});
+		
 		$('#b_user_Rt_Back').click(function(){
 			$('#divUserAsideRt, #b_user_Rt_Submit, #b_user_Rt_Back').hide();
 			user_clearFields();
 		});
 
 		$('#b_user_R_addRole').click(function(){
-			role_name = $('#slt_user_R_allRoles').val();
-			add_role(role_name, ID);
-		});
-
-		function add_role(role_name, user_id){
-			data_for_params = {user: {id: user_id, role_name: role_name}};
+			no_options_selected = $('#slt_user_R_allRoles :selected').length;
+			if (no_options_selected != 1) {
+				alert('Please select 1 role only from All Roles list')
+				return;
+			};
+			role_name_array = $('#slt_user_R_allRoles').val();
+			role_name = role_name_array[0];
 			url = '/users_add_role/'+ID+'';
 			type = 'POST'
+			add_remove_role(role_name, ID, url, type);
+		});
 
-			$.ajax({
-				url: url,
-				type: type,
-				data: data_for_params,
-				dataType: 'json'
-			}).done(function(data){
-				alert('in success')
-				get_user_roles(ID);
-				
-			}).fail(function(jqXHR,textStatus,errorThrown){
-				alert('HTTP status code: ' + jqXHR.status + '\n' +
-		              'textStatus: ' + textStatus + '\n' +
-		              'errorThrown: ' + errorThrown);
-		        alert('HTTP message body (jqXHR.responseText): ' + '\n' + jqXHR.responseText);
-			});
-		};
+		$('#b_user_R_newRole').click(function(){
+			new_role_name = $('#txt_user_R_newRole').val();
+			url = '/users_add_role/'+ID+'';
+			type = 'POST'
+			add_remove_role(new_role_name, ID, url, type);
+		});
+
+		$('#b_user_R_removeRole').click(function(){
+			role_name_array = $('#slt_user_R_userRoles').val();
+			role_name = role_name_array[0];
+			url = '/users_remove_role/'+ID+'';
+			type = 'DELETE'
+			add_remove_role(role_name, ID, url, type);
+		});
+
+
+
+
 
 	// RUN ON OPENING
 	// user_refreshgrid('nil');
@@ -282,76 +297,6 @@ if($('body.users').length) {
 		});
 	};
 
-	function get_all_roles(){
-		var html = '';
-		data_for_params = '';
-		url = '/roles';
-		type = 'GET'
-
-		$.ajax({
-			url: url,
-			type: type,
-			data: data_for_params,
-			dataType: 'json'
-		}).done(function(data){
-			$('#slt_user_R_allRoles').find('option').remove();
-			if(data.length != 0){
-				for(var i = 0; i < data.length; i++){
-					html += '<option value="' + data[i].name + '">' + data[i].name + '</option>';
-				};
-			}; 
-			$('#divUserRwrapper').show();
-			$('#slt_user_R_allRoles').append(html);
-			
-		}).fail(function(jqXHR,textStatus,errorThrown){
-			alert('HTTP status code: ' + jqXHR.status + '\n' +
-	              'textStatus: ' + textStatus + '\n' +
-	              'errorThrown: ' + errorThrown);
-	        alert('HTTP message body (jqXHR.responseText): ' + '\n' + jqXHR.responseText);
-		});
-	};
-
-	function get_user_roles(userID){
-		var html = '';
-		data_for_params ={user: {'id': userID}};
-		url = '/users_roles/'+userID+'';
-		type = 'GET'
-
-		$.ajax({
-			url: url,
-			type: type,
-			data: data_for_params,
-			dataType: 'json'
-		}).done(function(data){
-			$('#slt_user_R_userRoles').find('option').remove();
-			var lastname = $('#ftx_user_Rt_lastname').val();
-			var firstinitial = $('#ftx_user_Rt_firstinitial').val();
-			name = firstinitial + '.' + lastname
-
-			if(data.length != 0){
-				for(var i = 0; i < data.length; i++){
-					html += '<option value="' + data[i].name + '">' + data[i].name + '</option>';
-				};
-			}; 
-			$('#divUserRwrapper').show();
-
-			$('#s_user_R_name').empty();
-			$('#s_user_R_name').text(name);
-			$('#slt_user_R_userRoles').append(html);
-			
-		}).fail(function(jqXHR,textStatus,errorThrown){
-			alert('HTTP status code: ' + jqXHR.status + '\n' +
-	              'textStatus: ' + textStatus + '\n' +
-	              'errorThrown: ' + errorThrown);
-	        alert('HTTP message body (jqXHR.responseText): ' + '\n' + jqXHR.responseText);
-		});
-
-
-
-		
-	};
-
-
 	function user_clearFields(){
 		$('#ftx_user_Rt_firstname, #ftx_user_Rt_lastname,\
 			#ftx_user_Rt_authen, #ftx_user_Rt_email,\
@@ -414,6 +359,131 @@ if($('body.users').length) {
 	        });
 	        newHTML += '</ul>';
 	        $('#UserAsideRtErrors').show().html(newHTML)
+		});
+	};
+
+	function get_all_roles(){
+		data_for_params = '';
+		url = '/roles';
+		type = 'GET'
+
+		$.ajax({
+			url: url,
+			type: type,
+			data: data_for_params,
+			dataType: 'json'
+		}).done(function(data){
+			var html = '';
+			$('#txt_user_R_newRole').val('');
+			$('#slt_user_R_allRoles').find('option').remove();
+			if(data.length != 0){
+				for(var i = 0; i < data.length; i++){
+					html += '<option value="' + data[i].name + '">' + data[i].name + '</option>';
+				};
+			}; 
+			$('#divUserRwrapper').show();
+			$('#slt_user_R_allRoles').append(html);
+			
+		}).fail(function(jqXHR,textStatus,errorThrown){
+			alert('HTTP status code: ' + jqXHR.status + '\n' +
+	              'textStatus: ' + textStatus + '\n' +
+	              'errorThrown: ' + errorThrown);
+	        alert('HTTP message body (jqXHR.responseText): ' + '\n' + jqXHR.responseText);
+		});
+	};
+
+	function get_user_roles(userID){
+		var html = '';
+		data_for_params ={user: {'id': userID}};
+		url = '/users_roles/'+userID+'';
+		type = 'GET'
+
+		$.ajax({
+			url: url,
+			type: type,
+			data: data_for_params,
+			dataType: 'json'
+		}).done(function(data){
+			$('#slt_user_R_userRoles').find('option').remove();
+			var lastname = $('#ftx_user_Rt_lastname').val();
+			var firstinitial = $('#ftx_user_Rt_firstinitial').val();
+			name = firstinitial + '.' + lastname
+
+			if(data.length != 0){
+				for(var i = 0; i < data.length; i++){
+					html += '<option value="' + data[i].name + '">' + data[i].name + '</option>';
+				};
+			}; 
+			$('#divUserRwrapper').show();
+
+			$('#s_user_R_name').empty();
+			$('#s_user_R_name').text(name);
+			$('#slt_user_R_userRoles').append(html);
+			
+		}).fail(function(jqXHR,textStatus,errorThrown){
+			alert('HTTP status code: ' + jqXHR.status + '\n' +
+	              'textStatus: ' + textStatus + '\n' +
+	              'errorThrown: ' + errorThrown);
+	        alert('HTTP message body (jqXHR.responseText): ' + '\n' + jqXHR.responseText);
+		});		
+	};
+
+	function add_remove_role(role_name, user_id, url, type){
+		//Rolify calls: 
+			//@user.add_role 'role_name'
+				// If 'role_name' exists will add it to user
+				// If 'role_name' does not exist will (i) add it to user (ii) create new role
+			//@user.remove_role 'role_name'
+				// Will remove 'role_name' from users_roles table
+				// If no more users have that 'role_name' will
+					// destroy 'role_name' from 'roles' table
+		data_for_params = {user: {id: user_id, role_name: role_name}};
+
+		$.ajax({
+			url: url,
+			type: type,
+			data: data_for_params,
+			dataType: 'json'
+		}).done(function(data){
+			get_user_roles(ID);
+			get_all_roles();
+			
+		}).fail(function(jqXHR,textStatus,errorThrown){
+			alert('HTTP status code: ' + jqXHR.status + '\n' +
+	              'textStatus: ' + textStatus + '\n' +
+	              'errorThrown: ' + errorThrown);
+	        alert('HTTP message body (jqXHR.responseText): ' + '\n' + jqXHR.responseText);
+		});
+	};
+
+	function get_all_users(role_name, url, type){		
+		data_for_params = {name: role_name};
+
+		$.ajax({
+			url: url,
+			type: type,
+			data: data_for_params,
+			dataType: 'json'
+		}).done(function(data){
+			var html = '';
+			$('#slt_user_R_usersWithRoles').find('option').remove();
+			if(data.length != 0){
+				for(var i = 0; i < data.length; i++){
+					firstinitial = data[i].firstinitial
+					lastname = data[i].lastname 
+					authen = data[i].authen
+					facility = data[i].facility
+					name = ''+firstinitial+'. '+lastname+': '+authen+': '+facility+''
+					html += '<option value="' + data[i].id + '">' + name + '</option>';
+				};
+			}; 
+			$('#slt_user_R_usersWithRoles').append(html);
+			
+		}).fail(function(jqXHR,textStatus,errorThrown){
+			alert('HTTP status code: ' + jqXHR.status + '\n' +
+	              'textStatus: ' + textStatus + '\n' +
+	              'errorThrown: ' + errorThrown);
+	        alert('HTTP message body (jqXHR.responseText): ' + '\n' + jqXHR.responseText);
 		});
 	};
 
