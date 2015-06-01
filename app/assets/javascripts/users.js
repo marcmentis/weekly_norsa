@@ -38,10 +38,7 @@ if($('body.users').length) {
 						size: "12",
 						multiple: "yes"
 					});
-		$('#b_user_R_addRole').click(function(){
-			roles = $('#slt_user_R_allRoles').val();
-			alert(roles)
-		});
+		
 
 	//SELECTS
 		//TO DO show appropriate only if Admin2
@@ -106,7 +103,32 @@ if($('body.users').length) {
 			user_clearFields();
 		});
 
-	$('#divUserGrid').html('<p> This should work </p>')
+		$('#b_user_R_addRole').click(function(){
+			role_name = $('#slt_user_R_allRoles').val();
+			alert(role_name)
+			add_role(role_name, ID)
+		});
+
+		function add_role(role_name, user_id){
+			data_for_params = {user: {id: user_id, role_name: role_name}};
+			url = '/users_add_role/'+ID+'';
+			type = 'POST'
+
+			$.ajax({
+				url: url,
+				type: type,
+				data: data_for_params,
+				dataType: 'json'
+			}).done(function(data){
+				alert('success') 
+				
+			}).fail(function(jqXHR,textStatus,errorThrown){
+				alert('HTTP status code: ' + jqXHR.status + '\n' +
+		              'textStatus: ' + textStatus + '\n' +
+		              'errorThrown: ' + errorThrown);
+		        alert('HTTP message body (jqXHR.responseText): ' + '\n' + jqXHR.responseText);
+			});
+		};
 
 	// RUN ON OPENING
 	// user_refreshgrid('nil');

@@ -10,7 +10,8 @@ Rollify::Application.routes.draw do
   get '/for_selects_search' => 'for_selects#complex_search', as: :complex_search_for_selects
   get '/users_search' => 'users#complex_search', as: :complex_search_users
   get '/users_roles/:id' => 'users#user_roles', as: :user_roles
-  get '/roles' => 'users#all_roles', as: :all_roles
+  post '/users_add_role/:id' => 'users#add_role', as: :add_role
+  get '/roles' => 'roles#all_roles', as: :all_roles
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

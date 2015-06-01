@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   include JqgridHelper
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :user_roles]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :user_roles, :add_role]
 
   # GET /users
   # GET /users.json
@@ -36,7 +36,7 @@ class UsersController < ApplicationController
     total_query = conditions
     total_query_count = total_query.count
 
-# Run query and extract just those rows needed
+    # Run query and extract just those rows needed
       extract = conditions
                     .order("#{params[:sidx]} #{params[:sord]}")
                     .limit(params[:rows].to_i)
@@ -56,14 +56,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET /roles/
-  def all_roles
-    @roles = Role.all
-    respond_to do |format|
-      format.json {render json: @roles}
-    end
-  end
-
   # GET /users/1
   # GET /users/1.json
   def show
@@ -76,6 +68,16 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+  end
+
+  # POST /users_add_role/1.json
+
+  def add_role
+    # byebug
+    @user.add_role ''+params[:user][:role_name]+''
+    respond_to do |format|
+      format.json {render json: @user}
+    end
   end
 
   # POST /users
