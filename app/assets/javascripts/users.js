@@ -36,7 +36,7 @@ if($('body.users').length) {
 
 		$('#slt_user_R_userRoles, #slt_user_R_allRoles, #slt_user_R_usersWithRoles').attr({
 						size: "12",
-						multiple: "yes"
+						multiple: "no"
 					});
 		
 
@@ -105,8 +105,7 @@ if($('body.users').length) {
 
 		$('#b_user_R_addRole').click(function(){
 			role_name = $('#slt_user_R_allRoles').val();
-			alert(role_name)
-			add_role(role_name, ID)
+			add_role(role_name, ID);
 		});
 
 		function add_role(role_name, user_id){
@@ -120,7 +119,8 @@ if($('body.users').length) {
 				data: data_for_params,
 				dataType: 'json'
 			}).done(function(data){
-				alert('success') 
+				alert('in success')
+				get_user_roles(ID);
 				
 			}).fail(function(jqXHR,textStatus,errorThrown){
 				alert('HTTP status code: ' + jqXHR.status + '\n' +

@@ -74,7 +74,8 @@ class UsersController < ApplicationController
 
   def add_role
     # byebug
-    @user.add_role ''+params[:user][:role_name]+''
+    role_name = params[:user][:role_name][0]
+    @user.add_role ''+role_name+''
     respond_to do |format|
       format.json {render json: @user}
     end
