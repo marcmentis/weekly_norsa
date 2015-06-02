@@ -8,31 +8,31 @@
       <fieldset>
         <input id="id" type="hidden" name="id" />
         <div class="field"> 
-          <label for="facility" class="label">facility</label>      
+          <label for="facility" >Facility</label>      
           <select id="slt_user_Rt_facility" name="slt_user_Rt_facility"></select>          
         </div>
         <div class="field">
-          <label for="ftx_user_Rt_firstname" class="label">FirstName</label>
+          <label for="ftx_user_Rt_firstname" >FirstName</label>
           <input id="ftx_user_Rt_firstname" name="ftx_user_Rt_firstname" type="text"/>
         </div>         
         <div class="field">
-          <label for="ftx_user_Rt_lastname" class="label">LastName</label>
+          <label for="ftx_user_Rt_lastname" >LastName</label>
           <input id="ftx_user_Rt_lastname" name="ftx_user_Rt_lastname" type="text" />    
         </div>
         <div class="field">
-          <label for="ftx_user_Rt_authen" class="label">Authen</label>
+          <label for="ftx_user_Rt_authen" >Authen</label>
           <input id="ftx_user_Rt_authen" name="ftx_user_Rt_authen" type="text" />    
         </div>
         <div class="field">
-          <label for="ftx_user_Rt_email" class="label">eMail</label>
+          <label for="ftx_user_Rt_email" >eMail</label>
           <input id="ftx_user_Rt_email" name="ftx_user_Rt_email" type="text" />    
         </div>
         <div class="field">
-          <label for="ftx_user_Rt_firstinitial" class="label">FI</label>
+          <label for="ftx_user_Rt_firstinitial" >FI</label>
           <input id="ftx_user_Rt_firstinitial" name="ftx_user_Rt_firstinitial" type="text" />    
         </div>
         <div class="field">
-          <label for="ftx_user_Rt_middleinitial" class="label">MI</label>
+          <label for="ftx_user_Rt_middleinitial" >MI</label>
           <input id="ftx_user_Rt_middleinitial" name="ftx_user_Rt_middleinitial" type="text" />    
         </div>
         <div>
@@ -81,37 +81,61 @@
   <div id="divUserGrid"></div>
 
 
-  <div id="divUserRwrapper">
-    <div id="divUserRLt">
-      <div><span id="s_user_R_name"></span></div>
+  <div id="divUserRwrapper"> 
+    <form id="fUserR">
+    <fieldset>
       <div>
-        <select id="slt_user_R_userRoles" name="slt_user_R_userRoles"></select>
+        <h2>Roles  <span id="s_user_R_titleName"></span></h2>
+        
       </div>
-      <div>
-        <input id="b_user_R_addRole" type="button" value="Add Role"></input>
+      
+      <div class="field_roles"> 
+        <label><h3><span id="s_user_R_name"></span></h3></label>
+        <div>
+          <select id="slt_user_R_userRoles" name="slt_user_R_userRoles"></select>
+        </div>
+        <div class="spacer_vertical_small">
+          <input id="b_user_R_addRole" type="button" value="Add Role"></input>
+        </div>
+        <div class="spacer_vertical_small">
+          <input id="b_user_R_removeRole" type="button" value="Remove Role">
+        </div>
+        <div class="spacer_vertical_small">
+          <input id="txt_user_R_newRole" type="text" />
+          <input id="b_user_R_newRole" type="button" value="New"></input>
+        </div>
       </div>
-      <div>
-        <input id="b_user_R_removeRole" type="button" value="Remove Role">
+
+      <div class="field_roles">
+        <label><h3>All Roles</h3></label>
+        <div>
+          <select id="slt_user_R_allRoles" name="slt_user_R_allRoles"></select>
+        </div> 
       </div>
-      <div>
-        <input id="txt_user_R_newRole" type="text" />
-        <input id="b_user_R_newRole" type="button" value="New"></input>
+
+      <div class="field_roles">
+        <label><h3>Users with Role</h3></label>
+        <select id="slt_user_R_usersWithRoles" name="slt_user_R_usersWithRoles">
+        </select>  
       </div>
+    </fieldset> 
+    </form>
+    
+
+
+
+ <!--    <div id="divUserRLt">
+      
     </div>
     <div id="divUserRCnr">
-      <div>All Roles</div>
-      <div>
-        <select id="slt_user_R_allRoles" name="slt_user_R_allRoles"></select>
-      </div>      
+           
       
     </div>
     <div id="divUserRRt">
-      <div>USERS with Role</div>
-      <select id="slt_user_R_usersWithRoles" name="slt_user_R_usersWithRoles">
-      </select>
-    </div>
       
-      <div id="divUserBreaker"></div>
+    </div> -->
+      
+      <!-- <div id="divUserBreaker"></div> -->
 </div> <!-- id="divUserPageWrapper" -->
 </div> <!-- id="divUserPageInnerWrapper" -->
 

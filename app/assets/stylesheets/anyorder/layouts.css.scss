@@ -125,6 +125,9 @@ $background_light_gray: #F5F5F5;
 	float:left;
 	left: -50%;
 }
+.spacer_vertical_small{
+	margin-top: 0.25em;
+}
 
 /* text */
 .moderate_increase {
@@ -158,7 +161,7 @@ $background_light_gray: #F5F5F5;
 	// min-width:300px;
 	padding:4px;
 	width:600px;
-	.label {
+	label {
 		color: $r_click_default_text;
 	}
 	h2 {
@@ -264,6 +267,19 @@ div.ui-datepicker, .ui-datepicker td{
 	left: -9999px;
 }
 
+//From Users index.html.erb
+
+.field_roles {
+	display: inline-block;
+	// width: 210px;
+	text-align: center;
+	vertical-align: text-top;
+	padding: 0.5em;
+	margin-right: 2em;
+}
+.text_color_roles {
+
+}
 
 
 

@@ -6,6 +6,7 @@ if($('body.users').length) {
 		  	function set_id(x){ID = x};
 
 	//STYLING
+		//wrappers etc.
 		$('#divUserPageWrapper').addClass('pad_3_sides');
 		$('#divUserPageInnerWrapper').addClass('centered')
 									.css({'width':'75em'});
@@ -14,32 +15,35 @@ if($('body.users').length) {
 							.hide();
 		$('#UserAsideRtErrors').addClass('error_explanation')
 								.hide();
+		$('#divUserRwrapper').addClass('pad_3_sides ')
+							.css({'margin-top': '1em'})
+							.hide();
 
+		//forms
 		$('#fUserSearch').addClass('form_container').css({'width':'692px'});
-		// Can't use .hide() as wont work with IE 10
-		$('#b_user_select').addClass('move_off_page')
+		$('#fUserR').addClass('form_container')
+							.css({'width':'692px'});
 
 		//button
 		$('[id^=b_]').button().addClass('reduce_button')
+		// Can't use .hide() as wont work with IE 10
+		$('#b_user_select').addClass('move_off_page')
 
 		//dates
 		// $('[id^=dt]').datepicker().css({'width':'7em'});
 
-		//WIP
-		// $('#divUserRwrapper')
-		$('#divUserRwrapper').addClass('form_container')
-								.hide();
-		$('#divUserRLt').css({'float': 'left'});
-		$('#divUserRCnr').css({'float': 'left'});
-		$('#divUserRRt').css({'float': 'left'});
-		$('#divUserBreaker').css({'clear':'both'})
+		//selects
+		$('#slt_user_R_userRoles').attr({size: "13", multiple: "no"})
+								.css({'width':'160px'})
 
-		$('#slt_user_R_userRoles, #slt_user_R_allRoles, #slt_user_R_usersWithRoles').attr({
-						size: "12",
-						multiple: "no"
-					});
-		$('#slt_user_R_usersWithRoles').css({'width':'220px'})
+		$('#slt_user_R_allRoles').attr({size: "18", multiple: "no"})
+								.css({'width':'160px'})
+
+		$('#slt_user_R_usersWithRoles').attr({size: "18", multiple: "no"})
+								.css({'width':'240px'})
 		
+		//spans
+		$('#s_user_R_titleName').css({'font-size': '12px'});
 
 	//SELECTS
 		//TO DO show appropriate only if Admin2
@@ -107,7 +111,7 @@ if($('body.users').length) {
 			e.preventDefault();
 			user_complex_search1();
 		});
-		
+
 		$('#b_user_Rt_Back').click(function(){
 			$('#divUserAsideRt, #b_user_Rt_Submit, #b_user_Rt_Back').hide();
 			user_clearFields();
@@ -407,17 +411,23 @@ if($('body.users').length) {
 			$('#slt_user_R_userRoles').find('option').remove();
 			var lastname = $('#ftx_user_Rt_lastname').val();
 			var firstinitial = $('#ftx_user_Rt_firstinitial').val();
+			var firstname = $('#ftx_user_Rt_firstname').val();
+			var authen = $('#ftx_user_Rt_authen').val();
+			var facility = $('#slt_user_Rt_facility option:selected').text();
 			name = firstinitial + '.' + lastname
+			name2 = firstname +' '+lastname+' '+authen+' '+facility+''
+
+			$('#s_user_R_name').empty();
+			$('#s_user_R_name').text(name);
+			$('#s_user_R_titleName').empty();
+			$('#s_user_R_titleName').text(name2);
 
 			if(data.length != 0){
 				for(var i = 0; i < data.length; i++){
 					html += '<option value="' + data[i].name + '">' + data[i].name + '</option>';
 				};
 			}; 
-			$('#divUserRwrapper').show();
-
-			$('#s_user_R_name').empty();
-			$('#s_user_R_name').text(name);
+			$('#divUserRwrapper').show();			
 			$('#slt_user_R_userRoles').append(html);
 			
 		}).fail(function(jqXHR,textStatus,errorThrown){
