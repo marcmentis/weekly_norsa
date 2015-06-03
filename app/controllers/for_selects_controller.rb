@@ -72,7 +72,7 @@ class ForSelectsController < ApplicationController
 
     @options = options
     respond_to do |format|
-      format.html
+      # format.html
       format.json {render json: @options }
     end
   end

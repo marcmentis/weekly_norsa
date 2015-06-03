@@ -45,9 +45,6 @@ if($('body.users').length) {
 		//spans
 		$('#s_user_R_titleName').css({'font-size': '12px'});
 
-	//SELECTS
-		//TO DO show appropriate only if Admin2
-		$('#slt_user_S_facility, #slt_user_Rt_facility').mjm_addOptions('facility', {firstLine: 'Facilities'})
 
 		//Filter when facility changed
 		$('#slt_user_S_facility').change(function(){
@@ -103,6 +100,10 @@ if($('body.users').length) {
 			}
 		});
 
+	//SELECTS
+		//TO DO show appropriate only if Admin2
+		$('#slt_user_S_facility, #slt_user_Rt_facility').mjm_addOptions('facility', {firstLine: 'Facilities'})
+
 
 	// BUTTONS
 		//Submit complex search on fPatientSearch using hidden submit button
@@ -156,12 +157,10 @@ if($('body.users').length) {
 		});
 
 
-
-
-
 	// RUN ON OPENING
 	// user_refreshgrid('nil');
 	user_complex_search1();
+
 
 	//*****************************************************
 	//FUNCTIONS CALLED FROM ABOVE
