@@ -132,12 +132,22 @@ if($('body.users').length) {
 
 		$('#b_user_R_newRole').click(function(){
 			new_role_name = $('#txt_user_R_newRole').val();
+			if (new_role_name == '') {
+				alert('Please enter new role in Text box');
+				$('#txt_user_R_newRole').focus();
+				return true;
+			};
 			url = '/users_add_role/'+ID+'';
 			type = 'POST'
 			add_remove_role(new_role_name, ID, url, type);
 		});
 
 		$('#b_user_R_removeRole').click(function(){
+			no_options_selected = $('#slt_user_R_userRoles :selected').length;
+			if (no_options_selected != 1) {
+				alert('Please select 1 role only from Users Roles list')
+				return;
+			};
 			role_name_array = $('#slt_user_R_userRoles').val();
 			role_name = role_name_array[0];
 			url = '/users_remove_role/'+ID+'';
@@ -195,7 +205,10 @@ if($('body.users').length) {
 			caption:"Users ",
 
 		        loadComplete: function(){
-		        	// alert('in loadComplete')
+		        	reset_ID();
+		        	user_clearFields();
+		        	$('#divUserAsideRt, #b_user_Rt_Submit, #b_user_Rt_Back').hide();
+		        	roles_clearFields();
 		        },
 
 				onSelectRow:function(id) { 
@@ -210,6 +223,7 @@ if($('body.users').length) {
 							  dataType: 'json'
 						}).done(function(data){
 							user_clearFields();
+							roles_clearFields();
 							$('#b_user_Rt_Submit').attr('value','Edit');
 							$('#divUserAsideRt, #b_user_Rt_Submit, #b_user_Rt_Back').show();
 							$('#id').val(data.id);
@@ -266,9 +280,10 @@ if($('body.users').length) {
 		.navButtonAdd('#divPager', {
 			caption: 'New',
 			buttonicon: '',
-			onClickButton: function(){		
+			onClickButton: function(){	
+				reset_ID();	
 				user_clearFields();
-
+				roles_clearFields();
 				$('#divUserAsideRt, #b_user_Rt_Submit, #b_user_Rt_Back').show();
 				$('#b_user_Rt_Submit').attr('value','New');
 			},
@@ -277,19 +292,26 @@ if($('body.users').length) {
 		.navButtonAdd('#divPager', {
 			caption: 'Role',
 			buttonicon: '',
-			onClickButton: function(){		
-				//get roles for selected user
-				//get all roles
-				get_user_roles(''+ID+'');
-				get_all_roles();
+			onClickButton: function(){	
+				if(ID == ''){
+					alert('Please select User from "Users" table');
+					return false;
+				} else {
+					get_user_roles(''+ID+'');
+					get_all_roles();
+				};			
 			},
 			position:'last'
 		})
 		.navButtonAdd('#divPager', {
 			caption: 'Delete',
 			buttonicon: '',
-			onClickButton: function(){	
-				if (ID.length > 0) {	
+			onClickButton: function(){
+				roles_clearFields();
+				if(ID == '') {
+					alert('Please select User from "Users" table');
+					return false;
+				} else {
 					if(confirm("Are you sure you want to delete this user")){
 						user_ajax1('/users/'+ID+'', 'DELETE');	
 					} else {
@@ -307,7 +329,15 @@ if($('body.users').length) {
 			#ftx_user_Rt_firstinitial, #ftx_user_Rt_middleinitial,\
 			#slt_user_Rt_facility').val('');
 		$('#UserAsideRtErrors').html('').hide();
-	 };
+	};
+
+	function roles_clearFields(){
+		$('#slt_user_R_userRoles, #slt_user_R_allRoles,\
+			#slt_user_R_usersWithRoles').find('option').remove();
+		$('#txt_user_R_newRole').val('');
+		$('#s_user_R_titleName, #s_user_R_name').text('');
+		$('#divUserRwrapper').hide();
+	};
 	
 	function user_complex_search1 (){
 		var facility = $('#slt_user_S_facility').val();
@@ -347,6 +377,7 @@ if($('body.users').length) {
 			// for_select_refreshgrid('nil');
 			user_complex_search1();
 			user_clearFields();
+			roles_clearFields();
 			$('#divUserAsideRt, #b_user_Rt_Submit, #b_user_Rt_Back').hide();
 
 		}).fail(function(jqXHR,textStatus,errorThrown){
@@ -495,6 +526,10 @@ if($('body.users').length) {
 	              'errorThrown: ' + errorThrown);
 	        alert('HTTP message body (jqXHR.responseText): ' + '\n' + jqXHR.responseText);
 		});
+	};
+
+	function reset_ID(){
+		set_id('');
 	};
 
 };		//if($('#body.users').length) {
