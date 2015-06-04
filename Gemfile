@@ -40,12 +40,12 @@ group :development do
 end
 group :development, :test do
 	gem 'sqlite3'
-	gem 'mysql2'
+	# gem 'mysql2'
 	gem 'rspec-rails', '3.2.1'  #access to RSpec generators
 	gem 'factory_girl_rails', '4.5.0'  #Factory to generate data
 	# gem 'database_cleaner', '~> 1.3.0'
 	gem 'byebug' # Successor to 'debugger'
-	gem 'faker'
+	# gem 'faker'
 	gem 'shoulda-matchers', require: false # association matchers v2.8.0
 end
 group :test do
@@ -57,11 +57,11 @@ end
 # Can run bundle --without production on Mac and not have Oracle error
 group :production do
 	#DB's NB CHANGE for deploy to VM GITLAB and OMH.
-	gem "activerecord-oracle_enhanced-adapter", "~> 1.5.0"
-	gem 'ruby-oci8', '~> 2.1.0'
-	# gem 'mysql2'
+	# gem "activerecord-oracle_enhanced-adapter", "~> 1.5.0"
+	# gem 'ruby-oci8', '~> 2.1.0'
+	gem 'mysql2'
 	# gem 'sqlite3'
-	# gem 'faker'
+	gem 'faker'
 end
 
 
