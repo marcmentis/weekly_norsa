@@ -19,7 +19,7 @@ module SessionValues
 			      # Artificially set session
 			      begin
 			        session[:authen] = 'pgmdmjm'
-			        @user = User.where('authen = ?', session[:authen]).first
+			        @user = User.find_by(authen: session[:authen])
 			        session[:facility] = @user.facility
 			        session[:email] = @user.email
 			        session[:firstname] = @user.firstname
@@ -27,7 +27,7 @@ module SessionValues
 			        session[:firstinitial] = @user.firstinitial
 			        session[:middleinitial] = @user.middleinitial
 			        session[:name] = ''+@user.firstinitial+' '+@user.middleinitial+' '+@user.lastname+''
-			        session[:role] = @user.role
+			       
 
 			        # @for_select = ForSelect.where('value = ?', session[:facility]).first
 			        # session[:facilityname] = @for_select.text
@@ -38,7 +38,7 @@ module SessionValues
 		    else
 				begin
 				session[:authen] = @request.headers["HTTP_REMOTE_USER"]
-				@user = User.where('authen = ?', session[:authen]).first
+				@user = User.find_by(authen: session[:authen])
 				# session[:facility] = @request.headers["HTTP_OMHFACILITYNUM"]
 				# session[:email] = @request.headers["HTTP_CTEMAIL"]
 				# session[:firstname] = @request.headers["HTTP_CTFN"]
@@ -52,7 +52,7 @@ module SessionValues
 				session[:firstinitial] = @user.firstinitial
 				session[:middleinitial] = @user.middleinitial
 				session[:name] = ''+@user.firstinitial+' '+@user.middleinitial+' '+@user.lastname+''
-				session[:role] = @user.role
+
 
 				@for_select = ForSelect.where('value = ?', session[:facility]).first
 				session[:facilityname] = @for_select.text
