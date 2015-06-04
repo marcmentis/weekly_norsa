@@ -5,21 +5,21 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
-    if params[:page] != nil
-      total_query_count = User.all.count     
-      # Run query and extract just those rows needed
-      extract = User.order("#{params[:sidx]} #{params[:sord]}")
-                    .limit(params[:rows].to_i)
-                    .offset((params[:page].to_i - 1) * params[:rows].to_i)
-      # Create jsGrid object from 'extract' data
-      @jsGrid_obj = create_jsGrid_obj(extract, params, total_query_count)
-    end
+    # @users = User.all
+    # if params[:page] != nil
+    #   total_query_count = User.all.count     
+    #   # Run query and extract just those rows needed
+    #   extract = User.order("#{params[:sidx]} #{params[:sord]}")
+    #                 .limit(params[:rows].to_i)
+    #                 .offset((params[:page].to_i - 1) * params[:rows].to_i)
+    #   # Create jsGrid object from 'extract' data
+    #   @jsGrid_obj = create_jsGrid_obj(extract, params, total_query_count)
+    # end
 
-    respond_to do |format|
-      format.html
-      format.json {render json: @jsGrid_obj }
-    end
+    # respond_to do |format|
+    #   format.html
+    #   format.json {render json: @jsGrid_obj }
+    # end
   end
 
   # GET /users_search.json

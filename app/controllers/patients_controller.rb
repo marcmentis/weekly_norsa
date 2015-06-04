@@ -9,21 +9,21 @@ class PatientsController < ApplicationController
   # GET /patients
   # GET /patients.json
   def index
-    @patients = Patient.all
-    if params[:page] != nil
-      total_query_count = Patient.all.count     
-      # Run query and extract just those rows needed
-      extract = Patient.order("#{params[:sidx]} #{params[:sord]}")
-                        .limit(params[:rows].to_i)
-                        .offset((params[:page].to_i - 1) * params[:rows].to_i)
-      # Create jsGrid object from 'extract' data
-      @jsGrid_obj = create_jsGrid_obj(extract, params, total_query_count)
-    end
+    # @patients = Patient.all
+    # if params[:page] != nil
+    #   total_query_count = Patient.all.count     
+    #   # Run query and extract just those rows needed
+    #   extract = Patient.order("#{params[:sidx]} #{params[:sord]}")
+    #                     .limit(params[:rows].to_i)
+    #                     .offset((params[:page].to_i - 1) * params[:rows].to_i)
+    #   # Create jsGrid object from 'extract' data
+    #   @jsGrid_obj = create_jsGrid_obj(extract, params, total_query_count)
+    # end
 
-    respond_to do |format|
-      format.html
-      format.json {render json: @jsGrid_obj }
-    end
+    # respond_to do |format|
+    #   format.html
+    #   format.json {render json: @jsGrid_obj }
+    # end
   end
 
   def complex_search
