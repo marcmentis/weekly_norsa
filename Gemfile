@@ -40,7 +40,7 @@ group :development do
 end
 group :development, :test do
 	gem 'sqlite3'
-	# gem 'mysql2'
+	gem 'mysql2'
 	gem 'rspec-rails', '3.2.1'  #access to RSpec generators
 	gem 'factory_girl_rails', '4.5.0'  #Factory to generate data
 	# gem 'database_cleaner', '~> 1.3.0'
