@@ -6,6 +6,16 @@ module SessionValues
 		end
 	end
 
+	def test_before_action
+		if session[:authen].blank?
+			puts 'BLANK'
+			# puts 'HTTP_REMOTE_USER: '+request.headers["HTTP_REMOTE_USER"]+''
+		else
+			puts 'NOT BLANK'
+			puts ''+session[:authen]+''
+		end
+	end
+
 	private
 		def create_session
 
