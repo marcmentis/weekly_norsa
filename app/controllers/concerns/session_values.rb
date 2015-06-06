@@ -31,12 +31,10 @@ module SessionValues
 		# elsif Rails.env == 'development' || Rails.env == 'production'
 		elsif Rails.env == 'production'
 			if rfc_authorized? 
-				if current_user == nil
+				@current_user = current_user
+				if @current_user.blank?
 					@error = 'User has no privileges in this application'
-					render file: "#{Rails.root}/public/user_error", layout: false
-				else
-					@current_user = current_user
-					puts 'CURRENT_USER LEGAL'		
+					render file: "#{Rails.root}/public/user_error", layout: false		
 				end
 			else
 				@error = 'User has not passed RSA authentication'
