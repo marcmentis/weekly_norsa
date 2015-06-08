@@ -123,18 +123,27 @@ class PatientsController < ApplicationController
 
     def create_phi
       puts "IN CREATE_PHI CONTROLLER"
+      aurora_insert('I')
     end
     def show_phi
       puts "IN SHOW PHI FROM CONTROLLER authen: #{session[:authen]}"
-      # AURORA
-    #Accessauditlog.find_by_sql("INSERT INTO AURORA.ACCESSAUDITLOG(ACCESS_DT,ACTION_CD,WORKSTATION_ID)VALUES(TO_DATE('1/14/2015 4:23:42 PM', 'MM/DD/YYYY HH:MI:SS PM'),'LO','10.76.232.152');")
-    # aurora = Accessauditlog.where(action_cd: 'LO')
-    aurora1 = Accessauditlog.create(access_dt: DateTime.now, action_cd: 'LO', workstation_id: '10.76.232.152')
+      puts "@request.headers[REQUEST_URI]: #{request.headers['REMOTE_HOST']}"
+      aurora_insert('S')
     end
     def update_phi
       puts "IN UPDATE PHI FROM CONTROLLER"
+      aurora_insert('U')
     end
     def destroy_phi
       puts "IN DESTROY PHI FROM CONTROLLER"
+      aurora_insert('D')
+    end
+    def aurora_insert(action_cd)
+      aurora1 = Accessauditlog.create(access_dt: DateTime.now, 
+                                    action_cd: action_cd, 
+                                    facility_stamp: request.headers['HTTP_OMHFACILITYNUM'],
+                                    ip_addr: request.headers['HTTP_X_FORWARDED_FOR'],
+                                    workstation_id: request.headers['HTTP_X_FORWARDED_FOR'],
+                                    auth_method: 'T')
     end
 end
