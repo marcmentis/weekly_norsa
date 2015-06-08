@@ -1,6 +1,10 @@
 class Accessauditlog < ActiveRecord::Base
-	# self.table_name = 'aurora.accessauditlog' # THIS WORKS IN OMH - ROR1 HAS ROLE IN AURORA
-	self.table_name = "accessauditlog"	
+	if Rails.env == 'production'
+		self.table_name = 'aurora.accessauditlog' # THIS WORKS IN OMH - ROR1 HAS ROLE IN AURORA
+	else
+		# self.table_name = "accessauditlog"
+		self.table_name = 'aurora.accessauditlog'
+	end	
 
 
 	# self.primary_key = "accessauditlog_id"
