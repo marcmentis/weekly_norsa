@@ -25,6 +25,8 @@ ActiveRecord::Schema.define(version: 20150501225242) do
   end
 
   add_index "for_selects", ["code"], name: "index_for_selects_on_code", using: :btree
+  add_index "for_selects", ["facility", "code"], name: "facility-code", using: :btree
+  add_index "for_selects", ["facility"], name: "index_for_selects_on_facility", using: :btree
 
   create_table "patients", force: true do |t|
     t.string   "firstname"
