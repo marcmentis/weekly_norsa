@@ -2,7 +2,7 @@ class PatientsController < ApplicationController
   include JqgridHelper
   before_action :set_patient, only: [:show, :edit, :update, :destroy]
   after_action :create_phi, only: [:create]
-  after_action :show_phi, only: [:index, :complex_search, :show]
+  after_action :show_phi, only: [:complex_search, :show]
   after_action :update_phi, only: [:update]
   after_action :destroy_phi, only: [:destroy]
 
@@ -122,28 +122,16 @@ class PatientsController < ApplicationController
     end
 
     def create_phi
-      puts "IN CREATE_PHI CONTROLLER"
-      aurora_insert('I')
+      accessauditlog_entry('I')
     end
     def show_phi
-      puts "IN SHOW PHI FROM CONTROLLER authen: #{session[:authen]}"
-      puts "@request.headers[REQUEST_URI]: #{request.headers['REMOTE_HOST']}"
-      aurora_insert('S')
+      accessauditlog_entry('S')
     end
     def update_phi
-      puts "IN UPDATE PHI FROM CONTROLLER"
-      aurora_insert('U')
+      accessauditlog_entry('U')
     end
     def destroy_phi
-      puts "IN DESTROY PHI FROM CONTROLLER"
-      aurora_insert('D')
+      accessauditlog_entry('D')
     end
-    def aurora_insert(action_cd)
-      aurora1 = Accessauditlog.create(access_dt: DateTime.now, 
-                                    action_cd: action_cd, 
-                                    facility_stamp: request.headers['HTTP_OMHFACILITYNUM'],
-                                    ip_addr: request.headers['HTTP_X_FORWARDED_FOR'],
-                                    workstation_id: request.headers['HTTP_X_FORWARDED_FOR'],
-                                    auth_method: 'T')
-    end
+
 end

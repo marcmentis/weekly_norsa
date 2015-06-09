@@ -2,7 +2,8 @@ class ApplicationController < ActionController::Base
 # Expose methods in these modules to all applicatins/views
 	# I.E. DON"T have to have 'include SessionValues' in each controller
   include SessionValues
-  include CurrentUser
+  include PhiAuditing
+  # include CurrentUser
   include Pundit
 
   	
