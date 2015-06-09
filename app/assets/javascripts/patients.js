@@ -126,14 +126,14 @@ if ($('body.patients').length) {
 			url: url,
 			datatype:"json",
 			mtype:"GET",
-			colNames:["id","FirstName","LastName","C #","Facility", "Ward"],
+			colNames:["id","LastName","FirstName","C #","Facility", "Ward"],
 			colModel:[
 				{name:"id",index:"id",width:55, hidden:true},
-				{name:"firstname",index:"firstname",width:150,align:"center"},
 				{name:"lastname",index:"lastname",width:150,align:"center",editable:true},
+				{name:"firstname",index:"firstname",width:150,align:"center"},
 				{name:"number",index:"number",width:100,align:"center"},
 				{name:"facility",index:"facility",width:100,align:"center"},
-				{name:"ward",index:"ward",width:150,align:"center"}
+				{name:"site",index:"site",width:150,align:"center"}
 			],
 			editurl:"/patient/update",
 			pager:"#divPager",
@@ -142,7 +142,7 @@ if ($('body.patients').length) {
 			altRows: true,
 			rowNum:15,
 			rowList:[15,25,40],
-			sortname:"firstname",
+			sortname:"lastname",
 			sortorder:"asc",
 			viewrecords:true,
 			gridview: true, //increased speed can't use treeGrid, subGrid, afterInsertRow
@@ -173,7 +173,7 @@ if ($('body.patients').length) {
 							$('#lastname').val(data.lastname);
 							$('#number').val(data.number);
 							$('#facility').val(data.facility);
-							$('#ward').val(data.ward);
+							$('#ward').val(data.site);
 
 													  
 						}).fail(function(){
@@ -257,7 +257,7 @@ if ($('body.patients').length) {
 		// Create strong parameter
 		data_for_params ={patient: {'firstname': firstname, 'lastname': 
 						lastname, 'number': number, 
-				  	    'facility': facility, 'ward': ward}}
+				  	    'facility': facility, 'site': ward}}
 
 		$.ajax({
 			url: url,
@@ -296,7 +296,7 @@ if ($('body.patients').length) {
 		var ward = $('#slt_S_ward').val();
 
 		// $("#gridGrid").remove();         
-		url = '/patients_search?firstname='+firstname+'&lastname='+lastname+'&number='+number+'&facility='+facility+'&ward='+ward+''
+		url = '/patients_search?firstname='+firstname+'&lastname='+lastname+'&number='+number+'&facility='+facility+'&site='+ward+''
 		refreshgrid(url);	
 	};
 

@@ -35,7 +35,7 @@ class PatientsController < ApplicationController
     conditions = conditions.where("firstname = :firstname", {firstname: params[:firstname]}) if params[:firstname]!= ''
     conditions = conditions.where("lastname = :lastname", {lastname: params[:lastname]}) if params[:lastname]!= ''
     conditions = conditions.where("number = :number", {number: params[:number]}) if params[:number]!= ''
-    conditions = conditions.where("ward = :ward", {ward: params[:ward]}) if params[:ward]!= '-1'
+    conditions = conditions.where("site = :site", {site: params[:site]}) if params[:site]!= '-1'
 
 
     # total_query = Patient.where("facility = :facility", {facility: params[:diagnosis]}
@@ -118,7 +118,7 @@ class PatientsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def patient_params
-      params.require(:patient).permit(:firstname, :lastname, :number, :facility, :ward, :doa, :dob, :dod, :updated_by, :facility, :ward)
+      params.require(:patient).permit(:firstname, :lastname, :number, :facility, :site, :doa, :dob, :dod, :updated_by)
     end
 
     def create_phi
@@ -131,6 +131,7 @@ class PatientsController < ApplicationController
       accessauditlog_entry('U')
     end
     def destroy_phi
+
       accessauditlog_entry('D')
     end
 

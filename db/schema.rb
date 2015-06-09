@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 20150501225242) do
     t.string   "lastname"
     t.string   "number"
     t.string   "facility"
-    t.string   "ward"
+    t.string   "site"
     t.date     "doa"
     t.date     "dob"
     t.date     "dod"
@@ -40,8 +40,11 @@ ActiveRecord::Schema.define(version: 20150501225242) do
     t.datetime "updated_at"
   end
 
+  add_index "patients", ["facility", "site", "lastname"], name: "facility-site-lastname", using: :btree
+  add_index "patients", ["facility", "site"], name: "facility-site", using: :btree
   add_index "patients", ["facility"], name: "index_patients_on_facility", using: :btree
-  add_index "patients", ["ward"], name: "index_patients_on_ward", using: :btree
+  add_index "patients", ["lastname"], name: "index_patients_on_lastname", using: :btree
+  add_index "patients", ["site"], name: "index_patients_on_site", using: :btree
 
   create_table "roles", force: true do |t|
     t.string   "name"
@@ -67,7 +70,9 @@ ActiveRecord::Schema.define(version: 20150501225242) do
     t.datetime "updated_at"
   end
 
+  add_index "users", ["facility", "lastname"], name: "facility-lastname", using: :btree
   add_index "users", ["facility"], name: "index_users_on_facility", using: :btree
+  add_index "users", ["lastname"], name: "index_users_on_lastname", using: :btree
 
   create_table "users_roles", id: false, force: true do |t|
     t.integer "user_id"

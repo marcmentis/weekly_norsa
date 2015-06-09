@@ -26,6 +26,7 @@ gem 'pundit'
 gem 'rolify'
 # Got error on omhdev - rake not in bundle
 gem 'rake'
+gem 'faker'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -61,7 +62,7 @@ group :production do
 	gem 'ruby-oci8', '~> 2.1.0'
 	# gem 'mysql2'
 	# gem 'sqlite3'
-	gem 'faker'
+	# gem 'faker'
 end
 
 
