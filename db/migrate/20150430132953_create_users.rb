@@ -13,7 +13,7 @@ class CreateUsers < ActiveRecord::Migration
       t.timestamps
     end
     add_index :users, :facility
-    add_index :users, :lastname
-    add_index(:users, [:facility, :lastname], name: 'facility-lastname')
+    add_index :users, :authen
+    add_index(:users, [:facility, :authen], name: 'facility-lastname')
   end
 end

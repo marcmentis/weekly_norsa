@@ -6,6 +6,7 @@ class PatientsController < ApplicationController
   after_action :update_phi, only: [:update]
   after_action :destroy_phi, only: [:destroy]
 
+
   # GET /patients
   # GET /patients.json
   def index
@@ -27,6 +28,7 @@ class PatientsController < ApplicationController
   end
 
   def complex_search
+
     # ActiveRecord relations are lazy loaders and can be chained
     # Therefore, sequental .where searches IF PARAM not zero will filter with an 'AND' relationship
     # Database will not be hit (lazy loading) until data needed by app

@@ -72,9 +72,9 @@ ActiveRecord::Schema.define(version: 20150501225242) do
     t.datetime "updated_at"
   end
 
-  add_index "users", ["facility", "lastname"], name: "facility-lastname", using: :btree
+  add_index "users", ["authen"], name: "index_users_on_authen", using: :btree
+  add_index "users", ["facility", "authen"], name: "facility-lastname", using: :btree
   add_index "users", ["facility"], name: "index_users_on_facility", using: :btree
-  add_index "users", ["lastname"], name: "index_users_on_lastname", using: :btree
 
   create_table "users_roles", id: false, force: true do |t|
     t.integer "user_id"
