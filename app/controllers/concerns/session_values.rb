@@ -1,36 +1,48 @@
 module SessionValues
 
-	def check_rsa_authorization
-		if rfc_authorized? 				
+	def authorized_and_confirmed
+		if session[:confirmed] != 'authen_and_in_db'
+			if Rails.env == 'development' || Rails.env == 'test'
+				check_rsa_authorization_dev
+				# puts "NOT AUTHORIZED AND CONFIRMED YET"
+			elsif Rails.env == 'production'
+				check_rsa_authorization_prod
+			end
+		end
+		# puts "AUTHORIZED AND CONFIRMED"
+	end
+
+	private
+		def check_rsa_authorization_dev
+			session[:authen] = 'pgmdmjm'
 			this_user = current_user
 			if this_user.blank?
 				@error = 'User has no privileges in this application'
 				render file: "#{Rails.root}/public/user_error", layout: false		
 			else
-				session[:authen] = request.headers["HTTP_REMOTE_USER"]
 				session[:confirmed] = 'authen_and_in_db'
 			end
-		else
-			@error = 'User has not passed RSA authentication'
-			render file: "#{Rails.root}/public/user_error", layout: false
+				
 		end
-	end
 
-	def authorized_and_confirmed
-		if session[:confirmed] != 'authen_and_in_db'
-			check_rsa_authorization
+		def check_rsa_authorization_prod
+			if rfc_authorized? 				
+				this_user = current_user
+				if this_user.blank?
+					@error = 'User has no privileges in this application'
+					render file: "#{Rails.root}/public/user_error", layout: false		
+				else
+					session[:authen] = request.headers["HTTP_REMOTE_USER"]
+					session[:confirmed] = 'authen_and_in_db'
+				end			
+			else
+				@error = 'User has not passed RSA authentication'
+				render file: "#{Rails.root}/public/user_error", layout: false
+			end		
 		end
-	end
 
-	private
 		def rfc_authorized?
-			if Rails.env == 'development' || Rails.env == 'test'
-				session[:authen] = 'pgmdmjm'
-				return true
-			elsif Rails.env == 'production'
-				request.headers["HTTP_REMOTE_USER"].blank? ? false : true
-			end
-			
+			request.headers["HTTP_REMOTE_USER"].blank? ? false : true		
 	  	end
 	
 end

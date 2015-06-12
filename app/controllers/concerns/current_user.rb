@@ -12,5 +12,4 @@ module CurrentUser
 				# @_current_user = User.find_by(authen: session)
 		@_current_user ||= session[:authen] && User.find_by(authen: session[:authen])
 	end
-
 end
