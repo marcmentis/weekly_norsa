@@ -9,6 +9,9 @@ class ForSelectPolicy
 	def index?
 		# @current_user.role == 'admin2'
 		# @current_user.has_role? :super_admin
+	end
 
+	def complex_search?
+		@current_user.has_role? :users_cru
 	end
 end

@@ -50,6 +50,7 @@ class ForSelectsController < ApplicationController
     total_query = conditions
     total_query_count = total_query.count
 
+    authorize conditions
 # Run query and extract just those rows needed
       extract = conditions
                     .order("#{params[:sidx]} #{params[:sord]}")
