@@ -14,6 +14,8 @@ if($('body.for_selects').length) {
 								.hide();
 		$('#ForSelectAsideRtErrors').addClass('error_explanation')
 									.hide();
+		$('#ForSelectErrors').addClass('error_explanation')
+							 .hide();
 
 		$('#fForSelectSearch').addClass('form_container').css({'width':'692px'});
 		// Can't use .hide() as wont work with IE 10
@@ -162,10 +164,25 @@ if($('body.for_selects').length) {
 				},
 
 				loadError: function (jqXHR, textStatus, errorThrown) {
-			        alert('HTTP status code: ' + jqXHR.status + '\n' +
-			              'textStatus: ' + textStatus + '\n' +
-			              'errorThrown: ' + errorThrown);
-			        alert('HTTP message body (jqXHR.responseText): ' + '\n' + jqXHR.responseText);
+					var newHTML;
+			        newHTML = '<h3>Search Error</h3>';	
+			        newHTML += '<ul>';
+			        	if (jqXHR.responseText.includes("Pundit::NotAuthorizedError")) {
+			        		msg = {"error": "User not authorized"}
+					        $.each(msg, function(key, value){
+					        	newHTML += '<li>'+ value +'</li>';
+					        });
+			        	} else {
+			        		msg = {'HTTP status code': '' + jqXHR.status + '', 
+			        		       'textStatus': '' + textStatus + '', 
+			        		      'errorThrown ': '' + errorThrown +''
+			        		  }
+					        $.each(msg, function(key, value){
+					        	newHTML += '<li>'+ value +'</li>';
+					        });
+			        	};
+			        newHTML += '</ul>';
+			        $('#ForSelectErrors').show().html(newHTML)	
 			    },
 
 			    //The JASON reader. This defines what the JSON data returned should look 
@@ -276,7 +293,6 @@ if($('body.for_selects').length) {
 		var text = $('#ftx_for_selects_S_text').val();
 		var grouper = $('#ftx_for_selects_S_grouper').val();
 		var option_order = $('#ftx_for_selects_S_option_order').val();
-
 		// $("#gridGrid").remove();         
 		url = '/for_selects_search?facility='+facility+'&code='+code+'&value='+value+'&text='+text+'&grouper='+grouper+'&option_order='+option_order+''
 		for_select_refreshgrid(url);	
