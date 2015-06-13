@@ -163,26 +163,28 @@ if($('body.for_selects').length) {
 						});
 				},
 
-				loadError: function (jqXHR, textStatus, errorThrown) {
-					var newHTML;
-			        newHTML = '<h3>Search Error</h3>';	
-			        newHTML += '<ul>';
+				loadError: function (jqXHR, textStatus, errorThrown) {				
 			        	if (jqXHR.responseText.includes("Pundit::NotAuthorizedError")) {
-			        		msg = {"error": "User not authorized"}
-					        $.each(msg, function(key, value){
-					        	newHTML += '<li>'+ value +'</li>';
-					        });
+			        		msg = {"error": "User not authorized"};
+					        
 			        	} else {
 			        		msg = {'HTTP status code': '' + jqXHR.status + '', 
 			        		       'textStatus': '' + textStatus + '', 
 			        		      'errorThrown ': '' + errorThrown +''
-			        		  }
-					        $.each(msg, function(key, value){
-					        	newHTML += '<li>'+ value +'</li>';
-					        });
+			        		  };
 			        	};
-			        newHTML += '</ul>';
-			        $('#ForSelectErrors').show().html(newHTML)	
+			        	show_error('Search Error', msg, 'ForSelectErrors', '3000')
+			        // var newHTML;
+			        // newHTML = '<h3>Search Error</h3>';	
+			        // newHTML += '<ul>';
+		        	// $.each(msg, function(key, value){
+				       //  	newHTML += '<li>'+ value +'</li>';
+				       //  });
+			        // newHTML += '</ul>';
+			        // $('#ForSelectErrors').show().html(newHTML)
+			        // setTimeout(function(){
+			        // 	$('#ForSelectErrors').html('').hide();
+			        // }, 3000);		
 			    },
 
 			    //The JASON reader. This defines what the JSON data returned should look 
@@ -240,6 +242,24 @@ if($('body.for_selects').length) {
 		});
 	};
 
+	function show_error (header, msg, divname, msec) {
+		var newHTML;
+        newHTML = '<h3>'+header+'</h3>';	
+        newHTML += '<ul>';
+    	$.each(msg, function(key, value){
+	        	newHTML += '<li>'+ value +'</li>';
+	        });
+        newHTML += '</ul>';
+        $('#'+divname+'').show().html(newHTML)
+        // msec is optional. Only execute setTimeout if undefined
+        if (typeof msec !== "undefined") {
+	        setTimeout(function(){
+	        	$('#'+divname+'').html('').hide();
+	        }, msec);
+        };
+        	
+	};
+
 	function for_select_clearFields(){
 		$('#ftx_for_select_Rt_code, #ftx_for_select_Rt_value, #ftx_for_select_Rt_text, #ftx_for_select_Rt_grouper, #ftx_for_select_option_order, #slt_for_select_Rt_facility').val('');
 		$('#ForSelectAsideRtErrors').html('').hide();
@@ -275,6 +295,7 @@ if($('body.for_selects').length) {
 	  //             'errorThrown: ' + errorThrown);
 	  //       alert('HTTP message body (jqXHR.responseText): ' + '\n' + jqXHR.responseText);
 	        var msg = JSON.parse(jqXHR.responseText)
+
 	        var newHTML;
 	        newHTML = '<h3>Validation Error</h3>';	
 	        newHTML += '<ul>';        

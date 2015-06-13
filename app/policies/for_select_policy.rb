@@ -12,6 +12,6 @@ class ForSelectPolicy
 	end
 
 	def complex_search?
-		@current_user.has_role? :users_cru
+		 @current_user.has_role? :users_cru
 	end
 end
