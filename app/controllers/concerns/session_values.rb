@@ -21,6 +21,7 @@ module SessionValues
 				render file: "#{Rails.root}/public/user_error", layout: false		
 			else
 				session[:confirmed] = 'authen_and_in_db'
+				session[:facility] = this_user.facility
 			end
 				
 		end
@@ -34,6 +35,7 @@ module SessionValues
 				else
 					session[:authen] = request.headers["HTTP_REMOTE_USER"]
 					session[:confirmed] = 'authen_and_in_db'
+					session[:facility] = this_user.facility
 				end			
 			else
 				@error = 'User has not passed RSA authentication'

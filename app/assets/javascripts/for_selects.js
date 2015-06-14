@@ -90,7 +90,9 @@ if($('body.for_selects').length) {
 
 	// RUN ON OPENING
 	// for_select_refreshgrid('nil');
+
 	for_select_complex_search1();
+
 	//*****************************************************
 	//FUNCTIONS CALLED FROM ABOVE
 	function for_select_refreshgrid(url){
@@ -173,7 +175,7 @@ if($('body.for_selects').length) {
 			        		      'errorThrown ': '' + errorThrown +''
 			        		  };
 			        	};
-			        	show_error('Search Error', msg, 'ForSelectErrors', '3000')
+			        	ajax_error1('Search Error', msg, 'ForSelectErrors', '3000')
 			        // var newHTML;
 			        // newHTML = '<h3>Search Error</h3>';	
 			        // newHTML += '<ul>';
@@ -242,23 +244,7 @@ if($('body.for_selects').length) {
 		});
 	};
 
-	function show_error (header, msg, divname, msec) {
-		var newHTML;
-        newHTML = '<h3>'+header+'</h3>';	
-        newHTML += '<ul>';
-    	$.each(msg, function(key, value){
-	        	newHTML += '<li>'+ value +'</li>';
-	        });
-        newHTML += '</ul>';
-        $('#'+divname+'').show().html(newHTML)
-        // msec is optional. Only execute setTimeout if undefined
-        if (typeof msec !== "undefined") {
-	        setTimeout(function(){
-	        	$('#'+divname+'').html('').hide();
-	        }, msec);
-        };
-        	
-	};
+	
 
 	function for_select_clearFields(){
 		$('#ftx_for_select_Rt_code, #ftx_for_select_Rt_value, #ftx_for_select_Rt_text, #ftx_for_select_Rt_grouper, #ftx_for_select_option_order, #slt_for_select_Rt_facility').val('');

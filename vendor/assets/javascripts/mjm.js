@@ -37,7 +37,6 @@
 			if (group != null) {
 				group = 'grouper'
 			};
-
 			data_for_params = {'code': code, 'facility': facility}
 			// data_for_params = {'code': code}
 			$.ajax({
