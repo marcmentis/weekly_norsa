@@ -3,7 +3,7 @@ class ForSelectPolicy
 
 	def initialize(current_user, model)
 		@current_user = current_user
-		@user = model
+		@for_select = model
 	end
 
 	def index?
@@ -12,6 +12,9 @@ class ForSelectPolicy
 	end
 
 	def complex_search?
-		 @current_user.has_role? :users_cruSS
+		@current_user.has_role? :users_d and
+		@current_user.has_role? :users_cruS or 
+		@current_user.has_role? :admin3
 	end
+
 end

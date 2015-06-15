@@ -71,7 +71,9 @@
   </form>  <!-- id="fForSelectSearch" -->
   <div id="divGrid_for_selects"></div>
 
-
+  <% if policy(ForSelect).complex_search?%>
+  WILL THIS TEXT HIDE
+  <% end  %>
 
   <section id="divBelow">
     BELOW

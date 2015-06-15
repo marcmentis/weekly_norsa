@@ -90,7 +90,6 @@ if($('body.for_selects').length) {
 
 	// RUN ON OPENING
 	// for_select_refreshgrid('nil');
-
 	for_select_complex_search1();
 
 	//*****************************************************
