@@ -1,4 +1,6 @@
-module JqgridHelper
+module Jqgridconcern
+	# extend ActiveSupport::Concern
+
 	def create_jqGrid_obj(active_record_relation, params)
 
 		total_query = active_record_relation

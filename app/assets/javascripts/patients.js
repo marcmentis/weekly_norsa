@@ -31,7 +31,7 @@ if ($('body.patients').length) {
 
 	// SELECTS
 		// TO DO Show only if Admin2
-		$('#slt_S_facility').mjm_addOptions('facility', {firstLine: 'All Facilities'})
+		// $('#slt_S_facility').mjm_addOptions('facility', {firstLine: 'All Facilities'})
 		// Show appropriate wards in
 		$('#slt_S_facility').change(function(){
 			var chosen_facility = $('#slt_S_facility').val();
@@ -90,11 +90,6 @@ if ($('body.patients').length) {
 			}
 		});
 
-
-
-
-
-
 	// BUTTONS
 		//Submit complex search on fPatientSearch using hidden submit button
 		// $('#btnSubmit').click(function(e){
@@ -109,13 +104,31 @@ if ($('body.patients').length) {
 
 	
 	// RUN ON OPENING
+	if ($('#session-admin3').val() == 'true') {
+		url = "/patients_search?firstname=&lastname=&number=&facility=-1&site=-1"
+		refreshgrid(url)
+		$('#slt_S_facility').mjm_addOptions('facility', {firstLine: 'All Facilities', asynchranous: 'false'})
+		$('#slt_S_ward').mjm_addOptions('ward', {firstLine: 'All Wards', facility: '-1', group: true})
+	} else { 
+		facility = $('#session-facility').val();
+		url = '/patients_search?firstname=&lastname=&number=&facility='+facility+'&site=-1'
+		refreshgrid(url)
+
+		$('#slt_S_facility').mjm_addOptions('facility', {firstLine: 'All Facilities', asynchranous: 'false'})
+							.val(''+facility+'')
+							.attr("disabled", true)
+		$('#slt_S_ward').mjm_addOptions('ward', {firstLine: 'All Wards', facility: facility, group: true})
+
+	};
+
 	// refreshgrid('nil');
-	complex_search1();
+	// complex_search1();
 	//*****************************************************
 	//FUNCTIONS CALLED FROM ABOVE
 	function refreshgrid(url){
 
-		if (url == 'nil') {url = '/patients'};
+		// if (url == 'nil') {url = '/patients'};
+		if (url == 'nil') {url = "/patients_search?firstname=&lastname=&number=&facility=-1&site=-1"}
 
 		
 		//Create Table and Div for grid and navigation "pager" 

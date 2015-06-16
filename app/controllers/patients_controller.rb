@@ -1,5 +1,4 @@
 class PatientsController < ApplicationController
-  include JqgridHelper
   before_action :set_patient, only: [:show, :edit, :update, :destroy]
   after_action :create_phi, only: [:create]
   after_action :show_phi, only: [:complex_search, :show]
@@ -10,50 +9,26 @@ class PatientsController < ApplicationController
   # GET /patients
   # GET /patients.json
   def index
-    # @patients = Patient.all
-    # if params[:page] != nil
-    #   total_query_count = Patient.all.count     
-    #   # Run query and extract just those rows needed
-    #   extract = Patient.order("#{params[:sidx]} #{params[:sord]}")
-    #                     .limit(params[:rows].to_i)
-    #                     .offset((params[:page].to_i - 1) * params[:rows].to_i)
-    #   # Create jsGrid object from 'extract' data
-    #   @jsGrid_obj = create_jsGrid_obj(extract, params, total_query_count)
-    # end
+  #   puts "IN INDEX ACTION"
+  #   params = {facility: '-1', site: '-1', firstname: '', lastname: '', number: ''}
+  #   patient = Patient.new
+  #   @jqGrid_obj = patient.get_jqGrid_obj(params, session[:admin3])
 
-    # respond_to do |format|
-    #   format.html
-    #   format.json {render json: @jsGrid_obj }
-    # end
+  #   respond_to do |format|
+  #     format.html
+  #     format.json {render json: @jqGrid_obj }
+  #   end
   end
 
   def complex_search
 
-    # ActiveRecord relations are lazy loaders and can be chained
-    # Therefore, sequental .where searches IF PARAM not zero will filter with an 'AND' relationship
-    # Database will not be hit (lazy loading) until data needed by app
-    conditions = Patient.all 
-    conditions = conditions.where("facility = :facility", {facility: params[:facility]}) if params[:facility]!= '-1'
-    conditions = conditions.where("firstname = :firstname", {firstname: params[:firstname]}) if params[:firstname]!= ''
-    conditions = conditions.where("lastname = :lastname", {lastname: params[:lastname]}) if params[:lastname]!= ''
-    conditions = conditions.where("number = :number", {number: params[:number]}) if params[:number]!= ''
-    conditions = conditions.where("site = :site", {site: params[:site]}) if params[:site]!= '-1'
-
-
-    # total_query = Patient.where("facility = :facility", {facility: params[:diagnosis]}
-                            # ).where("firstname = :firstname", {firstname: params[:first_name]});
-    total_query = conditions
-    total_query_count = total_query.count
-
-# Run query and extract just those rows needed
-      extract = conditions
-                    .order("#{params[:sidx]} #{params[:sord]}")
-                    .limit(params[:rows].to_i)
-                    .offset((params[:page].to_i - 1) * params[:rows].to_i)
-      @jsGrid_obj = create_jsGrid_obj(extract, params, total_query_count)
+    # Get instance of Patient so can run instance method 'get_jqGrid_obj'
+    patient = Patient.new
+    @jqGrid_obj = patient.get_jqGrid_obj(params, session[:admin3])
+    
     respond_to do |format|
       format.html
-      format.json {render json: @jsGrid_obj }
+      format.json {render json: @jqGrid_obj }
     end
   end
 

@@ -12,13 +12,13 @@ class UsersController < ApplicationController
     #   extract = User.order("#{params[:sidx]} #{params[:sord]}")
     #                 .limit(params[:rows].to_i)
     #                 .offset((params[:page].to_i - 1) * params[:rows].to_i)
-    #   # Create jsGrid object from 'extract' data
-    #   @jsGrid_obj = create_jsGrid_obj(extract, params, total_query_count)
+    #   # Create jqGrid object from 'extract' data
+    #   @jqGrid_obj = create_jqGrid_obj(extract, params, total_query_count)
     # end
 
     # respond_to do |format|
     #   format.html
-    #   format.json {render json: @jsGrid_obj }
+    #   format.json {render json: @jqGrid_obj }
     # end
   end
 
@@ -33,18 +33,10 @@ class UsersController < ApplicationController
     conditions = conditions.where("firstinitial LIKE ?", ''+params[:firstinitial]+'%') if params[:firstinitial]!= ''
     conditions = conditions.where("middleinitial LIKE ?", ''+params[:middleinitial]+'%') if params[:middleinitial]!= ''
 
-    total_query = conditions
-    total_query_count = total_query.count
-
-    # Run query and extract just those rows needed
-      extract = conditions
-                    .order("#{params[:sidx]} #{params[:sord]}")
-                    .limit(params[:rows].to_i)
-                    .offset((params[:page].to_i - 1) * params[:rows].to_i)
-      @jsGrid_obj = create_jsGrid_obj(extract, params, total_query_count)
+    @jqGrid_obj = create_jqGrid_obj(conditions, params)
     respond_to do |format|
       format.html
-      format.json {render json: @jsGrid_obj }
+      format.json {render json: @jqGrid_obj }
     end
   end
 

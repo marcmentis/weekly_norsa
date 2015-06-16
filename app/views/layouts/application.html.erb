@@ -10,6 +10,8 @@
 </head>
 <body class="<%= params[:controller] %>">
 <%= render 'layouts/header.html.erb' %>
+<input id="session-admin3" type="text" value="<%= session[:admin3] %>"></input>
+<input id="session-facility" value="<%= session[:facility] %>"></input>
 <%= yield %>
 
 <%= render 'layouts/footer.html.erb' %>
@@ -26,6 +28,7 @@
 
 		$('#divFooterPageWrapper').addClass('pad_3_sides')
 		$('#layoutFooter').addClass('highest_level_blue_background')
+		$('[id^=session]').hide()
 		
 	});
 </script>

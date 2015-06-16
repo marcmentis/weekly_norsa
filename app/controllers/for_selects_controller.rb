@@ -28,13 +28,13 @@ class ForSelectsController < ApplicationController
     #   extract = ForSelect.order("#{params[:sidx]} #{params[:sord]}")
     #                     .limit(params[:rows].to_i)
     #                     .offset((params[:page].to_i - 1) * params[:rows].to_i)
-    #   # Create jsGrid object from 'extract' data
-    #   @jsGrid_obj = create_jsGrid_obj(extract, params, total_query_count)
+    #   # Create jqGrid object from 'extract' data
+    #   @jqGrid_obj = create_jqGrid_obj(extract, params, total_query_count)
     # end
 
     # respond_to do |format|
     #   format.html
-    #   format.json {render json: @jsGrid_obj }
+    #   format.json {render json: @jqGrid_obj }
     # end
   end
 
@@ -47,19 +47,20 @@ class ForSelectsController < ApplicationController
     conditions = conditions.where("grouper LIKE ?", ''+params[:grouper]+'%') if params[:grouper]!= ''
     conditions = conditions.where("option_order LIKE ?", ''+params[:option_order]+'%') if params[:option_order]!= ''
 
-    total_query = conditions
-    total_query_count = total_query.count
+#     total_query = conditions
+#     total_query_count = total_query.count
 
-    authorize conditions
-# Run query and extract just those rows needed
-      extract = conditions
-                    .order("#{params[:sidx]} #{params[:sord]}")
-                    .limit(params[:rows].to_i)
-                    .offset((params[:page].to_i - 1) * params[:rows].to_i)
-      @jsGrid_obj = create_jsGrid_obj(extract, params, total_query_count)
+#     authorize conditions
+# # Run query and extract just those rows needed
+#       extract = conditions
+#                     .order("#{params[:sidx]} #{params[:sord]}")
+#                     .limit(params[:rows].to_i)
+#                     .offset((params[:page].to_i - 1) * params[:rows].to_i)
+#       @jqGrid_obj = create_jqGrid_obj(extract, params, total_query_count)
+    @jqGrid_obj = create_jqGrid_obj(conditions, params)
     respond_to do |format|
       format.html
-      format.json {render json: @jsGrid_obj }
+      format.json {render json: @jqGrid_obj }
     end
   end
 

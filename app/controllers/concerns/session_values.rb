@@ -22,6 +22,7 @@ module SessionValues
 			else
 				session[:confirmed] = 'authen_and_in_db'
 				session[:facility] = this_user.facility
+				session[:admin3] = this_user.has_role? :admin3
 			end
 				
 		end
