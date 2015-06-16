@@ -29,8 +29,9 @@ if($('body.for_selects').length) {
 
 	//SELECTS
 		//TO DO show appropriate only if Admin2
-		$('#slt_for_selects_S_facility, #slt_for_select_Rt_facility').mjm_addOptions('facility', {firstLine: 'Facilities'})
-
+		// $('#slt_for_selects_S_facility, #slt_for_select_Rt_facility').mjm_addOptions('facility', {firstLine: 'Facilities'})
+			
+		$('#slt_for_select_Rt_facility').mjm_addOptions('facility', {firstLine: 'Facilities'})
 		//Filter when facility changed
 		$('#slt_for_selects_S_facility').change(function(){
 			for_select_complex_search1();
@@ -90,8 +91,19 @@ if($('body.for_selects').length) {
 
 	// RUN ON OPENING
 	// for_select_refreshgrid('nil');
+	
+	// setTimeout(function(){
+	// facility_val = $('#slt_for_selects_S_facility').val();
+	// 		for_select_complex_search1();
+	// 	}, 1000);
+
+	//Only want to run 'for_select_complex_search1() after select filled i.e., synchranously'
+	$('#slt_for_selects_S_facility').mjm_addOptions('facility', {firstLine: 'Facilities', asynchranous: 'false'})
 	for_select_complex_search1();
 
+
+	
+	
 	//*****************************************************
 	//FUNCTIONS CALLED FROM ABOVE
 	function for_select_refreshgrid(url){
@@ -242,8 +254,6 @@ if($('body.for_selects').length) {
 			position:'last'
 		});
 	};
-
-	
 
 	function for_select_clearFields(){
 		$('#ftx_for_select_Rt_code, #ftx_for_select_Rt_value, #ftx_for_select_Rt_text, #ftx_for_select_Rt_grouper, #ftx_for_select_option_order, #slt_for_select_Rt_facility').val('');

@@ -102,7 +102,8 @@ if($('body.users').length) {
 
 	//SELECTS
 		//TO DO show appropriate only if Admin2
-		$('#slt_user_S_facility, #slt_user_Rt_facility').mjm_addOptions('facility', {firstLine: 'Facilities'})
+		// $('#slt_user_S_facility, #slt_user_Rt_facility').mjm_addOptions('facility', {firstLine: 'Facilities'})
+		$('#slt_user_Rt_facility').mjm_addOptions('facility', {firstLine: 'Facilities'})
 
 
 	// BUTTONS
@@ -159,6 +160,9 @@ if($('body.users').length) {
 
 	// RUN ON OPENING
 	// user_refreshgrid('nil');
+
+	//Only want to run 'user_complex_search1() after select filled i.e., synchranously'
+	$('#slt_user_S_facility').mjm_addOptions('facility', {firstLine: 'Facilities', asynchranous: 'false'})
 	user_complex_search1();
 
 
