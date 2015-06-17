@@ -159,11 +159,30 @@ if($('body.users').length) {
 
 
 	// RUN ON OPENING
+	if ($('#session-admin3').val() == 'true') {
+		facility = '-1';
+	} else { 
+		facility = $('#session-facility').val();
+	};
+	//Make sure 'facility' select is populated before running 'complex_search1'
+		$('#slt_user_S_facility').mjm_addOptions('facility', {
+											firstLine: 'All Facilities', 
+											complete: function(){
+												$('#slt_user_S_facility').val(''+facility+'');
+												user_complex_search1();
+												if ($('#session-admin3').val() !== 'true'){
+													$('#slt_user_S_facility').attr("disabled", true)
+												};
+											}
+										})
+
+
+
 	// user_refreshgrid('nil');
 
 	//Only want to run 'user_complex_search1() after select filled i.e., synchranously'
-	$('#slt_user_S_facility').mjm_addOptions('facility', {firstLine: 'Facilities', asynchranous: 'false'})
-	user_complex_search1();
+	// $('#slt_user_S_facility').mjm_addOptions('facility', {firstLine: 'Facilities'})
+	// user_complex_search1();
 
 
 	//*****************************************************

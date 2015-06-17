@@ -90,16 +90,26 @@ if($('body.for_selects').length) {
 		});
 
 	// RUN ON OPENING
-	// for_select_refreshgrid('nil');
-	
-	// setTimeout(function(){
-	// facility_val = $('#slt_for_selects_S_facility').val();
-	// 		for_select_complex_search1();
-	// 	}, 1000);
+	if ($('#session-admin3').val() == 'true') {
+		facility = '-1';
+	} else { 
+		facility = $('#session-facility').val();
+	};
+	//Make sure 'facility' select is populated before running 'complex_search1'
+		$('#slt_for_selects_S_facility').mjm_addOptions('facility', {
+											firstLine: 'Facilities', 
+											complete: function(){
+												$('#slt_for_selects_S_facility').val(''+facility+'');
+												for_select_complex_search1();
+												if ($('#session-admin3').val() !== 'true'){
+													$('#slt_for_selects_S_facility').attr("disabled", true)
+												};
+											}
+										})
 
 	//Only want to run 'for_select_complex_search1() after select filled i.e., synchranously'
-	$('#slt_for_selects_S_facility').mjm_addOptions('facility', {firstLine: 'Facilities', asynchranous: 'false'})
-	for_select_complex_search1();
+	// $('#slt_for_selects_S_facility').mjm_addOptions('facility', {firstLine: 'Facilities'})
+	// for_select_complex_search1();
 
 
 	
