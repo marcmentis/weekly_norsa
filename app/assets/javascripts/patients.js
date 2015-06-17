@@ -105,21 +105,27 @@ if ($('body.patients').length) {
 	
 	// RUN ON OPENING
 	if ($('#session-admin3').val() == 'true') {
-		url = "/patients_search?firstname=&lastname=&number=&facility=-1&site=-1"
-		refreshgrid(url)
-		$('#slt_S_facility').mjm_addOptions('facility', {firstLine: 'All Facilities', asynchranous: 'false'})
+		facility = '-1';
+		//Make sure 'facility' and 'ward' selects are populated before running 'complex_search1'
+		$('#slt_S_facility').mjm_addOptions('facility', {
+											firstLine: 'All Facilities', 
+											complete: function(){
+												on_opening();
+											}
+										})
 		$('#slt_S_ward').mjm_addOptions('ward', {firstLine: 'All Wards', facility: '-1', group: true})
 	} else { 
 		facility = $('#session-facility').val();
-		url = '/patients_search?firstname=&lastname=&number=&facility='+facility+'&site=-1'
-		refreshgrid(url)
-
-		$('#slt_S_facility').mjm_addOptions('facility', {firstLine: 'All Facilities', asynchranous: 'false'})
-							.val(''+facility+'')
-							.attr("disabled", true)
-		$('#slt_S_ward').mjm_addOptions('ward', {firstLine: 'All Wards', facility: facility, group: true})
-
+		//Make sure 'facility' and 'ward' selects are populated before running 'complex_search1'
+		$('#slt_S_facility').mjm_addOptions('facility', {
+											firstLine: 'All Facilities',
+											complete: function(){
+												on_opening();
+											}
+										});
 	};
+
+
 
 	// refreshgrid('nil');
 	// complex_search1();
@@ -254,6 +260,24 @@ if ($('body.patients').length) {
 			},
 			position:'last'
 		});
+	};
+
+	function on_opening () {
+		//After populating 'facility' select, make sure 'ward' select populated before
+			// running 'complex_search'
+		$('#slt_S_facility').val(''+facility+'');
+		$('#slt_S_ward').mjm_addOptions('ward', {
+								firstLine: 'All Wards', 
+								facility: facility, 
+								group: true,
+								complete: function(){
+									complex_search1();
+									if ($('#session-admin3').val() !== 'true') {
+										$('#slt_S_facility').attr("disabled", true);
+									};		
+								}
+								});
+		
 	};
 
 	function clearFields(){
