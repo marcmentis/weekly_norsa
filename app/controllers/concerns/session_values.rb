@@ -28,15 +28,16 @@ module SessionValues
 		end
 
 		def check_rsa_authorization_prod
-			if rfc_authorized? 				
+			if rfc_authorized? 
+				session[:authen] = request.headers["HTTP_REMOTE_USER"]				
 				this_user = current_user
 				if this_user.blank?
 					@error = 'User has no privileges in this application'
 					render file: "#{Rails.root}/public/user_error", layout: false		
-				else
-					session[:authen] = request.headers["HTTP_REMOTE_USER"]
+				else				
 					session[:confirmed] = 'authen_and_in_db'
 					session[:facility] = this_user.facility
+					session[:admin3] = this_user.has_role? :admin3
 				end			
 			else
 				@error = 'User has not passed RSA authentication'
