@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 20150501225242) do
   create_table "patients", force: true do |t|
     t.string   "firstname"
     t.string   "lastname"
-    t.string   "number"
+    t.string   "identifier"
     t.string   "facility"
     t.string   "site"
     t.date     "doa"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20150501225242) do
   add_index "patients", ["facility", "site", "lastname"], name: "facility-site-lastname", using: :btree
   add_index "patients", ["facility", "site"], name: "facility-site", using: :btree
   add_index "patients", ["facility"], name: "index_patients_on_facility", using: :btree
+  add_index "patients", ["identifier"], name: "index_patients_on_identifier", using: :btree
   add_index "patients", ["lastname"], name: "index_patients_on_lastname", using: :btree
   add_index "patients", ["site"], name: "index_patients_on_site", using: :btree
 

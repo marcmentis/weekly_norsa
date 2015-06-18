@@ -134,7 +134,7 @@ if ($('body.patients').length) {
 	function refreshgrid(url){
 
 		// if (url == 'nil') {url = '/patients'};
-		if (url == 'nil') {url = "/patients_search?firstname=&lastname=&number=&facility=-1&site=-1"}
+		if (url == 'nil') {url = "/patients_search?firstname=&lastname=&identifier=&facility=-1&site=-1"}
 
 		
 		//Create Table and Div for grid and navigation "pager" 
@@ -150,7 +150,7 @@ if ($('body.patients').length) {
 				{name:"id",index:"id",width:55, hidden:true},
 				{name:"lastname",index:"lastname",width:150,align:"center",editable:true},
 				{name:"firstname",index:"firstname",width:150,align:"center"},
-				{name:"number",index:"number",width:100,align:"center"},
+				{name:"identifier",index:"identifier",width:100,align:"center"},
 				{name:"facility",index:"facility",width:100,align:"center"},
 				{name:"site",index:"site",width:150,align:"center"}
 			],
@@ -190,7 +190,7 @@ if ($('body.patients').length) {
 							$('#id').val(data.id);
 							$('#firstname').val(data.firstname);
 							$('#lastname').val(data.lastname);
-							$('#number').val(data.number);
+							$('#number').val(data.identifier);
 							$('#facility').val(data.facility);
 							$('#ward').val(data.site);
 
@@ -293,7 +293,7 @@ if ($('body.patients').length) {
 		var ward = $('#ward').val();
 		// Create strong parameter
 		data_for_params ={patient: {'firstname': firstname, 'lastname': 
-						lastname, 'number': number, 
+						lastname, 'identifier': number, 
 				  	    'facility': facility, 'site': ward}}
 
 		$.ajax({
@@ -333,7 +333,7 @@ if ($('body.patients').length) {
 		var ward = $('#slt_S_ward').val();
 
 		// $("#gridGrid").remove();         
-		url = '/patients_search?firstname='+firstname+'&lastname='+lastname+'&number='+number+'&facility='+facility+'&site='+ward+''
+		url = '/patients_search?firstname='+firstname+'&lastname='+lastname+'&identifier='+number+'&facility='+facility+'&site='+ward+''
 		refreshgrid(url);	
 	};
 

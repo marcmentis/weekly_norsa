@@ -5,7 +5,7 @@ namespace :db do
 		100.times do |n|
 			firstname = Faker::Name.first_name
 			lastname = Faker::Name.last_name
-			number = Faker::Number.number(7)
+			identifier = Faker::Number.number(7)
 			doa = Faker::Business.credit_card_expiry_date
 			dod = Faker::Business.credit_card_expiry_date
 			dob = Faker::Business.credit_card_expiry_date
@@ -14,7 +14,7 @@ namespace :db do
 
 			Patient.create!(firstname: firstname,
 						lastname: lastname,
-						number: number,
+						identifier: identifier,
 						facility: '0013',
 						site: '81/101',
 						doa: doa,
@@ -26,7 +26,7 @@ namespace :db do
 		100.times do |n|
 			firstname = Faker::Name.first_name
 			lastname = Faker::Name.last_name
-			number = Faker::Number.number(7)
+			identifier = Faker::Number.number(7)
 			doa = Faker::Business.credit_card_expiry_date
 			dod = Faker::Business.credit_card_expiry_date
 			dob = Faker::Business.credit_card_expiry_date
@@ -35,7 +35,7 @@ namespace :db do
 
 			Patient.create!(firstname: firstname,
 						lastname: lastname,
-						number: number,
+						identifier: identifier,
 						facility: '0013',
 						site: '81/102',
 						doa: doa,
@@ -47,7 +47,7 @@ namespace :db do
 		100.times do |n|
 			firstname = Faker::Name.first_name
 			lastname = Faker::Name.last_name
-			number = Faker::Number.number(7)
+			identifier = Faker::Number.number(7)
 			doa = Faker::Business.credit_card_expiry_date
 			dod = Faker::Business.credit_card_expiry_date
 			dob = Faker::Business.credit_card_expiry_date
@@ -56,7 +56,7 @@ namespace :db do
 
 			Patient.create!(firstname: firstname,
 						lastname: lastname,
-						number: number,
+						identifier: identifier,
 						facility: '0025',
 						site: 'E-unit',
 						doa: doa,

@@ -10,7 +10,7 @@ class PatientsController < ApplicationController
   # GET /patients.json
   def index
   #   puts "IN INDEX ACTION"
-  #   params = {facility: '-1', site: '-1', firstname: '', lastname: '', number: ''}
+  #   params = {facility: '-1', site: '-1', firstname: '', lastname: '', identifier: ''}
   #   patient = Patient.new
   #   @jqGrid_obj = patient.get_jqGrid_obj(params, session[:admin3])
 
@@ -95,7 +95,7 @@ class PatientsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def patient_params
-      params.require(:patient).permit(:firstname, :lastname, :number, :facility, :site, :doa, :dob, :dod, :updated_by)
+      params.require(:patient).permit(:firstname, :lastname, :identifier, :facility, :site, :doa, :dob, :dod, :updated_by)
     end
 
     def create_phi

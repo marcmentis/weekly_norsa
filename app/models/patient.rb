@@ -2,7 +2,7 @@ class Patient < ActiveRecord::Base
 	include Jqgridconcern
 	validates :firstname, presence: true
 	validates :lastname, presence: true
-	validates :number, 
+	validates :identifier, 
 		uniqueness: true,
 		presence: true
 
@@ -18,7 +18,7 @@ class Patient < ActiveRecord::Base
 	    conditions = conditions.where("site = :site", {site: params[:site]}) if params[:site]!= '-1'
 	    conditions = conditions.where("firstname LIKE ?", ''+params[:firstname]+'%') if params[:firstname]!= ''
 	    conditions = conditions.where("lastname LIKE ?", ''+ params[:lastname]+'%') if params[:lastname]!= ''
-	    conditions = conditions.where("number LIKE ?", ''+params[:number]+'%') if params[:number]!= ''
+	    conditions = conditions.where("identifier LIKE ?", ''+params[:identifier]+'%') if params[:identifier]!= ''
 	    
 	    return jqGrid_obj = create_jqGrid_obj(conditions, params)
 	end
