@@ -167,6 +167,7 @@ if($('body.for_selects').length) {
 							  data: data_for_params,
 							  //type: 'POST',
 							  type: 'GET',
+							  cache: false,
 							  dataType: 'json'
 						}).done(function(data){
 							for_select_clearFields();
@@ -287,6 +288,7 @@ if($('body.for_selects').length) {
 			url: url,
 			type: type,
 			data: data_for_params,
+			cache: false,
 			dataType: 'json'
 		}).done(function(data){
 			// for_select_refreshgrid('nil');

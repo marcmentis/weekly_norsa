@@ -242,6 +242,7 @@ if($('body.users').length) {
 							  data: data_for_params,
 							  //type: 'POST',
 							  type: 'GET',
+							  cache: false,
 							  dataType: 'json'
 						}).done(function(data){
 							user_clearFields();
@@ -394,6 +395,7 @@ if($('body.users').length) {
 			url: url,
 			type: type,
 			data: data_for_params,
+			cache: false,
 			dataType: 'json'
 		}).done(function(data){
 			// for_select_refreshgrid('nil');
@@ -428,6 +430,7 @@ if($('body.users').length) {
 			url: url,
 			type: type,
 			data: data_for_params,
+			cache: false,
 			dataType: 'json'
 		}).done(function(data){
 			var html = '';
@@ -459,6 +462,7 @@ if($('body.users').length) {
 			url: url,
 			type: type,
 			data: data_for_params,
+			cache: false,
 			dataType: 'json'
 		}).done(function(data){
 			$('#slt_user_R_userRoles').find('option').remove();
@@ -506,6 +510,7 @@ if($('body.users').length) {
 			url: url,
 			type: type,
 			data: data_for_params,
+			cache: false,
 			dataType: 'json'
 		}).done(function(data){
 			get_user_roles(ID);
@@ -526,6 +531,7 @@ if($('body.users').length) {
 			url: url,
 			type: type,
 			data: data_for_params,
+			cache: false,
 			dataType: 'json'
 		}).done(function(data){
 			var html = '';
