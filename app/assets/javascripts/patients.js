@@ -182,6 +182,7 @@ if ($('body.patients').length) {
 							  data: data_for_params,
 							  //type: 'POST',
 							  type: 'GET',
+							  cache: false,
 							  dataType: 'json'
 						}).done(function(data){
 							clearFields();
@@ -300,6 +301,7 @@ if ($('body.patients').length) {
 			url: url,
 			type: type,
 			data: data_for_params,
+			cache: false,
 			dataType: 'json'
 		}).done(function(data){
 			// refreshgrid('nil');
