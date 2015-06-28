@@ -18,15 +18,15 @@ ActiveRecord::Schema.define(version: 20150501225242) do
     t.string   "value"
     t.string   "text"
     t.string   "grouper"
-    t.integer  "option_order"
+    t.integer  "option_order", precision: 38, scale: 0
     t.string   "facility"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "for_selects", ["code"], name: "index_for_selects_on_code", using: :btree
-  add_index "for_selects", ["facility", "code"], name: "facility-code", using: :btree
-  add_index "for_selects", ["facility"], name: "index_for_selects_on_facility", using: :btree
+  add_index "for_selects", ["code"], name: "index_for_selects_on_code"
+  add_index "for_selects", ["facility", "code"], name: "facility-code"
+  add_index "for_selects", ["facility"], name: "index_for_selects_on_facility"
 
   create_table "patients", force: true do |t|
     t.string   "firstname"
@@ -34,31 +34,31 @@ ActiveRecord::Schema.define(version: 20150501225242) do
     t.string   "identifier"
     t.string   "facility"
     t.string   "site"
-    t.date     "doa"
-    t.date     "dob"
-    t.date     "dod"
+    t.datetime "doa"
+    t.datetime "dob"
+    t.datetime "dod"
     t.string   "updated_by"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "patients", ["facility", "site", "lastname"], name: "facility-site-lastname", using: :btree
-  add_index "patients", ["facility", "site"], name: "facility-site", using: :btree
-  add_index "patients", ["facility"], name: "index_patients_on_facility", using: :btree
-  add_index "patients", ["identifier"], name: "index_patients_on_identifier", using: :btree
-  add_index "patients", ["lastname"], name: "index_patients_on_lastname", using: :btree
-  add_index "patients", ["site"], name: "index_patients_on_site", using: :btree
+  add_index "patients", ["facility", "site", "lastname"], name: "facility-site-lastname"
+  add_index "patients", ["facility", "site"], name: "facility-site"
+  add_index "patients", ["facility"], name: "index_patients_on_facility"
+  add_index "patients", ["identifier"], name: "index_patients_on_identifier"
+  add_index "patients", ["lastname"], name: "index_patients_on_lastname"
+  add_index "patients", ["site"], name: "index_patients_on_site"
 
   create_table "roles", force: true do |t|
     t.string   "name"
-    t.integer  "resource_id"
+    t.integer  "resource_id",   precision: 38, scale: 0
     t.string   "resource_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "roles", ["name", "resource_type", "resource_id"], name: "name_restype_res_id", using: :btree
-  add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
+  add_index "roles", ["name", "resource_type", "resource_id"], name: "name_restype_res_id"
+  add_index "roles", ["name"], name: "index_roles_on_name"
 
   create_table "users", force: true do |t|
     t.string   "firstname"
@@ -73,15 +73,15 @@ ActiveRecord::Schema.define(version: 20150501225242) do
     t.datetime "updated_at"
   end
 
-  add_index "users", ["authen"], name: "index_users_on_authen", using: :btree
-  add_index "users", ["facility", "authen"], name: "facility-lastname", using: :btree
-  add_index "users", ["facility"], name: "index_users_on_facility", using: :btree
+  add_index "users", ["authen"], name: "index_users_on_authen"
+  add_index "users", ["facility", "authen"], name: "facility-lastname"
+  add_index "users", ["facility"], name: "index_users_on_facility"
 
   create_table "users_roles", id: false, force: true do |t|
-    t.integer "user_id"
-    t.integer "role_id"
+    t.integer "user_id", precision: 38, scale: 0
+    t.integer "role_id", precision: 38, scale: 0
   end
 
-  add_index "users_roles", ["user_id", "role_id"], name: "roles_userid_roleid", using: :btree
+  add_index "users_roles", ["user_id", "role_id"], name: "roles_userid_roleid"
 
 end
