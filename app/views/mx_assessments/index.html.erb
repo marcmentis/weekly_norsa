@@ -1,0 +1,34 @@
+
+<div id="divTitle">Ward Weekly Management Assessment</div>
+
+<div id="divLtContainer">
+  Left Container
+</div>
+
+<div id="divRtContainer">
+  Right Container
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @mx_assessments.each do |mx_assessment| %>
+      <tr>
+        <td><%= link_to 'Show', mx_assessment %></td>
+        <td><%= link_to 'Edit', edit_mx_assessment_path(mx_assessment) %></td>
+        <td><%= link_to 'Destroy', mx_assessment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Mx assessment', new_mx_assessment_path %>

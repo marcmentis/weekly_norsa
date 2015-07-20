@@ -1,4 +1,6 @@
 Rollify::Application.routes.draw do
+  resources :mx_assessments
+
   get "static_pages/home"
   resources :patients
   resources :users
