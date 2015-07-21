@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150501225242) do
+ActiveRecord::Schema.define(version: 20150720175158) do
 
   create_table "for_selects", force: true do |t|
     t.string   "code"
@@ -27,6 +27,31 @@ ActiveRecord::Schema.define(version: 20150501225242) do
   add_index "for_selects", ["code"], name: "index_for_selects_on_code"
   add_index "for_selects", ["facility", "code"], name: "facility-code"
   add_index "for_selects", ["facility"], name: "index_for_selects_on_facility"
+
+  create_table "mx_assess_notes", force: true do |t|
+    t.string   "danger_yn"
+    t.string   "drugs_last_changed"
+    t.string   "drugs_not_why",         limit: 4000
+    t.string   "drugs_change_why",      limit: 4000
+    t.string   "psychsoc_last_changed"
+    t.string   "psychsoc_not_why",      limit: 4000
+    t.string   "psychsoc_change_why",   limit: 4000
+    t.datetime "meeting_date"
+    t.integer  "patient_id",                         precision: 38, scale: 0
+    t.string   "pre_date_yesno"
+    t.string   "pre_date_no_why",       limit: 4000
+    t.datetime "pre_date"
+    t.string   "updated_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "mx_assess_notes", ["patient_id"], name: "index_mx_on_patient_id"
+
+  create_table "mx_assessments", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "patients", force: true do |t|
     t.string   "firstname"
