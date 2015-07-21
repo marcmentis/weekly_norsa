@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20150720175158) do
   add_index "for_selects", ["facility", "code"], name: "facility-code"
   add_index "for_selects", ["facility"], name: "index_for_selects_on_facility"
 
-  create_table "mx_assess_notes", force: true do |t|
+  create_table "mx_assessments", force: true do |t|
     t.string   "danger_yn"
     t.string   "drugs_last_changed"
     t.string   "drugs_not_why",         limit: 4000
@@ -42,13 +42,6 @@ ActiveRecord::Schema.define(version: 20150720175158) do
     t.string   "pre_date_no_why",       limit: 4000
     t.datetime "pre_date"
     t.string   "updated_by"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "mx_assess_notes", ["patient_id"], name: "index_mx_on_patient_id"
-
-  create_table "mx_assessments", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end
