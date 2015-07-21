@@ -1,34 +1,45 @@
+<div id="divMxAssessPageWrapper">
+<div id="divMxAssessPageInnerWrapper">
 
-<div id="divTitle">Ward Weekly Management Assessment</div>
 
-<div id="divLtContainer">
-  Left Container
-</div>
+  <div id="divTitle"><h2>Ward Management Assessment</h2></div>
 
-<div id="divRtContainer">
-  Right Container
-</div>
 
-<table>
-  <thead>
-    <tr>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+  <div id="divMxAssessLtContainer">
+    Left Container
+  </div>
 
-  <tbody>
-    <% @mx_assessments.each do |mx_assessment| %>
+  <div id="divMxAssessRtContainer">
+    Right Container
+  </div>
+
+  <div id="divMxAssessBelow">
+    BELOW
+  </div>
+
+  <table>
+    <thead>
       <tr>
-        <td><%= link_to 'Show', mx_assessment %></td>
-        <td><%= link_to 'Edit', edit_mx_assessment_path(mx_assessment) %></td>
-        <td><%= link_to 'Destroy', mx_assessment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th></th>
+        <th></th>
+        <th></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
+    <tbody>
+      <% @mx_assessments.each do |mx_assessment| %>
+        <tr>
+          <td><%= link_to 'Show', mx_assessment %></td>
+          <td><%= link_to 'Edit', edit_mx_assessment_path(mx_assessment) %></td>
+          <td><%= link_to 'Destroy', mx_assessment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-<%= link_to 'New Mx assessment', new_mx_assessment_path %>
+  <br>
+
+  <%= link_to 'New Mx assessment', new_mx_assessment_path %>
+
+</div>  <!-- id="divMxAssessPageInnerWrapper" -->
+</div>  <!-- id="divMxAssessPageWrapper" -->
