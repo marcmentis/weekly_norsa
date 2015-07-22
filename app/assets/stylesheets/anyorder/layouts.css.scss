@@ -172,6 +172,15 @@ $background_light_gray: #F5F5F5;
 	   font-weight:bold;
 	   text-align:center;		
 	}
+	h3 {
+	   text-shadow: #fdf2e4 0 1px 0;
+	   font-size:14px;
+	   color: $r_click_default_text;
+	   margin: 0 0 2px 0;
+	   font-weight:bold;
+	   text-align:center;		
+	}
+
 	input[type='text'] {
 		font-family: $s_font_family;
 		text-align: center;
