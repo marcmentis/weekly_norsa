@@ -1,34 +1,42 @@
+<div id="divMxAssessPageWrapper">
+<div id="divMxAssessPageInnerWrapper">
 
-<div id="divTitle">Ward Weekly Management Assessment</div>
 
-<div id="divLtContainer">
-  Left Container
-</div>
+  <div id="divTitle">Patient Management Assessment</div>
 
-<div id="divRtContainer">
-  Right Container
-</div>
 
-<table>
-  <thead>
-    <tr>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+  <div id="divMxAssessLtContainer">
+    <div id="divMxAssessLtTop">
+      <h3>Choose Ward and Meeting Date</h3>
+      <select id="slt_MxA_ward" name="slt_MxA_ward"></select>
+      New Date
+      <input type="text" id="dt_new_date" name="dt_new_date">
+      Date History
+      <select id="slt_MxA_date_history" name="slt_MxA_date_history"></select>
+    </div>
+    <div id="divMxAssessLtMiddle">
+      <div id="divMxAssessToDo">
+        <div><h3>To Do</h3></div>
+        <select id="slt_MxA_to_do"></select>
+      </div>
+      <div id="divMxAssessDone">
+        <div><h3>Done</h3></div>
+        <select id="slt_MxA_done"></select>
+      </div>
+    </div>
+    <div id="divMxAssessLtBottom">
+      <div>
+        <h3>Past Management Assessments
+        <input type="button" id="btTogNotes"></input>
+        </h3>
+      </div>
+      <textarea id="txa_past_MxAssessments" name="txa_past_MxAssessments"></textarea>
+    </div>
+  </div>
 
-  <tbody>
-    <% @mx_assessments.each do |mx_assessment| %>
-      <tr>
-        <td><%= link_to 'Show', mx_assessment %></td>
-        <td><%= link_to 'Edit', edit_mx_assessment_path(mx_assessment) %></td>
-        <td><%= link_to 'Destroy', mx_assessment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  <div id="divMxAssessRtContainer">
+    Right Container
+  </div>
 
-<br>
-
-<%= link_to 'New Mx assessment', new_mx_assessment_path %>
+</div>  <!-- id="divMxAssessPageInnerWrapper" -->
+</div>  <!-- id="divMxAssessPageWrapper" -->

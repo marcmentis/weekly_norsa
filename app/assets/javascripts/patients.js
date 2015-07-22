@@ -8,7 +8,7 @@ if ($('body.patients').length) {
 		
 
 	// STYLING
-		$('#divPatientPageWrapper').addClass('pad_3_sides');
+		$('#divPatientPageWrapper').addClass('pad_3_sides')
 		$('#divPatientPageInnerWrapper').addClass('centered')
 										.css({'width':'75em'});
 		$('#divPatientAsideRt').addClass('float_right form_container')
