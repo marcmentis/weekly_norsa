@@ -3,7 +3,7 @@ if ($('body.mx_assessments').length) {
 
 	//VARIABLES
 		//textareas
-		var width1 = '35em'
+		var width1 = '33em'
 		var heightS1 = '20em';
 		var heightL1 = '35em';
 		var heightEL1 = '55em';
@@ -25,21 +25,23 @@ if ($('body.mx_assessments').length) {
 					'margin': '0 0 7px 0'})
 		$('#divMxAssessRtContainer')
 			.addClass('float_right form_container')
-			.css({'width': '40em'});
+			.css({'width': '41em'});
 		$('#divMxAssessLtContainer')
 			.addClass('float_left form_container')
-			.css({'width':'40em'});
+			.css({'width':'41em'});
 		$('#divMxAssessToDo')
 			.addClass('float_left');
 		$('#divMxAssessDone')
 			.addClass('float_right');
 		$('#divMxAssessLtMiddle')
-			.css({'overflow': 'hidden'})
+			.css({ 'padding': '0.25em 0 0 0',
+				'overflow': 'hidden'})
 		$('#divMxAssessLtBottom')
-			.addClass('clear_both');
+			.addClass('clear_both')
+			.css({ 'padding': '0.25em 0 0 0'})
 		$('#divMxAssessLtTop, #divMxAssessLtMiddle')
 			.css({'margin-bottom': '1em'})
-
+			
 		//dates
 		$('[id^=dt]')
 			.datepicker({
@@ -53,7 +55,7 @@ if ($('body.mx_assessments').length) {
 		$('#slt_MxA_to_do, #slt_MxA_done')
 			.attr({'size': '15',
 				'multiple': 'no'})
-			.css({'width': '18em',
+			.css({'width': '20em',
 				'overflow': 'hidden'});
 		//buttons
 		$('[id^=bt]')
@@ -67,6 +69,8 @@ if ($('body.mx_assessments').length) {
 		$('#txa_past_MxAssessments')
 			.width(width1)
 			.height(heightS1)
+			.addClass('textarea_centered')
+
 			
 
 
