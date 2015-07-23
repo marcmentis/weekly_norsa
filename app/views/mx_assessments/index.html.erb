@@ -1,45 +1,80 @@
 <div id="divMxAssessPageWrapper">
 <div id="divMxAssessPageInnerWrapper">
 
+<div id="grid_WHOLE PAGE" class="grid">
 
   <div id="divTitle">Patient Management Assessment</div>
 
+  <div id="grid_LeftContainer" class="col-1-2">
+    <div class="form_container">
 
-  <div id="divMxAssessLtContainer">
-    <div id="divMxAssessLtTop">
-      <h3>Choose Ward and Meeting Date</h3>
-      <select id="slt_MxA_ward" name="slt_MxA_ward"></select>
-      <label for="dt_new_date" class="label">New Date</label>
-      <input type="text" id="dt_new_date" name="dt_new_date">
-      <label for="slt_MxA_date_history" class="label">Date History</label>
-      <select id="slt_MxA_date_history" name="slt_MxA_date_history"></select>
-    </div>
-    <div id="divMxAssessLtMiddle">
-      <div id="divMxAssessToDo">
-        <div><h3>To Do</h3></div>
-        <select id="slt_MxA_to_do"></select>
+      <!-- <div id="divMxAssessLtTop"> -->
+      <div id="grid_LtTop" class="grid">
+        <h3>Choose Ward and Meeting Date</h3>
+        <div class="col-1-3">
+          <select id="slt_MxA_ward" name="slt_MxA_ward"></select>
+        </div>
+        <div class="col-1-3">
+          <label for="dt_new_date" class="label">New Date</label>
+          <input type="text" id="dt_new_date" name="dt_new_date">
+        </div>
+        <div class="col-1-3">
+          <label for="slt_MxA_date_history" class="label">Date History</label>
+          <select id="slt_MxA_date_history" name="slt_MxA_date_history"></select>
+        </div>      
       </div>
-      <div id="divMxAssessDone">
-        <div><h3>Done</h3></div>
-        <select id="slt_MxA_done"></select>
-      </div>
-    </div>
-    <div id="divMxAssessLtBottom">
-      <div>
-        <h3>Past Management Assessments
-        <input type="button" id="btTogNotes"></input>
-        </h3>
-      </div>
-      <textarea id="txa_past_MxAssessments" name="txa_past_MxAssessments"></textarea>
-    </div>
-  </div>
 
-  <div id="divMxAssessRtContainer">
-    Right Container
-  </div>
+      <div id="grid_LtMiddle" class="grid">
+        <div id="grid_ToDo" class="col-1-2">
+          <div><h3>To Do</h3></div>
+          <select id="slt_MxA_to_do"></select>
+        </div>
+        <div id="grid_Done" class="col-1-2">
+          <div><h3>Done</h3></div>
+          <select id="slt_MxA_done"></select>
+        </div>
+      </div>
 
-  <div class="clear_both"></div>
-  <div class="grid">
+      <div id="grid_LtBottom" class="grid">
+        <div class="col-1">
+          <div>
+            <h3>Past Management Assessments
+            <input type="button" id="btTogNotes"></input>
+            </h3>
+          </div>
+          <div>
+              <textarea id="txa_past_MxAssessments" name="txa_past_MxAssessments"></textarea>
+          </div>
+        </div>
+      </div> <!-- <div id="grid_LtBottom" class="grid"> -->
+
+    </div>  <!-- class = "form_container" -->
+  </div>  <!-- <div id="grid_LeftContainer" class="col-1-2"> -->
+
+  <div id="grid_RightContainer" class="col-1-2">
+    <div class="form_container">
+      <div class="grid">
+        <div class="col-2-3">
+          <article class="module">
+            stuff1
+          </article>
+          <article class="module">
+            stuff2
+          </article>
+        </div>
+        <div class="col-1-3">
+          <article class="module">
+            stuff1
+          </article>
+          <article class="module">
+            stuff2
+          </article>
+        </div>
+      </div>
+    </div> <!-- class="form_container" -->
+  </div> <!-- <div id="grid_RightContainer" class="col-1-2"> -->
+
+  <div id="grid_BELOW" class="grid">
     <div class="col-2-3">
       <article class="module">
         stuff1
@@ -56,7 +91,8 @@
         stuff2
       </article>
     </div>
-  </div>
+  </div> <!-- <div id="grid_BELOW" class="grid"> -->
+</div>  <!-- <div id="GRID-WHOLE PAGE" class="grid"> -->
 
 </div>  <!-- id="divMxAssessPageInnerWrapper" -->
 </div>  <!-- id="divMxAssessPageWrapper" -->

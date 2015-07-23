@@ -1,3 +1,16 @@
+// box-sizing: border-box; 
+	//When set an element to a width it stays that width
+	//despite padding or borders being applied
+
+// * {
+//   @include box-sizing(border-box);
+// }
+
+*, *:after, *:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
 /* CONSTANTS */
 
 
@@ -166,7 +179,7 @@ $background_light_gray: #F5F5F5;
 	vertical-align: middle;
 	// min-width:300px;
 	padding:4px;
-	width:600px;
+	// width:600px;
 	label {
 		color: $r_click_default_text;
 	}
@@ -294,10 +307,10 @@ div.ui-datepicker, .ui-datepicker td{
 }
 
 //GRIDS  https://css-tricks.com/dont-overthink-it-grids/
-$pad: 20px;
+$pad: 10px;
 
 .grid {
-  background: white;
+  // background: white;
   margin: 0 0 $pad 0;
 
   //Clearing context: Stop parent element collapsing to zero
@@ -312,7 +325,7 @@ $pad: 20px;
 
 [class*='col-'] {
 	float: left;
-	padding-right: 20px;
+	padding-right: 20px;  //gutter
 }
 [class*='col-']:last-of-type {
 	padding-right: 0;
@@ -334,6 +347,9 @@ $pad: 20px;
 .col-1-8 {
 	width: 12.5%;
 }
+.col-1 {
+	width:100%;
+}
 .module {
 	background-color: #2e6e9e;
 }
@@ -341,19 +357,6 @@ $pad: 20px;
 
 
 
-// box-sizing: border-box; 
-	//When set an element to a width it stays that width
-	//despite padding or borders being applied
-
-// * {
-//   @include box-sizing(border-box);
-// }
-
-*, *:after, *:before {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
 
 
 

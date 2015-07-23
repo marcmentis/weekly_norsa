@@ -14,8 +14,7 @@ if ($('body.mx_assessments').length) {
 			.addClass('pad_3_sides');
 		$('#divMxAssessPageInnerWrapper')
 			.addClass('centered')
-			.css({'width':'85em',
-				'overflow': 'hidden'});
+			.css({'max-width': '1400px'})
 		$('#divTitle')
 			.css({'text-align': 'center',
 					'color': '#2e6e9e',
@@ -23,24 +22,6 @@ if ($('body.mx_assessments').length) {
 					'font-weight': 'bold',
 					'text-align': 'center',
 					'margin': '0 0 7px 0'})
-		$('#divMxAssessRtContainer')
-			.addClass('float_right form_container')
-			.css({'width': '41em'});
-		$('#divMxAssessLtContainer')
-			.addClass('float_left form_container')
-			.css({'width':'41em'});
-		$('#divMxAssessToDo')
-			.addClass('float_left');
-		$('#divMxAssessDone')
-			.addClass('float_right');
-		$('#divMxAssessLtMiddle')
-			.css({ 'padding': '0.25em 0 0 0',
-				'overflow': 'hidden'})
-		$('#divMxAssessLtBottom')
-			.addClass('clear_both')
-			.css({ 'padding': '0.25em 0 0 0'})
-		$('#divMxAssessLtTop, #divMxAssessLtMiddle')
-			.css({'margin-bottom': '1em'})
 			
 		//dates
 		$('[id^=dt]')
@@ -55,8 +36,7 @@ if ($('body.mx_assessments').length) {
 		$('#slt_MxA_to_do, #slt_MxA_done')
 			.attr({'size': '15',
 				'multiple': 'no'})
-			.css({'width': '20em',
-				'overflow': 'hidden'});
+			.css({'width': '100%'});
 		//buttons
 		$('[id^=bt]')
 			.button();
@@ -67,9 +47,9 @@ if ($('body.mx_assessments').length) {
 		$('[id^=txa')
 			.addClass('texts');
 		$('#txa_past_MxAssessments')
-			.width(width1)
+			.width('92%') //?? actually recorded as 98%
 			.height(heightS1)
-			.addClass('textarea_centered')
+			
 
 			
 
