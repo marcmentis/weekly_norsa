@@ -3,7 +3,7 @@ if ($('body.mx_assessments').length) {
 
 	//VARIABLES
 		//textareas
-		var width1 = '40em'
+		var width1 = '35em'
 		var heightS1 = '20em';
 		var heightL1 = '35em';
 		var heightEL1 = '55em';
@@ -14,7 +14,7 @@ if ($('body.mx_assessments').length) {
 			.addClass('pad_3_sides');
 		$('#divMxAssessPageInnerWrapper')
 			.addClass('centered')
-			.css({'width':'75em',
+			.css({'width':'85em',
 				'overflow': 'hidden'});
 		$('#divTitle')
 			.css({'text-align': 'center',
@@ -25,10 +25,10 @@ if ($('body.mx_assessments').length) {
 					'margin': '0 0 7px 0'})
 		$('#divMxAssessRtContainer')
 			.addClass('float_right form_container')
-			.css({'width': '36em'});
+			.css({'width': '40em'});
 		$('#divMxAssessLtContainer')
 			.addClass('float_left form_container')
-			.css({'width':'36em'});
+			.css({'width':'40em'});
 		$('#divMxAssessToDo')
 			.addClass('float_left');
 		$('#divMxAssessDone')
