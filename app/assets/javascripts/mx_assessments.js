@@ -14,7 +14,7 @@ if ($('body.mx_assessments').length) {
 			.addClass('pad_3_sides');
 		$('#divMxAssessPageInnerWrapper')
 			.addClass('centered')
-			.css({'max-width': '1400px'})
+			.css({'max-width': '1300px'})
 		$('#divTitle')
 			.css({'text-align': 'center',
 					'color': '#2e6e9e',
@@ -22,15 +22,17 @@ if ($('body.mx_assessments').length) {
 					'font-weight': 'bold',
 					'text-align': 'center',
 					'margin': '0 0 7px 0'})
+		 //Rt container
 			
 		//dates
-		$('[id^=dt]')
+		$('[id^=dt], [id^=date]')
 			.datepicker({
 				changeMonth: true,
 				changeYear: true,
 				yearRange: "-10: +10" })
 			.addClass('texts')
 			.css({'width':'7em'});
+
 
 		//selects
 		$('#slt_MxA_to_do, #slt_MxA_done')
@@ -43,12 +45,20 @@ if ($('body.mx_assessments').length) {
 		$('#btTogNotes')
 			.addClass('reduce_button')
 			.attr({'value': 'toggle'});
+		$('[id^=b')
+			.button()
+			.addClass('reduce_button');
 		//textareas
-		$('[id^=txa')
-			.addClass('texts');
+		$('[id^=txa]')
+			.addClass('text-content left');
 		$('#txa_past_MxAssessments')
 			.width('92%') //?? actually recorded as 98%
 			.height(heightS1)
+
+		$('[id^=textArea')
+			.addClass('text-content left')
+			.width('92%')
+			.height('1.5em');
 			
 
 			

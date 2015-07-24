@@ -3,7 +3,7 @@
 
 <div id="grid_WHOLE PAGE" class="grid">
 
-  <div id="divTitle">Patient Management Assessment</div>
+  <div id="divTitle">Patient Bio-psycho-social Management Assessment</div>
 
   <div id="grid_LeftContainer" class="col-1-2">
     <div class="form_container">
@@ -53,46 +53,120 @@
 
   <div id="grid_RightContainer" class="col-1-2">
     <div class="form_container">
-      <div class="grid">
-        <div class="col-2-3">
-          <article class="module">
-            stuff1
-          </article>
-          <article class="module">
-            stuff2
-          </article>
-        </div>
-        <div class="col-1-3">
-          <article class="module">
-            stuff1
-          </article>
-          <article class="module">
-            stuff2
-          </article>
-        </div>
+      <div>
+        Patient Name  Number  Ward
       </div>
+
+      <div id="divTextAreaHeader11">
+        <span class="text-14-bold">
+          Is Patient a danger to self/other, if in approved housing?
+        </span>
+        <label>Yes<input type="radio" name="radioDanger" id="radioDangerYes" value="Y" /></label>
+        <label>No<input type="radio" name="radioDanger" id="radioDangerNo" value="N" /></label>
+      </div>    
+      <!--YES Still Dangerous--> 
+      <div > 
+        <div id="divDangerYes1" class="wrap1_g">
+          <span class="text-12-bold">
+            (i)When was medication for Axis I/II Dx last changed?
+          </span>        
+          <select name="selectTimeDrugs" id="selectTimeDrugs" >
+             <option value="-1">Drugs Changed</option>
+             <option value="0-2Weeks">0-2Weeks</option>
+             <option value="2-8Weeks">2-8Weeks</option>
+             <option value="Gt8Weeks">Gt8Weeks</option>
+          </select>
+        </div>
+          <div id="divDangerYes1YesChange">
+            <span class="text-12">
+              What Medication change was made for AxisI/II and WHY?
+            </span>
+            <input type="button" id ="bTogDrugWhyChange" value="Tog">
+            <input type="button" id ="bHistDrugWhyChange" value="Hist">
+            <div>
+                <textarea id="textAreaDrugWhyChange" name="textAreaDrugWhyChange"></textarea>
+            </div>
+          </div>
+        <div id="divDangerYes1Yes">
+          <span class="text-12">
+            Why No Change in Medication for AxisI or II disorder(s)?
+          </span>
+          <input type="button" id ="bTogDrugNoChange" value="Tog">
+          <input type="button" id ="bHistDrugNoChange" value="Hist">
+          <div>
+            <textarea id="textAreaDrugNoChange" name="textAreaDrugNoChange"></textarea>
+          </div>
+        </div>
+
+        <div id="divDangerYes2">
+          <span class="text-12-bold">
+            (ii)When was group/indiv Tx for Axis I/II Dx last changed?
+          </span>
+           
+            <select name="selectTimeGroups" id="selectTimeGroups" >
+               <option value="-1">Group Changed</option>
+               <option value="0-1Month">0-1Month</option>
+               <option value="1-3Months">1-3Months</option>
+               <option value="Gt3Months">Gt3Months</option>
+            </select>
+        </div>
+        <div id="divDangerYes2No">
+          <span class="text-12">
+            What change was made in Group/Individual therapy for Axis1 or II disorder(s)?
+          </span>
+          <input type="button" id ="bTogGroupChange" value="Tog">
+          <input type="button" id ="bHistGroupChange" value="Hist">
+          <div>
+            <textarea id="textAreaGroupNoChange" name="textAreaGroupNoChange"></textarea>
+          </div>        
+        </div>
+        <div id="divDangerYes2Yes">
+          <span class="text-12">
+            Why No Change in Group/Individual therapy for Axis1 or II disorder(s)?
+          </span>
+          <input type="button" id ="bTogGroupNoChange" value="Tog">
+          <input type="button" id ="bHistGroupNoChange" value="Hist">
+          <div>
+            <textarea id="textAreaGroupNoChange" name="textAreaGroupNoChange"></textarea>
+          </div>        
+        </div>
+        
+
+      <!--NO Not Dangerous-->
+      <div id="divDangerNo1"> 
+        <div>
+          <span class="text-12">
+            Has date been set for Pre-Conference Meeting?
+          </span>
+         <label>Yes<input type="radio" name="radioPreDate" id="radioPreDateYes" value="Y" /></label>
+         <label>No<input type="radio" name="radioPreDate" id="radioPreDateNo" value="N" /></label>
+
+        </div>
+        <!--YES Pre Date Set--> 
+        <div id="divDangerNo1No">
+            <label>Date: <input type="text"  id="datePreMeeting" name="datePreMeeting" style="width:90px"/></label>
+        </div>
+         <!--No Pre Date Not Set--> 
+        <div id="divDangerNo1Yes">
+          <span class="text-12">
+            Why has Pre-date not been set?
+          </span>
+          <input type="button" id ="bTogNoPreDate" value="Tog">
+          <input type="button" id ="bHistNoPreDate" value="Hist">
+            <div class="LtFloatOnly_g">
+              <textarea id="textAreaNoPreDate" name="textAreaNoPreDate"></textarea>
+            </div>
+        </div>                  
+      </div> 
+
     </div> <!-- class="form_container" -->
   </div> <!-- <div id="grid_RightContainer" class="col-1-2"> -->
 
-  <div id="grid_BELOW" class="grid">
-    <div class="col-2-3">
-      <article class="module">
-        stuff1
-      </article>
-      <article class="module">
-        stuff2
-      </article>
-    </div>
-    <div class="col-1-3">
-      <article class="module">
-        stuff1
-      </article>
-      <article class="module">
-        stuff2
-      </article>
-    </div>
-  </div> <!-- <div id="grid_BELOW" class="grid"> -->
+
 </div>  <!-- <div id="GRID-WHOLE PAGE" class="grid"> -->
 
 </div>  <!-- id="divMxAssessPageInnerWrapper" -->
 </div>  <!-- id="divMxAssessPageWrapper" -->
+
+ 
+

@@ -225,7 +225,42 @@ $background_light_gray: #F5F5F5;
 		width: 108px;
 		font-size: 12px;
 	}
-   }
+	& .text-14-bold {
+		font-size:14px;
+		color: $r_click_default_text;
+		font-weight:bold;
+	}
+	& .text-12-bold {
+		font-size:12px;
+		color: $r_click_default_text;
+		font-weight:bold;
+	}
+	& .text-12 {
+		font-size:12px;
+		color: $r_click_default_text;
+	}
+	& .text-content {
+		font-family: $s_font_family;
+		text-align: center;
+		border: 1px solid $r_content_border;
+		background: $r_content_background;
+		-webkit-border-radius: 4px;
+		-moz-border-radius: 4px;
+		border-radius: 4px;
+		// color: $r_content_text;
+		-webkit-box-shadow: rgba(255,255,255,0.4) 0 0px 0, inset rgba(000,000,000,0.7) 0 0px 0px;
+		-moz-box-shadow: rgba(255,255,255,0.4) 0 0px 0, inset rgba(000,000,000,0.7) 0 0px 0px;
+		box-shadow: rgba(255,255,255,0.4) 0 0px 0, inset rgba(000,000,000,0.7) 0 0px 0px;
+		padding:3px;
+	}
+	& .left {
+		text-align: left;
+	}
+	& .center {
+		text-align: center;
+	}
+  }
+
 
 .texts {
 	font-family: $s_font_family;
