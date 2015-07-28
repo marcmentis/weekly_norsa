@@ -1,12 +1,12 @@
 $(function(){
 if ($('body.mx_assessments').length) {
-
 	//VARIABLES
+		var user_facility = $('#session-facility').val();
 		//textareas
 		var width1 = '33em'
-		var heightS1 = '20em';
-		var heightL1 = '35em';
-		var heightEL1 = '55em';
+		var heightS1 = '90';
+		var heightL1 = '180';
+		var heightEL1 = '360';
 
 	// STYLING
 		//divs
@@ -48,7 +48,6 @@ if ($('body.mx_assessments').length) {
 			.button();
 		$('#btTogNotes')
 			.addClass('reduce_button')
-			.attr({'value': 'toggle'});
 		$('[id^=b')
 			.button()
 			.addClass('reduce_button');
@@ -62,35 +61,57 @@ if ($('body.mx_assessments').length) {
 		$('[id^=textArea')
 			.addClass('text-content left')
 			.width('92%')
-			.height('1.5em');
+			.height(heightS1);
 		
 	//SELECT HANDLERS
 		//populate selects
 		$('#selectTimeDrugs').mjm_addOptions('DrugsChanged',{firstLine: 'Drugs Changed'});	
 		$('#selectTimeGroups').mjm_addOptions('GroupsChanged',{firstLine: 'Group Changed'});
+		$('#slt_MxA_ward').mjm_addOptions('ward', {firstLine: 'All Wards', facility: user_facility, group: true})
 
 		//Expose appropriate questions for drug changes
 		$('#selectTimeDrugs').change(function(){
 			value = $(this).val();
-				// swal(value)
-				if(value == -1){
-					$('#divDangerYes1Yes, #divDangerYes1YesChange').hide();
-					$('#textAreaDrugNoChange, #textAreaDrugWhyChange').val('');
-					return true;
-				};
-				if(value == '0-8Weeks'){
-					$('#divDangerYes1YesChange').show();
-	                $('#divDangerYes1Yes').hide();
-					$('#textAreaDrugNoChange').val('');
-					return true;
-				};
-				if(value == 'Gt8Weeks'){
-					$('#divDangerYes1Yes').show();
-					$('#divDangerYes1YesChange').hide();
-					$('#textAreaDrugWhyChange').val('');
-					return true;
-				}
+			// swal(value)
+			if(value == -1){
+				$('#divDangerYes1Yes, #divDangerYes1YesChange').hide();
+				$('#textAreaDrugNoChange, #textAreaDrugWhyChange').val('');
+				return true;
+			};
+			if(value == '0-8Weeks'){
+				$('#divDangerYes1YesChange').show();
+                $('#divDangerYes1Yes').hide();
+				$('#textAreaDrugNoChange').val('');
+				return true;
+			};
+			if(value == 'Gt8Weeks'){
+				$('#divDangerYes1Yes').show();
+				$('#divDangerYes1YesChange').hide();
+				$('#textAreaDrugWhyChange').val('');
+				return true;
+			}
 		});	
+
+		//Expose appropriate questions for group changes
+		$('#selectTimeGroups').change(function(){
+			value = $(this).val();
+			// swal(value);
+			if (value == -1) {
+				$('#divDangerYes2YesChange, #divDangerYes2Yes').hide();
+				$ ('#textAreaGroupNoChange, textAreaGroupWhyChange').val('');
+				return true;
+			};
+			if (value == '0-3Months') {
+				$('#divDangerYes2Yes').hide();
+				$('#divDangerYes2YesChange').show();
+				$ ('#textAreaGroupWhyChange').val('');
+			};
+			if (value == 'Gt3Months') {
+				$('#divDangerYes2YesChange').hide();
+				$('#divDangerYes2Yes').show();
+				$ ('#textAreaGroupNoChange').val('');
+			};
+		});
 
 	//RADIO HANDLERS
 		$('#radioDangerYes').click(function(){
@@ -105,18 +126,63 @@ if ($('body.mx_assessments').length) {
 			};
 		});
 
-	$('#radioDangerNo').click(function(){
-		 checked = $(this).is(':checked');
-		if(checked){
-			$('#divDangerNo1').show();
-			$('[id^=divDangerYes]').hide();
-			$('[id^=radioPreDat]').attr('checked',false);
-			$('#selectTimeDrugs, #selectTimeGroups').val(-1);
-			$('#textAreaDrugNoChange, #textAreaDrugWhyChange, #textAreaGroupNoChange ').val('');
-		};
-	});
+		$('#radioDangerNo').click(function(){
+			 checked = $(this).is(':checked');
+			if(checked){
+				$('#divDangerNo1').show();
+				$('[id^=divDangerYes]').hide();
+				$('[id^=radioPreDat]').attr('checked',false);
+				$('#selectTimeDrugs, #selectTimeGroups').val(-1);
+				$('#textAreaDrugNoChange, #textAreaDrugWhyChange, #textAreaGroupNoChange ').val('');
+			};
+		});
+
+		$('#radioPreDateYes').click(function(){
+			checked = $(this).is(':checked');
+			if (checked) {
+				$('#divDangerNo1Yes').hide();
+				$('#divDangerNo1No').show();
+				$('#datePreMeeting').val('');
+			};
+		});
+		$('#radioPreDateNo').click(function(){
+			checked = $(this).is(':checked');
+			if (checked) {
+				$('#divDangerNo1No').hide();
+				$('#divDangerNo1Yes').show();
+				$('#textAreaNoPreDate').val('');
+			};
+		});
+
+	//BUTTON HANDLERS
+		$('#btTogNotes').click(function(){
+			element = $('#txa_past_MxAssessments');
+			tripleToggle(element, heightS1, heightL1, heightEL1)
+		});
+
+		$('#bTogDrugWhyChange').click(function(){
+			element = $('#textAreaDrugWhyChange');
+			tripleToggle(element, heightS1, heightL1, heightEL1)
+		});
+		$('#bTogDrugNoChange').click(function(){
+			element = $('#textAreaDrugNoChange');
+			tripleToggle(element, heightS1, heightL1, heightEL1)
+		});
+		$('#bTogGroupChange').click(function(){
+			element = $('#textAreaGroupWhyChange');
+			tripleToggle(element, heightS1, heightL1, heightEL1)
+		});
+		$('#bTogGroupNoChange').click(function(){
+			element = $('#textAreaGroupNoChange');
+			tripleToggle(element, heightS1, heightL1, heightEL1)
+		});
+		$('#bTogNoPreDate').click(function(){
+			element = $('#textAreaNoPreDate');
+			tripleToggle(element, heightS1, heightL1, heightEL1)
+		});
 
 
+		
 
 };	//if ($('body.mx_assessments').length) {
 });  //$(function(){

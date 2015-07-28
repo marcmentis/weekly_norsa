@@ -1,9 +1,11 @@
 <div id="divMxAssessPageWrapper">
 <div id="divMxAssessPageInnerWrapper" class="mx_assessment_index">
 
+<div id="divFacility" data-facility="<%= session[:facility] %>" ></div>
+
 <div id="grid_WHOLE PAGE" class="grid">
 
-  <div id="divTitle">Patient Bio-psycho-social Management Assessment</div>
+  <div id="divTitle">Patient bio-psycho-social (BPS) Management Assessment</div>
 
   <div id="grid_LeftContainer" class="col-1-2">
     <div class="form_container">
@@ -11,17 +13,13 @@
       <!-- <div id="divMxAssessLtTop"> -->
       <div id="grid_LtTop" class="grid">
         <h3>Choose Ward and Meeting Date</h3>
-        <div class="col-1-3">
-          <select id="slt_MxA_ward" name="slt_MxA_ward"></select>
-        </div>
-        <div class="col-1-3">
+        <div class="text_align_center">
+          <select id="slt_MxA_ward" name="slt_MxA_ward" class="rt_margin_10"></select>
           <label for="dt_new_date" class="label">New Date</label>
-          <input type="text" id="dt_new_date" name="dt_new_date">
-        </div>
-        <div class="col-1-3">
+          <input type="text" id="dt_new_date" name="dt_new_date" class="rt_margin_10">
           <label for="slt_MxA_date_history" class="label">Date History</label>
           <select id="slt_MxA_date_history" name="slt_MxA_date_history"></select>
-        </div>      
+        </div>  
       </div>
 
       <div id="grid_LtMiddle" class="grid">
@@ -39,7 +37,7 @@
         <div class="col-1">
           <div>
             <h3>Past Management Assessments
-            <input type="button" id="btTogNotes"></input>
+            <input type="button" id="btTogNotes" value="tog"></input>
             </h3>
           </div>
           <div>
@@ -77,17 +75,17 @@
             <span class="text-12">
               What Medication change was made for AxisI/II and WHY?
             </span>
-            <input type="button" id ="bTogDrugWhyChange" value="Tog">
+            <input type="button" id ="bTogDrugWhyChange" value="tog">
             <input type="button" id ="bHistDrugWhyChange" value="Hist">
             <div>
-                <textarea id="textAreaDrugWhyChange" name="textAreaDrugWhyChange"></textarea>
+                <textarea id="textAreaDrugWhyChange" name="textAreaDrugWhyChange" style=rows="100"></textarea>
             </div>
           </div>
         <div id="divDangerYes1Yes">
           <span class="text-12">
             Why No Change in Medication for AxisI or II disorder(s)?
           </span>
-          <input type="button" id ="bTogDrugNoChange" value="Tog">
+          <input type="button" id ="bTogDrugNoChange" value="tog">
           <input type="button" id ="bHistDrugNoChange" value="Hist">
           <div>
             <textarea id="textAreaDrugNoChange" name="textAreaDrugNoChange"></textarea>
@@ -104,17 +102,17 @@
           <span class="text-12">
             What change was made in Group/Individual therapy for Axis1 or II disorder(s)?
           </span>
-          <input type="button" id ="bTogGroupChange" value="Tog">
+          <input type="button" id ="bTogGroupChange" value="tog">
           <input type="button" id ="bHistGroupChange" value="Hist">
           <div>
-            <textarea id="textAreaGroupNoChange" name="textAreaGroupNoChange"></textarea>
+            <textarea id="textAreaGroupWhyChange" name="textAreaGroupWhyChange"></textarea>
           </div>        
         </div>
         <div id="divDangerYes2Yes">
           <span class="text-12">
             Why No Change in Group/Individual therapy for Axis1 or II disorder(s)?
           </span>
-          <input type="button" id ="bTogGroupNoChange" value="Tog">
+          <input type="button" id ="bTogGroupNoChange" value="tog">
           <input type="button" id ="bHistGroupNoChange" value="Hist">
           <div>
             <textarea id="textAreaGroupNoChange" name="textAreaGroupNoChange"></textarea>
@@ -141,7 +139,7 @@
             <span class="text-12">
               Why has Pre-date not been set?
             </span>
-            <input type="button" id ="bTogNoPreDate" value="Tog">
+            <input type="button" id ="bTogNoPreDate" value="tog">
             <input type="button" id ="bHistNoPreDate" value="Hist">
               <div class="LtFloatOnly_g">
                 <textarea id="textAreaNoPreDate" name="textAreaNoPreDate"></textarea>

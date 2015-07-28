@@ -32,3 +32,16 @@ function ajax_error1 (header, msg, divname, msec) {
 	        }, msec);
         };      	
 	};
+
+ //Triple Toggle Function 
+        function tripleToggle(element, heightS1, heightL1, heightEL1){
+         //Toggle textArea size based on size of textArea
+            height = element.height();
+            if (height == heightS1){
+               element.height(heightL1);
+            }else if(height == heightL1){
+               element.height(heightEL1);
+            }else if(height == heightEL1){
+                element.height(heightS1)
+            }
+     }; 
