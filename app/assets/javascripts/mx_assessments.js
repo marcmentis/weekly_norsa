@@ -22,6 +22,8 @@ if ($('body.mx_assessments').length) {
 					'font-weight': 'bold',
 					'text-align': 'center',
 					'margin': '0 0 7px 0'})
+		$('[id^=divDanger]')
+			.hide();
 		 //Rt container
 			
 		//dates
@@ -39,6 +41,8 @@ if ($('body.mx_assessments').length) {
 			.attr({'size': '15',
 				'multiple': 'no'})
 			.css({'width': '100%'});
+		$('[id^=select]')
+			.css({'width': '125px'})
 		//buttons
 		$('[id^=bt]')
 			.button();
@@ -59,9 +63,34 @@ if ($('body.mx_assessments').length) {
 			.addClass('text-content left')
 			.width('92%')
 			.height('1.5em');
-			
+		
+	//SELECT HANDLERS
+		$('#selectTimeDrugs').mjm_addOptions('DrugsChanged',{firstLine: 'Drugs Changed'});	
+		$('#selectTimeGroups').mjm_addOptions('GroupsChanged',{firstLine: 'Group Changed'});	
 
-			
+	//RADIO HANDLERS
+		$('#radioDangerYes').click(function(){
+			checked = $(this).is(':checked');
+			if (checked) {
+				$('[id^=divDangerNo]')
+					.hide();
+				$('#divDangerYes1, #divDangerYes2')
+					.show();
+				$('#divDangerYes1Yes, #divDangerYes2Yes, #divDangerYes1YesChange, #divDangerYes2YesChange')
+					.hide();
+			};
+		});
+
+	$('#radioDangerNo').click(function(){
+		 checked = $(this).is(':checked');
+		if(checked){
+			$('#divDangerNo1').show();
+			$('[id^=divDangerYes]').hide();
+			$('[id^=radioPreDat]').attr('checked',false);
+			$('#selectTimeDrugs, #selectTimeGroups').val(-1);
+			$('#textAreaDrugNoChange, #textAreaDrugWhyChange, #textAreaGroupNoChange ').val('');
+		};
+	});
 
 
 

@@ -2,8 +2,8 @@
 ****   POPULATE SELECT BOX.  ******************
    USE:  $('#SelectID').mjm_addOptions(code, [firstLine], [allValues], [group], [facility], [complete]);
    i.e., $('#fFacility').mjm_addOptions('ward');
-   		 $('#fFacility').mjm_addOptions('ward',{firstline: 'All wards', group: true});
-   		 $('#fFacility').mjm_addOptions('ward',{firstline: 'All wards',
+   		 $('#fFacility').mjm_addOptions('ward',{firstLine: 'All wards', group: true});
+   		 $('#fFacility').mjm_addOptions('ward',{firstLine: 'All wards',
    		 								complete: function(){
 											complex_search();
 											$('#name').val('somevalue')

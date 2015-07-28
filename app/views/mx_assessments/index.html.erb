@@ -64,18 +64,14 @@
         <label>Yes<input type="radio" name="radioDanger" id="radioDangerYes" value="Y" /></label>
         <label>No<input type="radio" name="radioDanger" id="radioDangerNo" value="N" /></label>
       </div>    
-      <!--YES Still Dangerous--> 
-      <div > 
-        <div id="divDangerYes1" class="wrap1_g">
+      
+      <div> 
+        <!--YES Still Dangerous--> 
+        <div id="divDangerYes1">
           <span class="text-12-bold">
             (i)When was medication for Axis I/II Dx last changed?
           </span>        
-          <select name="selectTimeDrugs" id="selectTimeDrugs" >
-             <option value="-1">Drugs Changed</option>
-             <option value="0-2Weeks">0-2Weeks</option>
-             <option value="2-8Weeks">2-8Weeks</option>
-             <option value="Gt8Weeks">Gt8Weeks</option>
-          </select>
+          <select name="selectTimeDrugs" id="selectTimeDrugs" ></select>
         </div>
           <div id="divDangerYes1YesChange">
             <span class="text-12">
@@ -101,16 +97,10 @@
         <div id="divDangerYes2">
           <span class="text-12-bold">
             (ii)When was group/indiv Tx for Axis I/II Dx last changed?
-          </span>
-           
-            <select name="selectTimeGroups" id="selectTimeGroups" >
-               <option value="-1">Group Changed</option>
-               <option value="0-1Month">0-1Month</option>
-               <option value="1-3Months">1-3Months</option>
-               <option value="Gt3Months">Gt3Months</option>
-            </select>
+          </span>   
+          <select name="selectTimeGroups" id="selectTimeGroups" ></select>
         </div>
-        <div id="divDangerYes2No">
+        <div id="divDangerYes2YesChange">
           <span class="text-12">
             What change was made in Group/Individual therapy for Axis1 or II disorder(s)?
           </span>
@@ -132,33 +122,32 @@
         </div>
         
 
-      <!--NO Not Dangerous-->
-      <div id="divDangerNo1"> 
-        <div>
-          <span class="text-12">
-            Has date been set for Pre-Conference Meeting?
-          </span>
-         <label>Yes<input type="radio" name="radioPreDate" id="radioPreDateYes" value="Y" /></label>
-         <label>No<input type="radio" name="radioPreDate" id="radioPreDateNo" value="N" /></label>
+        <!--NO Not Dangerous-->
+        <div id="divDangerNo1"> 
+          <div>
+            <span class="text-12">
+              Has date been set for Pre-Conference Meeting?
+            </span>
+           <label>Yes<input type="radio" name="radioPreDate" id="radioPreDateYes" value="Y" /></label>
+           <label>No<input type="radio" name="radioPreDate" id="radioPreDateNo" value="N" /></label>
 
-        </div>
-        <!--YES Pre Date Set--> 
-        <div id="divDangerNo1No">
-            <label>Date: <input type="text"  id="datePreMeeting" name="datePreMeeting" style="width:90px"/></label>
-        </div>
-         <!--No Pre Date Not Set--> 
-        <div id="divDangerNo1Yes">
-          <span class="text-12">
-            Why has Pre-date not been set?
-          </span>
-          <input type="button" id ="bTogNoPreDate" value="Tog">
-          <input type="button" id ="bHistNoPreDate" value="Hist">
-            <div class="LtFloatOnly_g">
-              <textarea id="textAreaNoPreDate" name="textAreaNoPreDate"></textarea>
-            </div>
-        </div>                  
-      </div> 
-
+          </div>
+          <!--YES Pre Date Set--> 
+          <div id="divDangerNo1No">
+              <label>Date: <input type="text"  id="datePreMeeting" name="datePreMeeting" style="width:90px"/></label>
+          </div>
+           <!--No Pre Date Not Set--> 
+          <div id="divDangerNo1Yes">
+            <span class="text-12">
+              Why has Pre-date not been set?
+            </span>
+            <input type="button" id ="bTogNoPreDate" value="Tog">
+            <input type="button" id ="bHistNoPreDate" value="Hist">
+              <div class="LtFloatOnly_g">
+                <textarea id="textAreaNoPreDate" name="textAreaNoPreDate"></textarea>
+              </div>
+          </div>                  
+        </div> 
     </div> <!-- class="form_container" -->
   </div> <!-- <div id="grid_RightContainer" class="col-1-2"> -->
 

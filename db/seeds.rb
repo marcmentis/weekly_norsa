@@ -73,3 +73,11 @@ ForSelect.find_or_initialize_by_value('G-unit').update_attributes(facility: '002
 # User make sure pgmdmjm in database
 User.find_or_initialize_by_authen('pgmdmjm').update_attributes(firstname: 'Marc', lastname: 'Mentis', authen: 'pgmdmjm', facility: '0013', email: 'marc.mentis@omh.ny.gov', firstinitial: 'M', middleinitial: 'J')
 User.find_or_initialize_by_authen('mmentis').update_attributes(firstname: 'Marc', lastname: 'Mentis', authen: 'mmentis', facility: '0013', email: 'marc.mentis@omh.ny.gov', firstinitial: 'M', middleinitial: 'J')
+
+# Bio-Psycho-Social Mx Assessment
+ForSelect.find_or_initialize_by_value('0-8Weeks').update_attributes(facility: '9999', code: 'DrugsChanged', value: '0-8Weeks', text: '0-8Weeks', option_order: 1, grouper: '')
+ForSelect.find_or_initialize_by_value('Gt8Weeks').update_attributes(facility: '9999', code: 'DrugsChanged', value: 'Gt8Weeks', text: 'Gt8Weeks', option_order: 2, grouper: '')
+ForSelect.find_or_initialize_by_value('0-3Months').update_attributes(facility: '9999', code: 'GroupsChanged', value: '0-3Months', text: '0-3Months', option_order: 1, grouper: '')
+ForSelect.find_or_initialize_by_value('Gt3Months').update_attributes(facility: '9999', code: 'GroupsChanged', value: 'Gt3Months', text: 'Gt3Months', option_order: 2, grouper: '')
+
+
