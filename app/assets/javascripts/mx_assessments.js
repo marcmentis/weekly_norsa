@@ -65,8 +65,32 @@ if ($('body.mx_assessments').length) {
 			.height('1.5em');
 		
 	//SELECT HANDLERS
+		//populate selects
 		$('#selectTimeDrugs').mjm_addOptions('DrugsChanged',{firstLine: 'Drugs Changed'});	
-		$('#selectTimeGroups').mjm_addOptions('GroupsChanged',{firstLine: 'Group Changed'});	
+		$('#selectTimeGroups').mjm_addOptions('GroupsChanged',{firstLine: 'Group Changed'});
+
+		//Expose appropriate questions for drug changes
+		$('#selectTimeDrugs').change(function(){
+			value = $(this).val();
+				// swal(value)
+				if(value == -1){
+					$('#divDangerYes1Yes, #divDangerYes1YesChange').hide();
+					$('#textAreaDrugNoChange, #textAreaDrugWhyChange').val('');
+					return true;
+				};
+				if(value == '0-8Weeks'){
+					$('#divDangerYes1YesChange').show();
+	                $('#divDangerYes1Yes').hide();
+					$('#textAreaDrugNoChange').val('');
+					return true;
+				};
+				if(value == 'Gt8Weeks'){
+					$('#divDangerYes1Yes').show();
+					$('#divDangerYes1YesChange').hide();
+					$('#textAreaDrugWhyChange').val('');
+					return true;
+				}
+		});	
 
 	//RADIO HANDLERS
 		$('#radioDangerYes').click(function(){
