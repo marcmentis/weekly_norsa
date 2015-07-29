@@ -1,6 +1,33 @@
 class MxAssessmentsController < ApplicationController
   before_action :set_mx_assessment, only: [:show, :edit, :update, :destroy]
 
+  #GET /mxa_date_history/.json
+  def date_history
+    # byebug
+    @date_history = MxAssessment.select(:meeting_date).distinct.joins(:patient)
+                                .where(patients: {facility: session[:facility]})
+                                .where(patients: {site: params[:site]})
+                                .order(meeting_date: :desc)
+
+    respond_to do |format|
+      format.json {render json: @date_history}
+    end
+  end
+
+  #GET mxa_pat_lists.json
+  def patient_lists
+    # byebug
+    facility = session[:facility]
+    @all_lists = MxAssessment.get_pat_lists(params, facility)
+    # @all_done = all_lists[:pat_all_done]
+    # @all_to_do = all_lists[:pat_all_to_do]
+    # @chosen_date = all_lists[:meeting_date]
+
+    respond_to do |format|
+      format.json {render json: @all_lists}
+    end
+  end
+
   # GET /mx_assessments
   # GET /mx_assessments.json
   def index

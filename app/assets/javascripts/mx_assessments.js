@@ -71,6 +71,85 @@ if ($('body.mx_assessments').length) {
 		$('#slt_Mxa_groupChanged').mjm_addOptions('GroupsChanged',{firstLine: 'Group Changed'});
 		$('#slt_MxA_ward').mjm_addOptions('ward', {firstLine: 'All Wards', facility: user_facility, group: true})
 
+		//Populate TODO and DONE lists
+		$('#slt_MxA_ward, #dt_MxA_newDate, #slt_MxA_date_history')
+			.change(function(e){
+			var id = $(this).attr('id');
+			var ward = $('#slt_MxA_ward').val();
+			var date = $('#dt_MxA_newDate').val();
+			//Setup and Validation
+			//When Ward Changed: (i) Populate slt_MxA_date_history (ii) clear dt_MxA_newDate, (iii) clear TODO lists and past history																		
+			if (id == 'slt_MxA_ward') {
+				// swal(ward)
+				popSelectDateHistory(ward);
+				$('#dt_MxA_newDate').val('');
+
+			};
+
+			//When newDate is changed: (i) Clear date_history, (ii) clear toDo lists and form data (iii) set date to new date
+			if (id == 'dt_MxA_newDate') {
+				$('#slt_MxA_date_history').val('-1');
+				//the two clears
+				new_date = $('#dt_MxA_newDate').val();
+			};
+
+			//Populate lists
+			popPatientLists()
+		});
+function popPatientLists () { 
+	var site = $('#slt_MxA_ward').val();
+	var new_date = $('#dt_MxA_newDate').val();
+	var date_history = $('#slt_MxA_date_history').val();
+	
+	var url = 'mxa_pat_lists'
+	var data_for_params = {mx_assessment: {'site': site,
+											'new_date': new_date,
+											'date_history': date_history}}
+	$.ajax({
+		url: url,
+		type: 'GET',
+		data: data_for_params,
+		cache: false,
+		dataType: 'json'
+	}).done(function(data){
+		to_do = data.pat_all_to_do;
+		done = data.pat_all_done;
+		todo_id = 'slt_MxA_to_do';
+		done_id = 'slt_MxA_done';
+		populatePatientListSelects(todo_id, to_do);
+		populatePatientListSelects(done_id, done);
+	})
+}
+
+function populatePatientListSelects (slt_name, data) {
+	$('#'+slt_name+'').find('option').remove();
+		var html = '';
+		for(var i = 0; i < data.length; i++){
+			id = data[i].id;
+			lastname = data[i].lastname;
+			firstname = data[i].firstname;
+			identifier = data[i].identifier;
+			html += '<option value="'+id+'">' + lastname + ' '+firstname+': '+identifier+'</option>'
+		}
+		$('#'+slt_name+'').append(html);
+}
+
+function popSelectDateHistory (ward) {
+	
+	var url = '/mxa_date_history/'
+	//create strong parameter
+	data_for_params = {mx_assessment: {'site': ward}}
+	// swal(ward);
+	$.ajax({
+		url: url,
+		type: 'GET',
+		data: data_for_params,
+		cache: false,
+		dataType: 'json'
+	}).done(function(data){
+	})
+}
+
 		//Expose appropriate questions for drug changes
 		$('#slt_Mxa_drugsChanged').change(function(){
 			value = $(this).val();
@@ -184,7 +263,9 @@ if ($('body.mx_assessments').length) {
 		});
 
 
-		
+	
+	//	FUNCTIONS CALLED FROM ABOVE
+
 
 };	//if ($('body.mx_assessments').length) {
 });  //$(function(){
