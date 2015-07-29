@@ -22,9 +22,12 @@ if ($('body.mx_assessments').length) {
 					'font-weight': 'bold',
 					'text-align': 'center',
 					'margin': '0 0 7px 0'})
+		//REMOVE
 		$('[id^=divDanger]')
 			.hide();
-		 //Rt container
+		$('[id^=div_MxA_danger')
+			.hide();
+		 
 			
 		//dates
 		$('[id^=dt], [id^=date]')
@@ -41,23 +44,22 @@ if ($('body.mx_assessments').length) {
 			.attr({'size': '15',
 				'multiple': 'no'})
 			.css({'width': '100%'});
-		$('[id^=select]')
+		$('#slt_Mxa_drugsChanged, #slt_Mxa_groupChanged')
 			.css({'width': '125px'})
 		//buttons
 		$('[id^=bt]')
-			.button();
-		$('#btTogNotes')
-			.addClass('reduce_button')
-		$('[id^=b')
 			.button()
 			.addClass('reduce_button');
 		//textareas
 		$('[id^=txa]')
-			.addClass('text-content left');
-		$('#txa_past_MxAssessments')
+			.addClass('text-content left')
+			.width('92%')
+			.height(heightS1);
+		$('#txa_MxA_pastAssessments')
 			.width('92%') //?? actually recorded as 98%
 			.height(heightS1)
 
+		//REMOVE
 		$('[id^=textArea')
 			.addClass('text-content left')
 			.width('92%')
@@ -65,119 +67,119 @@ if ($('body.mx_assessments').length) {
 		
 	//SELECT HANDLERS
 		//populate selects
-		$('#selectTimeDrugs').mjm_addOptions('DrugsChanged',{firstLine: 'Drugs Changed'});	
-		$('#selectTimeGroups').mjm_addOptions('GroupsChanged',{firstLine: 'Group Changed'});
+		$('#slt_Mxa_drugsChanged').mjm_addOptions('DrugsChanged',{firstLine: 'Drugs Changed'});	
+		$('#slt_Mxa_groupChanged').mjm_addOptions('GroupsChanged',{firstLine: 'Group Changed'});
 		$('#slt_MxA_ward').mjm_addOptions('ward', {firstLine: 'All Wards', facility: user_facility, group: true})
 
 		//Expose appropriate questions for drug changes
-		$('#selectTimeDrugs').change(function(){
+		$('#slt_Mxa_drugsChanged').change(function(){
 			value = $(this).val();
 			// swal(value)
 			if(value == -1){
-				$('#divDangerYes1Yes, #divDangerYes1YesChange').hide();
-				$('#textAreaDrugNoChange, #textAreaDrugWhyChange').val('');
+				$('#div_MxA_dangerYes_drugNo, #div_MxA_dangerYes_drugYes').hide();
+				$('#txa_MxA_drugNoChange, #txa_MxA_drugWhyChange').val('');
 				return true;
 			};
 			if(value == '0-8Weeks'){
-				$('#divDangerYes1YesChange').show();
-                $('#divDangerYes1Yes').hide();
-				$('#textAreaDrugNoChange').val('');
+				$('#div_MxA_dangerYes_drugYes').show();
+                $('#div_MxA_dangerYes_drugNo').hide();
+				$('#txa_MxA_drugNoChange').val('');
 				return true;
 			};
 			if(value == 'Gt8Weeks'){
-				$('#divDangerYes1Yes').show();
-				$('#divDangerYes1YesChange').hide();
-				$('#textAreaDrugWhyChange').val('');
+				$('#div_MxA_dangerYes_drugNo').show();
+				$('#div_MxA_dangerYes_drugYes').hide();
+				$('#txa_MxA_drugWhyChange').val('');
 				return true;
 			}
 		});	
 
 		//Expose appropriate questions for group changes
-		$('#selectTimeGroups').change(function(){
+		$('#slt_Mxa_groupChanged').change(function(){
 			value = $(this).val();
 			// swal(value);
 			if (value == -1) {
-				$('#divDangerYes2YesChange, #divDangerYes2Yes').hide();
-				$ ('#textAreaGroupNoChange, textAreaGroupWhyChange').val('');
+				$('#div_MxA_dangerYes_groupYes, #div_MxA_dangerYes_groupNo').hide();
+				$ ('#txa_MxA_groupNoChange, txa_MxA_groupWhyChange').val('');
 				return true;
 			};
 			if (value == '0-3Months') {
-				$('#divDangerYes2Yes').hide();
-				$('#divDangerYes2YesChange').show();
-				$ ('#textAreaGroupWhyChange').val('');
+				$('#div_MxA_dangerYes_groupNo').hide();
+				$('#div_MxA_dangerYes_groupYes').show();
+				$ ('#txa_MxA_groupWhyChange').val('');
 			};
 			if (value == 'Gt3Months') {
-				$('#divDangerYes2YesChange').hide();
-				$('#divDangerYes2Yes').show();
-				$ ('#textAreaGroupNoChange').val('');
+				$('#div_MxA_dangerYes_groupYes').hide();
+				$('#div_MxA_dangerYes_groupNo').show();
+				$ ('#txa_MxA_groupNoChange').val('');
 			};
 		});
 
 	//RADIO HANDLERS
-		$('#radioDangerYes').click(function(){
+		$('#rd_MxA_danger_yes').click(function(){
 			checked = $(this).is(':checked');
 			if (checked) {
-				$('[id^=divDangerNo]')
+				$('[id^=div_MxA_dangerNo]')
 					.hide();
-				$('#divDangerYes1, #divDangerYes2')
+				$('#div_MxA_dangerYes_drug, #div_MxA_dangerYes_group')
 					.show();
-				$('#divDangerYes1Yes, #divDangerYes2Yes, #divDangerYes1YesChange, #divDangerYes2YesChange')
+				$('#div_MxA_dangerYes_drugNo, #div_MxA_dangerYes_groupNo, #div_MxA_dangerYes_drugYes, #div_MxA_dangerYes_groupYes')
 					.hide();
 			};
 		});
 
-		$('#radioDangerNo').click(function(){
+		$('#rd_MxA_danger_no').click(function(){
 			 checked = $(this).is(':checked');
 			if(checked){
-				$('#divDangerNo1').show();
-				$('[id^=divDangerYes]').hide();
+				$('#div_MxA_dangerNo_date').show();
+				$('[id^=div_MxA_dangerYes]').hide();
 				$('[id^=radioPreDat]').attr('checked',false);
-				$('#selectTimeDrugs, #selectTimeGroups').val(-1);
-				$('#textAreaDrugNoChange, #textAreaDrugWhyChange, #textAreaGroupNoChange ').val('');
+				$('#slt_Mxa_drugsChanged, #slt_Mxa_groupChanged').val(-1);
+				$('#txa_MxA_drugNoChange, #txa_MxA_drugWhyChange, #txa_MxA_groupNoChange ').val('');
 			};
 		});
 
-		$('#radioPreDateYes').click(function(){
+		$('#rd_MxA_preDate_yes').click(function(){
 			checked = $(this).is(':checked');
 			if (checked) {
-				$('#divDangerNo1Yes').hide();
-				$('#divDangerNo1No').show();
-				$('#datePreMeeting').val('');
+				$('#div_MxA_dangerNo_dateNo').hide();
+				$('#div_MxA_dangerNo_dateYes').show();
+				$('#dt_MxA_preMeeting').val('');
 			};
 		});
-		$('#radioPreDateNo').click(function(){
+		$('#rd_MxA_preDate_no').click(function(){
 			checked = $(this).is(':checked');
 			if (checked) {
-				$('#divDangerNo1No').hide();
-				$('#divDangerNo1Yes').show();
-				$('#textAreaNoPreDate').val('');
+				$('#div_MxA_dangerNo_dateYes').hide();
+				$('#div_MxA_dangerNo_dateNo').show();
+				$('#txa_MxA_PreDateNo').val('');
 			};
 		});
 
 	//BUTTON HANDLERS
-		$('#btTogNotes').click(function(){
-			element = $('#txa_past_MxAssessments');
+		$('#bt_MxA_TogNotes').click(function(){
+			element = $('#txa_MxA_pastAssessments');
 			tripleToggle(element, heightS1, heightL1, heightEL1)
 		});
 
-		$('#bTogDrugWhyChange').click(function(){
-			element = $('#textAreaDrugWhyChange');
+		$('#bt_MxA_togDrugWhyChange').click(function(){
+			element = $('#txa_MxA_drugWhyChange');
 			tripleToggle(element, heightS1, heightL1, heightEL1)
 		});
-		$('#bTogDrugNoChange').click(function(){
-			element = $('#textAreaDrugNoChange');
+		$('#bt_MxA_togDrugNoChange').click(function(){
+			element = $('#txa_MxA_drugNoChange');
 			tripleToggle(element, heightS1, heightL1, heightEL1)
 		});
-		$('#bTogGroupChange').click(function(){
-			element = $('#textAreaGroupWhyChange');
+		$('#bt_MxA_togGroupChange').click(function(){
+			element = $('#txa_MxA_groupWhyChange');
 			tripleToggle(element, heightS1, heightL1, heightEL1)
 		});
-		$('#bTogGroupNoChange').click(function(){
-			element = $('#textAreaGroupNoChange');
+		$('#bt_MxA_togGroupNoChange').click(function(){
+			element = $('#txa_MxA_groupNoChange');
 			tripleToggle(element, heightS1, heightL1, heightEL1)
 		});
-		$('#bTogNoPreDate').click(function(){
-			element = $('#textAreaNoPreDate');
+		$('#bt_MxA_togPreDateNo').click(function(){
+			element = $('#txa_MxA_PreDateNo');
 			tripleToggle(element, heightS1, heightL1, heightEL1)
 		});
 
