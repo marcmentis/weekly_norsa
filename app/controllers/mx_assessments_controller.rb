@@ -112,7 +112,8 @@ class MxAssessmentsController < ApplicationController
       # params[:mx_assessment]
       params.require(:mx_assessment).permit(:danger_yn, :drugs_last_changed, 
                                             :drugs_not_why, :drugs_change_why, :psychsoc_last_changed,
-                                            :psychsoc_not_why, :meeting_date, :patient_id, :pre_date_yesno,
+                                            :psychsoc_not_why, :psychsoc_change_why, :meeting_date, 
+                                            :patient_id, :pre_date_yesno,
                                             :pre_date_no_why, :pre_date, :updated_by)
     end
 end

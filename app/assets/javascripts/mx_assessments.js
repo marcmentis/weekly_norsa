@@ -214,25 +214,25 @@ function create_mx_assessment () {
 	// alert(params_array);
 	// return;
 	var params_hash = {};
+	params_hash['patient_id'] = pat_id.toString();
 	for(var i=0, l = params_array.length; i<l; i++){
-		first = params_array[i]
-		alert(first)
-		//split key = value
-		// obj[params_array[i]] = x;
+		string = params_array[i]
+		array = string.split('=')
+		key = array[0];
+		value = array[1]
+		params_hash[key] = value;
 	}
 
-	// alert(new_array.length)
-	// return;
-	var obj = {};
-	obj['patient_id'] = '454';
-	obj['danger_yn'] = 'Y';
-	obj['drugs_last_changed'] = 'd l c';
+	// var obj = {};
+	// obj['patient_id'] = '454';
+	// obj['danger_yn'] = 'Y';
+	// obj['drugs_last_changed'] = 'd l c';
 
 
 	// $('#div_MxA_patient_identification').html(replace)
 
 
-	var data_for_params = {mx_assessment: obj}
+	var data_for_params = {mx_assessment: params_hash}
 	// var data_for_params = $('#f_MxA_rightContainer').serialize();
 	// alert(mxassess)
 	// return;
