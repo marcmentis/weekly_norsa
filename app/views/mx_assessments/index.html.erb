@@ -61,8 +61,8 @@
         <span class="text-14-bold">
           Is Patient a danger to self/other, if in approved housing?
         </span>
-        <label>Yes<input type="radio" name="rd_MxA_danger" id="rd_MxA_danger_yes" value="Y" /></label>
-        <label>No<input type="radio" name="rd_MxA_danger" id="rd_MxA_danger_no" value="N" /></label>
+        <label>Yes<input type="radio" name="danger_yn" id="rd_MxA_danger_yes" value="Y" /></label>
+        <label>No<input type="radio" name="danger_yn" id="rd_MxA_danger_no" value="N" /></label>
       </div>    
        
         <!--YES Still Dangerous--> 
@@ -70,7 +70,7 @@
           <span class="text-12-bold">
             (i)When was medication for Axis I/II Dx last changed?
           </span>        
-          <select name="slt_Mxa_drugsChanged" id="slt_Mxa_drugsChanged" ></select>
+          <select name="drugs_last_changed" id="slt_Mxa_drugsChanged"></select>
         </div>
           <div id="div_MxA_dangerYes_drugYes">
             <span class="text-12">
@@ -148,7 +148,7 @@
           </div>                  
         </div> 
       <div id="div_MxA_saveButtons">
-        <input id="bt_MxA_save" type="submit" value="Save">
+        <input id="bt_MxA_save" type="button" value="Save">
         <input id="bt_MxA_back" type="button" value="Back">
       </div>
     </form> <!-- class="form_container" -->

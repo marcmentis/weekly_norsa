@@ -110,38 +110,7 @@ if ($('body.mx_assessments').length) {
 			$('#grid_MxA_RightContainer').show();
 			get_pat_data();
 		});
-function get_pat_data (argument) {
-	var url = 'mxa_pat_data';
-	var data_for_params = {mx_assessment: {id: pat_id}}
-	$.ajax({
-		url: url,
-		type: 'GET',
-		data: data_for_params,
-		cache: false,
-		dataType: 'json'
-	}).done(function(data){
-			var pat_demog = data.pat_demog;
-			lastname = pat_demog.lastname;
-			firstname = pat_demog.firstname;
-			identifier = pat_demog.identifier;
-			site = pat_demog.site;
-			doa = data.doa;
-			today = getCalendarDate();
-			days = datediff(doa,today,'days')
 
-			name = ''+lastname+' '+firstname+''
-			details = ''+identifier+': '+site+' DOA: '+doa+''
-			daysInHosp = 'Days: '+days+''
-
-			$('#sp_MxA_pat_name').html(name);
-			$('#sp_MxA_pat_details').html(details)
-			$('#sp_MxA_days_in_hospital').html(daysInHosp)
-			
-			
-	}).fail(function(jqXHR,textStatus,errorThrown){
-		alert(''+jqXHR+': '+textStatus+':'+errotThrown+'')
-	});
-};
 
 
 		//Expose appropriate questions for drug changes
@@ -230,11 +199,77 @@ function get_pat_data (argument) {
 		});
 
 	//BUTTON HANDLERS
+		$('#bt_MxA_save').click(function(e){
+			// swal('hello')
+			data = $('#f_MxA_rightContainer').serialize();
+			create_mx_assessment();
+		});
+function create_mx_assessment () {
+	var patient_id = pat_id.toString();
+	var url = '/mx_assessments/'
+	var params_string = $('#f_MxA_rightContainer').serialize();
+
+	params_string_replace = params_string.replace(/&/g,',')
+	params_array = params_string_replace.split(',');
+	// alert(params_array);
+	// return;
+	var params_hash = {};
+	for(var i=0, l = params_array.length; i<l; i++){
+		first = params_array[i]
+		alert(first)
+		//split key = value
+		// obj[params_array[i]] = x;
+	}
+
+	// alert(new_array.length)
+	// return;
+	var obj = {};
+	obj['patient_id'] = '454';
+	obj['danger_yn'] = 'Y';
+	obj['drugs_last_changed'] = 'd l c';
+
+
+	// $('#div_MxA_patient_identification').html(replace)
+
+
+	var data_for_params = {mx_assessment: obj}
+	// var data_for_params = $('#f_MxA_rightContainer').serialize();
+	// alert(mxassess)
+	// return;
+	// danger = $('input[name=rd_MxA_danger]:checked').val();
+	// alert(danger)
+	// var data_for_params = {mx_assessment: {
+	// 						patient_id: pat_id.toString(),
+	// 						danger_yn: $('input[name=rd_MxA_danger]:checked').val(), 
+	// 						drugs_last_changed: $('#slt_Mxa_drugsChanged').val(),
+	// 						drugs_not_why: $('#txa_MxA_drugNoChange').val()
+	// 						// drugs_change_why: $('#').val(),
+	// 						// psychsoc_last_changed: $('#').val(),
+	// 						// psychsoc_not_why: $('#').val(),
+	// 						// psychsoc_change_why: $('#').val(),
+	// 						// meeting_date; $('#').val(),
+	// 						// pre_date_yesno: $('#').val(),
+	// 						// pre_date_no_why: $('#').val(),
+	// 						// pre_date: $('#').val(),
+	// 						// updated_by: $('#').val(),
+	// 						}
+	// 					}
+
+	$.ajax({
+		url: url,
+		type: 'POST',
+		data: data_for_params,
+		cache: false,
+		dataType: 'json'
+	}).fail(function(jqXHR,textStatus,errorThrown){
+			alert(''+jqXHR+': '+textStatus+':'+errotThrown+'')
+	});
+};
+
 		$('#bt_MxA_TogNotes').click(function(){
 			element = $('#txa_MxA_pastAssessments');
 			tripleToggle(element, heightS1, heightL1, heightEL1)
 		});
-
 		$('#bt_MxA_togDrugWhyChange').click(function(){
 			element = $('#txa_MxA_drugWhyChange');
 			tripleToggle(element, heightS1, heightL1, heightEL1)
@@ -318,6 +353,39 @@ function get_pat_data (argument) {
 		}).done(function(data){
 		})
 	}
+
+	function get_pat_data () {
+		var url = 'mxa_pat_data';
+		var data_for_params = {mx_assessment: {id: pat_id}}
+		$.ajax({
+			url: url,
+			type: 'GET',
+			data: data_for_params,
+			cache: false,
+			dataType: 'json'
+		}).done(function(data){
+				var pat_demog = data.pat_demog;
+				lastname = pat_demog.lastname;
+				firstname = pat_demog.firstname;
+				identifier = pat_demog.identifier;
+				site = pat_demog.site;
+				doa = data.doa;
+				today = getCalendarDate();
+				days = datediff(doa,today,'days')
+
+				name = ''+lastname+' '+firstname+''
+				details = ''+identifier+': '+site+' DOA: '+doa+''
+				daysInHosp = 'Days: '+days+''
+
+				$('#sp_MxA_pat_name').html(name);
+				$('#sp_MxA_pat_details').html(details)
+				$('#sp_MxA_days_in_hospital').html(daysInHosp)
+				
+				
+		}).fail(function(jqXHR,textStatus,errorThrown){
+			alert(''+jqXHR+': '+textStatus+':'+errotThrown+'')
+		});
+	};
 
 };	//if ($('body.mx_assessments').length) {
 });  //$(function(){

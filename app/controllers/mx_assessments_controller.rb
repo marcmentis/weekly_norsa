@@ -67,11 +67,12 @@ class MxAssessmentsController < ApplicationController
 
     respond_to do |format|
       if @mx_assessment.save
-        format.html { redirect_to @mx_assessment, notice: 'Mx assessment was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @mx_assessment }
+        # format.html { redirect_to @mx_assessment, notice: 'Mx assessment was successfully created.' }
+        # format.json { render action: 'show', status: :created, location: @mx_assessment }
+        format.json {head :no_content}
       else
-        format.html { render action: 'new' }
-        format.json { render json: @mx_assessment.errors, status: :unprocessable_entity }
+        # format.html { render action: 'new' }
+        format.json { render json: @mx_assessment.errors.full_messages, status: :unprocessable_entity }
       end
     end
   end
@@ -108,6 +109,10 @@ class MxAssessmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def mx_assessment_params
-      params[:mx_assessment]
+      # params[:mx_assessment]
+      params.require(:mx_assessment).permit(:danger_yn, :drugs_last_changed, 
+                                            :drugs_not_why, :drugs_change_why, :psychsoc_last_changed,
+                                            :psychsoc_not_why, :meeting_date, :patient_id, :pre_date_yesno,
+                                            :pre_date_no_why, :pre_date, :updated_by)
     end
 end
