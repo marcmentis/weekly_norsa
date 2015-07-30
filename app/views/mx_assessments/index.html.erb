@@ -49,10 +49,12 @@
     </form>  <!-- class = "form_container" -->
   </div>  <!-- <div id="grid_LeftContainer" class="col-1-2"> -->
 
-  <div id="grid_RightContainer" class="col-1-2">
+  <div id="grid_MxA_RightContainer" class="col-1-2">
     <form id="f_MxA_rightContainer" class="form_container">
-      <div>
-        Patient Name  Number  Ward
+      <div id="div_MxA_patient_identification">
+        <span id="sp_MxA_pat_name" class="text-14-bold"></span>
+        <span id="sp_MxA_pat_details" class="text-12"></span>
+        <span id="sp_MxA_days_in_hospital" class="text-14-alert"></span>
       </div>
 
       <div>
@@ -62,8 +64,7 @@
         <label>Yes<input type="radio" name="rd_MxA_danger" id="rd_MxA_danger_yes" value="Y" /></label>
         <label>No<input type="radio" name="rd_MxA_danger" id="rd_MxA_danger_no" value="N" /></label>
       </div>    
-      
-      <div> 
+       
         <!--YES Still Dangerous--> 
         <div id="div_MxA_dangerYes_drug">
           <span class="text-12-bold">
@@ -146,7 +147,11 @@
               </div>
           </div>                  
         </div> 
-    </div> <!-- class="form_container" -->
+      <div id="div_MxA_saveButtons">
+        <input id="bt_MxA_save" type="submit" value="Save">
+        <input id="bt_MxA_back" type="button" value="Back">
+      </div>
+    </form> <!-- class="form_container" -->
   </div> <!-- <div id="grid_RightContainer" class="col-1-2"> -->
 
 

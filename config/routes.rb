@@ -19,6 +19,7 @@ Rollify::Application.routes.draw do
 
   get '/mxa_date_history/' => 'mx_assessments#date_history', as: :mxa_date_history
   get '/mxa_pat_lists/' => 'mx_assessments#patient_lists', as: :mxa_pat_lists
+  get '/mxa_pat_data/' => 'mx_assessments#get_pat_data', as: :mxa_pat_data
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

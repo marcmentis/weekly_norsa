@@ -19,12 +19,24 @@ class MxAssessmentsController < ApplicationController
     # byebug
     facility = session[:facility]
     @all_lists = MxAssessment.get_pat_lists(params, facility)
-    # @all_done = all_lists[:pat_all_done]
-    # @all_to_do = all_lists[:pat_all_to_do]
-    # @chosen_date = all_lists[:meeting_date]
 
     respond_to do |format|
       format.json {render json: @all_lists}
+    end
+  end
+
+  #GET mxa_pat_data.json
+  def get_pat_data
+
+    pat_demog = Patient.find(params[:mx_assessment]['id']);
+    # @pat_data = {pat_demog: pat_demog}
+    # Convert relation (array) to object
+    pat_demog = pat_demog.first;
+    doa = pat_demog.doa.strftime('%D');
+
+    @pat_data = {pat_demog: pat_demog, doa: doa}
+    respond_to do |format|
+      format.json {render json: @pat_data}
     end
   end
 

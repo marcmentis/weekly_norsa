@@ -54,6 +54,8 @@ $r_error_text: #cd0a0a;
 $r_modal_overlay_background: #aaaaaa;
 $r_drop_shadow_background:  #aaaaaa;
 
+$r_alert: #FF0000;
+
 //other colors
 // $header-blue: #78BCE8;
 $header-blue: #5c9ccc;
@@ -239,6 +241,11 @@ $background_light_gray: #F5F5F5;
 	& .text-14-bold {
 		font-size:14px;
 		color: $r_click_default_text;
+		font-weight:bold;
+	}
+	& .text-14-alert {
+		font-size:14px;
+		color: $r_alert;
 		font-weight:bold;
 	}
 	& .text-12-bold {
