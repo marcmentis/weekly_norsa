@@ -18,7 +18,7 @@ class MxAssessmentsController < ApplicationController
   def patient_lists
     # byebug
     facility = session[:facility]
-    @all_lists = MxAssessment.get_pat_lists(params, facility)
+    @all_lists = MxAssessment.get_pat_lists(mx_assessment_params, facility)
 
     respond_to do |format|
       format.json {render json: @all_lists}
@@ -114,6 +114,7 @@ class MxAssessmentsController < ApplicationController
                                             :drugs_not_why, :drugs_change_why, :psychsoc_last_changed,
                                             :psychsoc_not_why, :psychsoc_change_why, :meeting_date, 
                                             :patient_id, :pre_date_yesno,
-                                            :pre_date_no_why, :pre_date, :updated_by)
+                                            :pre_date_no_why, :pre_date, :updated_by,
+                                            :site, :new_date, :date_history)
     end
 end

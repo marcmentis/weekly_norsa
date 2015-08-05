@@ -2,7 +2,7 @@ class MxAssessment < ActiveRecord::Base
 	belongs_to :patient
 
 	def self.get_pat_lists (params, facility)
-		# byebug
+		#byebug
 		# Create @all_done an @all_to_do dependent upon what date should be used:
 	    if params[:date_history] != ""
 	      chosen_date = params[:date_history]
@@ -33,7 +33,7 @@ class MxAssessment < ActiveRecord::Base
 			# byebug
 		    all_done = Patient.joins(:mx_assessments)
 		    					.where(patients: {facility: facility})
-		                  		.where(patients: {site: params[:mx_assessment]['site']})
+		                  		.where(patients: {site: params[:site]})
 		                 		.where(mx_assessments: {meeting_date: chosen_date})
 		                		.order(lastname: :asc)
 		end
@@ -47,7 +47,7 @@ class MxAssessment < ActiveRecord::Base
 		       # An empty string will give all those patients in the ward not in the array
 		    not_these_ids.empty? ? not_these_ids = [""] : not_these_ids
 
-			all_to_do = Patient.where(patients: {site: params[:mx_assessment]['site']})
+			all_to_do = Patient.where(patients: {site: params[:site]})
 								.where(patients: {facility: facility})
 	                  			.where.not(id: not_these_ids)
 	                  			.order(lastname: :asc)	

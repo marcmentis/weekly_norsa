@@ -222,6 +222,8 @@ function create_mx_assessment () {
 		value = array[1]
 		params_hash[key] = value;
 	}
+	alert(params_hash);
+	return;
 
 	// var obj = {};
 	// obj['patient_id'] = '454';
