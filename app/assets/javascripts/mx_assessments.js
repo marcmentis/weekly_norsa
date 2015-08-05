@@ -5,6 +5,8 @@ if ($('body.mx_assessments').length) {
 
 		var pat_id = '';
 			function set_id(x){pat_id = x};
+		var meeting_date = '';
+			function set_meeting_date(x){meeting_date = x};
 
 		//textareas
 		var width1 = '33em'
@@ -75,6 +77,10 @@ if ($('body.mx_assessments').length) {
 		$('#slt_Mxa_drugsChanged').mjm_addOptions('DrugsChanged',{firstLine: 'Drugs Changed'});	
 		$('#slt_Mxa_groupChanged').mjm_addOptions('GroupsChanged',{firstLine: 'Group Changed'});
 		$('#slt_MxA_ward').mjm_addOptions('ward', {firstLine: 'All Wards', facility: user_facility, group: true})
+
+		$('#slt_MxA_date_history').change(function(e){
+			set_meeting_date($(this).val());
+		});
 
 		//Populate TODO and DONE lists
 		$('#slt_MxA_ward, #dt_MxA_newDate, #slt_MxA_date_history')
@@ -204,17 +210,27 @@ if ($('body.mx_assessments').length) {
 			data = $('#f_MxA_rightContainer').serialize();
 			create_mx_assessment();
 		});
+
+	//TEXT HANDLERS
+		$('#dt_MxA_newDate').change(function(e){
+			set_meeting_date($(this).val())
+		});
 function create_mx_assessment () {
 	var patient_id = pat_id.toString();
 	var url = '/mx_assessments/'
 	var params_string = $('#f_MxA_rightContainer').serialize();
+	if (true) {};
 
 	params_string_replace = params_string.replace(/&/g,',')
 	params_array = params_string_replace.split(',');
 	// alert(params_array);
 	// return;
 	var params_hash = {};
+	// add values to params_hash
 	params_hash['patient_id'] = pat_id.toString();
+	params_hash['meeting_date'] = meeting_date;
+
+
 	for(var i=0, l = params_array.length; i<l; i++){
 		string = params_array[i]
 		array = string.split('=')
@@ -222,8 +238,6 @@ function create_mx_assessment () {
 		value = array[1]
 		params_hash[key] = value;
 	}
-	alert(params_hash);
-	return;
 
 	// var obj = {};
 	// obj['patient_id'] = '454';

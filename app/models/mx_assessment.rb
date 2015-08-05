@@ -34,7 +34,7 @@ class MxAssessment < ActiveRecord::Base
 		    all_done = Patient.joins(:mx_assessments)
 		    					.where(patients: {facility: facility})
 		                  		.where(patients: {site: params[:site]})
-		                 		.where(mx_assessments: {meeting_date: chosen_date})
+		                 		.where(mx_assessments: {meeting_date: chosen_date.to_date})
 		                		.order(lastname: :asc)
 		end
 
