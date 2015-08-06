@@ -84,7 +84,7 @@ if ($('body.mx_assessments').length) {
 
 		$('#slt_MxA_date_history').change(function(e){
 			set_meeting_date($(this).val());
-		});
+			});
 
 
 		//Populate TODO and DONE lists
@@ -101,39 +101,6 @@ if ($('body.mx_assessments').length) {
 				$('#dt_MxA_newDate').val('');
 
 			};
-function popSelectDateHistory (ward) {
-	
-	var url = '/mxa_date_history/'
-	//create strong parameter
-	data_for_params = {mx_assessment: {'site': ward}}
-	// swal(ward);
-	$.ajax({
-		url: url,
-		type: 'GET',
-		data: data_for_params,
-		cache: false,
-		dataType: 'json'
-	}).done(function(data){
-		$('#slt_MxA_date_history').find('option').remove();
-		var html = '';
-		for(var i = 0; i < data.length; i++){
-			if (data[i] !== 'null'){
-				meet_date = data[i]
-			};
-
-			html += '<option value="'+meet_date+'">' + meet_date + ' </option>'
-
-			// id = data[i].id;
-			// lastname = data[i].lastname;
-			// firstname = data[i].firstname;
-			// identifier = data[i].identifier;
-			// html += '<option value="'+id+'">' + lastname + ' '+firstname+': '+identifier+'</option>'
-		}
-		$('#slt_MxA_date_history').append(html);
-	}).fail(function(jqXHR,textStatus,errorThrown){
-		alert('jqXHR: '+jqXHR+'/n textStatus: '+textStatus+' errorThrown: '+errorThrown+'')
-	});
-};
 
 			//When newDate is changed: (i) Clear date_history, (ii) clear toDo lists and form data
 			if (id == 'dt_MxA_newDate') {
@@ -247,52 +214,6 @@ function popSelectDateHistory (ward) {
 			data = $('#f_MxA_rightContainer').serialize();
 			create_mx_assessment();
 		});
-function create_mx_assessment () {
-	var patient_id = pat_id.toString();
-	var url = '/mx_assessments/'
-	var params_string = $('#f_MxA_rightContainer').serialize();
-	if (true) {};
-
-	params_string_replace = params_string.replace(/&/g,',')
-	params_array = params_string_replace.split(',');
-
-	var params_hash = {};
-	// add values to params_hash
-	params_hash['patient_id'] = pat_id.toString();
-	params_hash['meeting_date'] = meeting_date;
-
-
-	for(var i=0, l = params_array.length; i<l; i++){
-		string = params_array[i]
-		array = string.split('=')
-		key = array[0];
-		value = array[1]
-		params_hash[key] = value;
-	}
-
-	// alert(params_hash);
-	// meet = params_hash['meeting_date']
-	// alert(meet)
-	// return;
-
-
-	var data_for_params = {mx_assessment: params_hash}
-
-	// alert(data_for_params)
-	// meet = data_for_params['mx_assessment']['meeting_date']
-	// alert(meet)
-	// return;
-
-	$.ajax({
-		url: url,
-		type: 'POST',
-		data: data_for_params,
-		cache: false,
-		dataType: 'json'
-	}).fail(function(jqXHR,textStatus,errorThrown){
-			alert('jqXHR: '+jqXHR+' textStatus: '+textStatus+' errorThrown: '+errorThrown+'')
-	});
-};
 
 	//TEXT HANDLERS
 		$('#dt_MxA_newDate').change(function(e){
@@ -328,6 +249,83 @@ function create_mx_assessment () {
 
 	
 	//	FUNCTIONS CALLED FROM ABOVE
+
+	function popSelectDateHistory (ward) {
+		
+		var url = '/mxa_date_history/'
+		//create strong parameter
+		data_for_params = {mx_assessment: {'site': ward}}
+		// swal(ward);
+		$.ajax({
+			url: url,
+			type: 'GET',
+			data: data_for_params,
+			cache: false,
+			dataType: 'json'
+		}).done(function(data){
+			$('#slt_MxA_date_history').find('option').remove();
+			var html = '<option value="">Choose Date </option>';
+			for(var i = 0; i < data.length; i++){
+				if (data[i] !== 'null'){
+					meet_date = data[i]
+				};
+
+				html += '<option value="'+meet_date+'">' + meet_date + ' </option>'	
+			}
+			$('#slt_MxA_date_history').append(html);
+		}).fail(function(jqXHR,textStatus,errorThrown){
+			alert('jqXHR: '+jqXHR+'/n textStatus: '+textStatus+' errorThrown: '+errorThrown+'')
+		});
+	};
+
+	function create_mx_assessment () {
+		var patient_id = pat_id.toString();
+		var url = '/mx_assessments/'
+		var params_string = $('#f_MxA_rightContainer').serialize();
+		if (true) {};
+
+		params_string_replace = params_string.replace(/&/g,',')
+		params_array = params_string_replace.split(',');
+
+		var params_hash = {};
+		// add values to params_hash
+		params_hash['patient_id'] = pat_id.toString();
+		params_hash['meeting_date'] = meeting_date;
+		// alert(meeting_date);
+		// return;
+
+
+		for(var i=0, l = params_array.length; i<l; i++){
+			string = params_array[i]
+			array = string.split('=')
+			key = array[0];
+			value = array[1]
+			params_hash[key] = value;
+		}
+
+		// alert(params_hash);
+		// meet = params_hash['meeting_date']
+		// alert(meet)
+		// return;
+
+		//Make strong params
+		var data_for_params = {mx_assessment: params_hash}
+
+		// alert(data_for_params)
+		// meet = data_for_params['mx_assessment']['meeting_date']
+		// alert(meet)
+		// return;
+
+		$.ajax({
+			url: url,
+			type: 'POST',
+			data: data_for_params,
+			cache: false,
+			dataType: 'json'
+		}).fail(function(jqXHR,textStatus,errorThrown){
+				alert('jqXHR: '+jqXHR+' textStatus: '+textStatus+' errorThrown: '+errorThrown+'')
+		});
+	};
 
 	//Clear functions
 	function clear_todo_done_selects (e) {
@@ -371,8 +369,6 @@ function create_mx_assessment () {
 			}
 			$('#'+slt_name+'').append(html);
 	}
-
-
 
 	function get_pat_data () {
 		var url = 'mxa_pat_data';

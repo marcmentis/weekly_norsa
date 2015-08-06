@@ -13,13 +13,13 @@ class MxAssessmentsController < ApplicationController
       # Oracle doesn't present meeting_date as a formatted string
       # Need to format meeting_date (can't do that in the @meeting_date relation)
       # Can do it in an array
-    # @date_history.to_a.map! {|meeting| meeting.meeting_date.strftime('%F')}
-    @date_history.to_a.map! do |meeting|
-      unless meeting.meeting_date.blank?
-        meeting.meeting_date.strftime('%F')
-        # meeting.meeting_date.strftime('%m/%d/%Y')
-      end
-    end
+    @date_history.to_a.map! {|meeting| meeting.meeting_date.strftime('%F')}
+    # @date_history.to_a.map! do |meeting|
+    #   unless meeting.meeting_date.blank?
+    #     meeting.meeting_date.strftime('%F')
+    #     # meeting.meeting_date.strftime('%m/%d/%Y')
+    #   end
+    # end
     respond_to do |format|
       format.json {render json: @date_history}
     end
