@@ -6,7 +6,10 @@ if ($('body.mx_assessments').length) {
 		var pat_id = '';
 			function set_id(x){pat_id = x};
 		var meeting_date = '';
-			function set_meeting_date(x){meeting_date = x};
+			function set_meeting_date(x){
+				meeting_date = x
+				// meeting_date = moment(x, "MM-DD-YYYY")
+			};
 
 		//textareas
 		var width1 = '33em'
@@ -39,6 +42,7 @@ if ($('body.mx_assessments').length) {
 		//dates
 		$('[id^=dt], [id^=date]')
 			.datepicker({
+				dateFormat: 'yy-mm-dd',
 				changeMonth: true,
 				changeYear: true,
 				yearRange: "-10: +10" })
@@ -82,6 +86,7 @@ if ($('body.mx_assessments').length) {
 			set_meeting_date($(this).val());
 		});
 
+
 		//Populate TODO and DONE lists
 		$('#slt_MxA_ward, #dt_MxA_newDate, #slt_MxA_date_history')
 			.change(function(e){
@@ -96,6 +101,39 @@ if ($('body.mx_assessments').length) {
 				$('#dt_MxA_newDate').val('');
 
 			};
+function popSelectDateHistory (ward) {
+	
+	var url = '/mxa_date_history/'
+	//create strong parameter
+	data_for_params = {mx_assessment: {'site': ward}}
+	// swal(ward);
+	$.ajax({
+		url: url,
+		type: 'GET',
+		data: data_for_params,
+		cache: false,
+		dataType: 'json'
+	}).done(function(data){
+		$('#slt_MxA_date_history').find('option').remove();
+		var html = '';
+		for(var i = 0; i < data.length; i++){
+			if (data[i] !== 'null'){
+				meet_date = data[i]
+			};
+
+			html += '<option value="'+meet_date+'">' + meet_date + ' </option>'
+
+			// id = data[i].id;
+			// lastname = data[i].lastname;
+			// firstname = data[i].firstname;
+			// identifier = data[i].identifier;
+			// html += '<option value="'+id+'">' + lastname + ' '+firstname+': '+identifier+'</option>'
+		}
+		$('#slt_MxA_date_history').append(html);
+	}).fail(function(jqXHR,textStatus,errorThrown){
+		alert('jqXHR: '+jqXHR+'/n textStatus: '+textStatus+' errorThrown: '+errorThrown+'')
+	});
+};
 
 			//When newDate is changed: (i) Clear date_history, (ii) clear toDo lists and form data
 			if (id == 'dt_MxA_newDate') {
@@ -116,7 +154,6 @@ if ($('body.mx_assessments').length) {
 			$('#grid_MxA_RightContainer').show();
 			get_pat_data();
 		});
-
 
 
 		//Expose appropriate questions for drug changes
@@ -210,11 +247,6 @@ if ($('body.mx_assessments').length) {
 			data = $('#f_MxA_rightContainer').serialize();
 			create_mx_assessment();
 		});
-
-	//TEXT HANDLERS
-		$('#dt_MxA_newDate').change(function(e){
-			set_meeting_date($(this).val())
-		});
 function create_mx_assessment () {
 	var patient_id = pat_id.toString();
 	var url = '/mx_assessments/'
@@ -223,8 +255,7 @@ function create_mx_assessment () {
 
 	params_string_replace = params_string.replace(/&/g,',')
 	params_array = params_string_replace.split(',');
-	// alert(params_array);
-	// return;
+
 	var params_hash = {};
 	// add values to params_hash
 	params_hash['patient_id'] = pat_id.toString();
@@ -239,37 +270,18 @@ function create_mx_assessment () {
 		params_hash[key] = value;
 	}
 
-	// var obj = {};
-	// obj['patient_id'] = '454';
-	// obj['danger_yn'] = 'Y';
-	// obj['drugs_last_changed'] = 'd l c';
-
-
-	// $('#div_MxA_patient_identification').html(replace)
+	// alert(params_hash);
+	// meet = params_hash['meeting_date']
+	// alert(meet)
+	// return;
 
 
 	var data_for_params = {mx_assessment: params_hash}
-	// var data_for_params = $('#f_MxA_rightContainer').serialize();
-	// alert(mxassess)
+
+	// alert(data_for_params)
+	// meet = data_for_params['mx_assessment']['meeting_date']
+	// alert(meet)
 	// return;
-	// danger = $('input[name=rd_MxA_danger]:checked').val();
-	// alert(danger)
-	// var data_for_params = {mx_assessment: {
-	// 						patient_id: pat_id.toString(),
-	// 						danger_yn: $('input[name=rd_MxA_danger]:checked').val(), 
-	// 						drugs_last_changed: $('#slt_Mxa_drugsChanged').val(),
-	// 						drugs_not_why: $('#txa_MxA_drugNoChange').val()
-	// 						// drugs_change_why: $('#').val(),
-	// 						// psychsoc_last_changed: $('#').val(),
-	// 						// psychsoc_not_why: $('#').val(),
-	// 						// psychsoc_change_why: $('#').val(),
-	// 						// meeting_date; $('#').val(),
-	// 						// pre_date_yesno: $('#').val(),
-	// 						// pre_date_no_why: $('#').val(),
-	// 						// pre_date: $('#').val(),
-	// 						// updated_by: $('#').val(),
-	// 						}
-	// 					}
 
 	$.ajax({
 		url: url,
@@ -278,9 +290,15 @@ function create_mx_assessment () {
 		cache: false,
 		dataType: 'json'
 	}).fail(function(jqXHR,textStatus,errorThrown){
-			alert(''+jqXHR+': '+textStatus+':'+errotThrown+'')
+			alert('jqXHR: '+jqXHR+' textStatus: '+textStatus+' errorThrown: '+errorThrown+'')
 	});
 };
+
+	//TEXT HANDLERS
+		$('#dt_MxA_newDate').change(function(e){
+			set_meeting_date($(this).val())
+		});
+
 
 		$('#bt_MxA_TogNotes').click(function(){
 			element = $('#txa_MxA_pastAssessments');
@@ -354,21 +372,7 @@ function create_mx_assessment () {
 			$('#'+slt_name+'').append(html);
 	}
 
-	function popSelectDateHistory (ward) {
-		
-		var url = '/mxa_date_history/'
-		//create strong parameter
-		data_for_params = {mx_assessment: {'site': ward}}
-		// swal(ward);
-		$.ajax({
-			url: url,
-			type: 'GET',
-			data: data_for_params,
-			cache: false,
-			dataType: 'json'
-		}).done(function(data){
-		})
-	}
+
 
 	function get_pat_data () {
 		var url = 'mxa_pat_data';

@@ -6,9 +6,22 @@ class MxAssessmentsController < ApplicationController
     # byebug
     @date_history = MxAssessment.select(:meeting_date).distinct.joins(:patient)
                                 .where(patients: {facility: session[:facility]})
-                                .where(patients: {site: params[:site]})
+                                .where(patients: {site: mx_assessment_params[:site]})
                                 .order(meeting_date: :desc)
-
+    # byebug
+    # Need to convert the ActiveRecord Relation to an array
+      # Oracle doesn't present meeting_date as a formatted string
+      # Need to format meeting_date (can't do that in the @meeting_date relation)
+      # Creating an @meeting_date ARRAY can use "options_for_select(@meeting_date)"
+      # in presentation.js.erb for the previous meeting date select.
+      # ( The ActiveRecord Relation uses "options_from_collection_for_select")
+    # @date_history.to_a.map! {|meeting| meeting.meeting_date.strftime('%F')}
+    @date_history.to_a.map! do |meeting|
+      unless meeting.meeting_date.blank?
+        meeting.meeting_date.strftime('%F')
+        # meeting.meeting_date.strftime('%m/%d/%Y')
+      end
+    end
     respond_to do |format|
       format.json {render json: @date_history}
     end
@@ -64,7 +77,8 @@ class MxAssessmentsController < ApplicationController
   # POST /mx_assessments.json
   def create
     @mx_assessment = MxAssessment.new(mx_assessment_params)
-
+    # byebug
+    
     respond_to do |format|
       if @mx_assessment.save
         # format.html { redirect_to @mx_assessment, notice: 'Mx assessment was successfully created.' }

@@ -24,6 +24,7 @@
 //= require superfish.js
 //= require sweetalert.min.js
 //= require jquery.validate.min.js
+//= require moment.js
 //= require mjm.js
 //= require_tree .
 //= require turbolinks

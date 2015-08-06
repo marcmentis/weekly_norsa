@@ -30,11 +30,13 @@ class MxAssessment < ActiveRecord::Base
 
 	# Get all the Patients who have weekly notes from a given ward and date
 		def self.pat_all_done(params, chosen_date, facility)
+			# .where(mx_assessments: {meeting_date: chosen_date.to_date})
 			# byebug
+			# meet_date = Date.strptime(chosen_date, "%m/%d/%Y")
 		    all_done = Patient.joins(:mx_assessments)
 		    					.where(patients: {facility: facility})
 		                  		.where(patients: {site: params[:site]})
-		                 		.where(mx_assessments: {meeting_date: chosen_date.to_date})
+		                 		.where(mx_assessments: {meeting_date: chosen_date})
 		                		.order(lastname: :asc)
 		end
 
