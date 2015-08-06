@@ -12,9 +12,7 @@ class MxAssessmentsController < ApplicationController
     # Need to convert the ActiveRecord Relation to an array
       # Oracle doesn't present meeting_date as a formatted string
       # Need to format meeting_date (can't do that in the @meeting_date relation)
-      # Creating an @meeting_date ARRAY can use "options_for_select(@meeting_date)"
-      # in presentation.js.erb for the previous meeting date select.
-      # ( The ActiveRecord Relation uses "options_from_collection_for_select")
+      # Can do it in an array
     # @date_history.to_a.map! {|meeting| meeting.meeting_date.strftime('%F')}
     @date_history.to_a.map! do |meeting|
       unless meeting.meeting_date.blank?
@@ -78,7 +76,7 @@ class MxAssessmentsController < ApplicationController
   def create
     @mx_assessment = MxAssessment.new(mx_assessment_params)
     # byebug
-    
+
     respond_to do |format|
       if @mx_assessment.save
         # format.html { redirect_to @mx_assessment, notice: 'Mx assessment was successfully created.' }
