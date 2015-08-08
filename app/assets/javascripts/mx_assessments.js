@@ -82,9 +82,6 @@ if ($('body.mx_assessments').length) {
 		$('#slt_Mxa_groupChanged').mjm_addOptions('GroupsChanged',{firstLine: 'Group Changed'});
 		$('#slt_MxA_ward').mjm_addOptions('ward', {firstLine: 'All Wards', facility: user_facility, group: true})
 
-		$('#slt_MxA_date_history').change(function(e){
-			set_meeting_date($(this).val());
-			});
 
 
 		//Populate TODO and DONE lists
@@ -94,32 +91,46 @@ if ($('body.mx_assessments').length) {
 			var ward = $('#slt_MxA_ward').val();
 			var date = $('#dt_MxA_newDate').val();
 			//Setup and Validation
-			//When Ward Changed: (i) Populate slt_MxA_date_history (ii) clear dt_MxA_newDate, (iii) clear TODO lists and past history																		
+			//When Ward Changed: (i) Populate slt_MxA_date_history (ii) clear dt_MxA_newDate, (iii) clear TODO lists and past history and input form																		
 			if (id == 'slt_MxA_ward') {
 				// swal(ward)
 				popSelectDateHistory(ward);
 				$('#dt_MxA_newDate').val('');
-
+				clear_todo_done_selects();
+				clear_all_but_todo_done_lists();
 			};
 
-			//When newDate is changed: (i) Clear date_history, (ii) clear toDo lists and form data
+			//When newDate is changed: (i) Set date_history = '', (ii) set meeting_date, (iii) Clear date_history, (iv) clear toDo lists and form data
 			if (id == 'dt_MxA_newDate') {
-				$('#slt_MxA_date_history').val('-1');
+				$('#slt_MxA_date_history').val('');
+				set_meeting_date($(this).val());
 				//the two clears
 				clear_todo_done_selects();
+				clear_all_but_todo_done_lists();
+			};
+
+			//When DateHistory is changed: (i) set new Date ='', (ii)set meeting_date, (iii) clear all but todo lists
+			if (id == 'slt_MxA_date_history') {
+				$('#dt_MxA_newDate'). val('');
+				set_meeting_date($(this).val());
+				clear_all_but_todo_done_lists();
 			};
 
 			//Populate lists
-			popPatientLists()
+			popPatientLists();
+			//Hide Right container
+			$('#grid_MxA_RightContainer').hide();
 		});
 
-		//Patient Selected: (i)Show Rt Container, (ii)get pat data
+		//Choose Patient from ToDo list: (i)Show Rt Container, (ii)get pat data
 		$('#slt_MxA_to_do').change(function(e){
 			var id = $(this).val();
 			set_id(id);
 			// swal('test', id);
-			$('#grid_MxA_RightContainer').show();
+			clear_all_but_todo_done_lists();			
 			get_pat_data();
+			hide_followup_question_divs();
+			$('#grid_MxA_RightContainer').show();
 		});
 
 
@@ -216,11 +227,6 @@ if ($('body.mx_assessments').length) {
 		});
 
 	//TEXT HANDLERS
-		$('#dt_MxA_newDate').change(function(e){
-			set_meeting_date($(this).val())
-		});
-
-
 		$('#bt_MxA_TogNotes').click(function(){
 			element = $('#txa_MxA_pastAssessments');
 			tripleToggle(element, heightS1, heightL1, heightEL1)
@@ -327,10 +333,17 @@ if ($('body.mx_assessments').length) {
 		});
 	};
 
-	//Clear functions
 	function clear_todo_done_selects (e) {
 		$('#slt_MxA_to_do, #slt_MxA_done').find('option').remove();
 	}
+
+	function clear_all_but_todo_done_lists () {
+		$('#sp_MxA_pat_name, #sp_MxA_pat_details, #sp_MxA_days_in_hospital, #dt_MxA_preMeeting')
+			.val('');
+		$('#slt_Mxa_drugsChanged, #slt_Mxa_groupChanged').val('-1');
+		$('[id^=txa').val('');
+		$(':radio').removeAttr('checked');
+	};
 
 	function popPatientLists () { 
 		var site = $('#slt_MxA_ward').val();
@@ -371,8 +384,8 @@ if ($('body.mx_assessments').length) {
 	}
 
 	function get_pat_data () {
-		var url = 'mxa_pat_data';
-		var data_for_params = {mx_assessment: {id: pat_id}}
+		var url = 'mxa_pat_data/';
+		var data_for_params = {mx_assessment: {patient_id: pat_id}}
 		$.ajax({
 			url: url,
 			type: 'GET',
@@ -380,27 +393,57 @@ if ($('body.mx_assessments').length) {
 			cache: false,
 			dataType: 'json'
 		}).done(function(data){
+				//Pat_demog data
 				var pat_demog = data.pat_demog;
 				lastname = pat_demog.lastname;
 				firstname = pat_demog.firstname;
 				identifier = pat_demog.identifier;
 				site = pat_demog.site;
-				doa = data.doa;
-				today = getCalendarDate();
-				days = datediff(doa,today,'days')
 
 				name = ''+lastname+' '+firstname+''
 				details = ''+identifier+': '+site+' DOA: '+doa+''
+				
+				//doa data
+				var doa = data.doa;
+				today = getCalendarDate();
+				days = datediff(doa,today,'days');
 				daysInHosp = 'Days: '+days+''
 
+				// Past Assessment data
+				var pat_assessments = data.pat_assessments;
+				alert(pat_assessments.length)
+				var text = '';
+				for (var i=0; i < pat_assessments.length; i++) {
+					var meeting_date = pat_assessments[i].meeting_date.slice(0,10)
+
+
+					//Create and populate past Mx Assessments
+					text += '________________________________________________'
+					text += '\nMEETING DATE:  '+meeting_date+''
+
+					text +='\n\n\n'
+
+				};
+
+
+				
+
+				//Enter demographic data into rt form
 				$('#sp_MxA_pat_name').html(name);
 				$('#sp_MxA_pat_details').html(details)
 				$('#sp_MxA_days_in_hospital').html(daysInHosp)
+
+				//Enter past assessments into txa_MxA_pastAssessments
+				$('#txa_MxA_pastAssessments').val(text)
 				
 				
 		}).fail(function(jqXHR,textStatus,errorThrown){
 			alert(''+jqXHR+': '+textStatus+':'+errotThrown+'')
 		});
+	};
+
+	function hide_followup_question_divs() {
+		$('[id^=div_MxA_danger]').hide();
 	};
 
 };	//if ($('body.mx_assessments').length) {

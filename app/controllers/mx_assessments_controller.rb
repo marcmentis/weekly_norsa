@@ -38,14 +38,19 @@ class MxAssessmentsController < ApplicationController
 
   #GET mxa_pat_data.json
   def get_pat_data
-
-    pat_demog = Patient.find(params[:mx_assessment]['id']);
+    # byebug
+    # pat_demog = Patient.find(params[:mx_assessment]['id']);
+    pat_demog = Patient.find (params[:mx_assessment]['patient_id']);
     # @pat_data = {pat_demog: pat_demog}
     # Convert relation (array) to object
     pat_demog = pat_demog.first;
     doa = pat_demog.doa.strftime('%D');
 
-    @pat_data = {pat_demog: pat_demog, doa: doa}
+    pat_assessments = MxAssessment.joins(:patient)
+                                  .where(patient_id: pat_demog)
+                                  .order(meeting_date: :desc)
+
+    @pat_data = {pat_demog: pat_demog, doa: doa, pat_assessments: pat_assessments}
     respond_to do |format|
       format.json {render json: @pat_data}
     end
@@ -124,8 +129,8 @@ class MxAssessmentsController < ApplicationController
       # params[:mx_assessment]
       params.require(:mx_assessment).permit(:danger_yn, :drugs_last_changed, 
                                             :drugs_not_why, :drugs_change_why, :psychsoc_last_changed,
-                                            :psychsoc_not_why, :psychsoc_change_why, :meeting_date, 
-                                            :patient_id, :pre_date_yesno,
+                                            :psychsoc_not_why, :psychsoc_change_why, :meeting_date, :patient_id,
+                                            :pre_date_yesno,
                                             :pre_date_no_why, :pre_date, :updated_by,
                                             :site, :new_date, :date_history)
     end
