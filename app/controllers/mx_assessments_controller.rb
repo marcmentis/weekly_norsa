@@ -47,7 +47,7 @@ class MxAssessmentsController < ApplicationController
     doa = pat_demog.doa.strftime('%D');
 
     pat_assessments = MxAssessment.joins(:patient)
-                                  .where(patient_id: pat_demog)
+                                .where(patient_id: pat_demog)
                                   .order(meeting_date: :desc)
 
     @pat_data = {pat_demog: pat_demog, doa: doa, pat_assessments: pat_assessments}

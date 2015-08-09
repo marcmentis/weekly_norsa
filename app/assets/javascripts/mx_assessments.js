@@ -2,7 +2,8 @@ $(function(){
 if ($('body.mx_assessments').length) {
 	//VARIABLES
 		var user_facility = $('#session-facility').val();
-
+		var user_id = $('#session-authen').val();
+		var user_name = $('#session-username').val();
 		var pat_id = '';
 			function set_id(x){pat_id = x};
 		var meeting_date = '';
@@ -10,6 +11,7 @@ if ($('body.mx_assessments').length) {
 				meeting_date = x
 				// meeting_date = moment(x, "MM-DD-YYYY")
 			};
+
 
 		//textareas
 		var width1 = '33em'
@@ -297,6 +299,7 @@ if ($('body.mx_assessments').length) {
 		// add values to params_hash
 		params_hash['patient_id'] = pat_id.toString();
 		params_hash['meeting_date'] = meeting_date;
+		params_hash['updated_by'] = user_name;
 		// alert(meeting_date);
 		// return;
 
@@ -411,15 +414,17 @@ if ($('body.mx_assessments').length) {
 
 				// Past Assessment data
 				var pat_assessments = data.pat_assessments;
-				alert(pat_assessments.length)
 				var text = '';
 				for (var i=0; i < pat_assessments.length; i++) {
 					var meeting_date = pat_assessments[i].meeting_date.slice(0,10)
+					var updated_at = pat_assessments[i].updated_at.slice(0,10)
+					var updated_by	= pat_assessments[i].updated_by
 
 
 					//Create and populate past Mx Assessments
 					text += '________________________________________________'
 					text += '\nMEETING DATE:  '+meeting_date+''
+					text += '\nSAVED BY:  '+updated_by+'      ON: '+updated_at+''
 
 					text +='\n\n\n'
 

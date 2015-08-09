@@ -23,6 +23,7 @@ module SessionValues
 				session[:confirmed] = 'authen_and_in_db'
 				session[:facility] = this_user.facility
 				session[:admin3] = this_user.has_role? :admin3
+				session[:user_name] = ''+this_user.lastname+' '+this_user.firstinitial+''
 			end
 				
 		end
@@ -38,6 +39,7 @@ module SessionValues
 					session[:confirmed] = 'authen_and_in_db'
 					session[:facility] = this_user.facility
 					session[:admin3] = this_user.has_role? :admin3
+					session[:user_name] = ''+this_user.lastname+' '+this_user.firstinitial+''
 				end			
 			else
 				@error = 'User has not passed RSA authentication'
