@@ -398,38 +398,65 @@ if ($('body.mx_assessments').length) {
 		}).done(function(data){
 				//Pat_demog data
 				var pat_demog = data.pat_demog;
-				lastname = pat_demog.lastname;
-				firstname = pat_demog.firstname;
-				identifier = pat_demog.identifier;
-				site = pat_demog.site;
+				var lastname = pat_demog[0].lastname;
+				var firstname = pat_demog[0].firstname;
+				var identifier = pat_demog[0].identifier;
+				var site = pat_demog[0].site;
+				var doa = moment(pat_demog[0].doa,"YYYY-MM-DD").format('YYYY-MM-DD');
+					var name = ''+lastname+' '+firstname+''
+					var details = ''+identifier+': '+site+' DOA: '+doa+''
 
-				name = ''+lastname+' '+firstname+''
-				details = ''+identifier+': '+site+' DOA: '+doa+''
-				
-				//doa data
-				var doa = data.doa;
-				today = getCalendarDate();
-				days = datediff(doa,today,'days');
-				daysInHosp = 'Days: '+days+''
+				//Calculate days in Hosptital to present (now - doa)
+				var now = moment();
+				var duration = moment.duration(now.diff(doa));
+				var days = Math.floor(duration.asDays())
+				var daysInHosp = '  '+days+' days in hospital';
+					// alert(daysInHosp)
+			
+				//doa data NOT NEEDED NOW THAT MOMENT.JS WORKING
+				// var doa = data.doa;
+				// today = getCalendarDate();
+				// days = datediff(doa,today,'days');
+				// daysInHosp = 'Days: '+days+''
+
 
 				// Past Assessment data
 				var pat_assessments = data.pat_assessments;
 				var text = '';
 				for (var i=0; i < pat_assessments.length; i++) {
-					var meeting_date = pat_assessments[i].meeting_date.slice(0,10)
-					var updated_at = pat_assessments[i].updated_at.slice(0,10)
+					// var meeting_date = pat_assessments[i].meeting_date.slice(0,10)
+					var meeting_date = moment(pat_assessments[i].meeting_date, "YYYY-MM-DD")
+					var meeting_date_formatted = meeting_date.format('YYYY-MM-DD')
+					var updated_at = moment(pat_assessments[i].updated_at, "YYYY-MM").format('YYYY-MM-DD');
 					var updated_by	= pat_assessments[i].updated_by
+					//NOTE: calculate Days in hosp to meeting date - WILL REPLACE
+						//WHEN ADD COLUMN "DAYS IN HOSPITAL" to database
+					var diff = moment.duration(meeting_date.diff(doa));
+					var days_in_hosp = Math.floor(diff.asDays());
+
+					var dangerYesNo = pat_assessments[i].danger_yn
+					
+
 
 
 					//Create and populate past Mx Assessments
 					text += '________________________________________________'
-					text += '\nMEETING DATE:  '+meeting_date+''
+					text += '\nMEETING DATE:  '+meeting_date_formatted+''
 					text += '\nSAVED BY:  '+updated_by+'      ON: '+updated_at+''
+					text += '\nNAME: '+name+'    DOA:  '+doa+'  DAYS In HOSP: '+days_in_hosp+''
+					text += '\n\nPATIENT DANGEROUS (SELF/OTHERS) IF IN APPROVED HOUSING:  '+dangerYesNo+''
+
+					if (dangerYesNo == 'Y') {
+						// alert('danger: Y')
+					}else if (dangerYesNo == 'N') {
+						// alert('danger: N')
+					};
 
 					text +='\n\n\n'
 
 				};
-
+				//Enter past assessments into txa_MxA_pastAssessments
+				$('#txa_MxA_pastAssessments').val(text)
 
 				
 
@@ -438,8 +465,7 @@ if ($('body.mx_assessments').length) {
 				$('#sp_MxA_pat_details').html(details)
 				$('#sp_MxA_days_in_hospital').html(daysInHosp)
 
-				//Enter past assessments into txa_MxA_pastAssessments
-				$('#txa_MxA_pastAssessments').val(text)
+				
 				
 				
 		}).fail(function(jqXHR,textStatus,errorThrown){

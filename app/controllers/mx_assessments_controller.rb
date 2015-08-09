@@ -43,14 +43,15 @@ class MxAssessmentsController < ApplicationController
     pat_demog = Patient.find (params[:mx_assessment]['patient_id']);
     # @pat_data = {pat_demog: pat_demog}
     # Convert relation (array) to object
-    pat_demog = pat_demog.first;
-    doa = pat_demog.doa.strftime('%D');
+    # pat_demog = pat_demog.first;
+    # doa = pat_demog.doa.strftime('%D');
 
     pat_assessments = MxAssessment.joins(:patient)
                                 .where(patient_id: pat_demog)
                                   .order(meeting_date: :desc)
 
-    @pat_data = {pat_demog: pat_demog, doa: doa, pat_assessments: pat_assessments}
+    # @pat_data = {pat_demog: pat_demog, doa: doa, pat_assessments: pat_assessments}
+    @pat_data = {pat_demog: pat_demog, pat_assessments: pat_assessments}
     respond_to do |format|
       format.json {render json: @pat_data}
     end
