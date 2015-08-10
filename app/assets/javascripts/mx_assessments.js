@@ -68,6 +68,7 @@ if ($('body.mx_assessments').length) {
 			.addClass('text-content left')
 			.width('92%')
 			.height(heightS1);
+			// .css({'white-space': 'pre'});
 		$('#txa_MxA_pastAssessments')
 			.width('92%') //?? actually recorded as 98%
 			.height(heightS1)
@@ -290,7 +291,13 @@ if ($('body.mx_assessments').length) {
 		var patient_id = pat_id.toString();
 		var url = '/mx_assessments/'
 		var params_string = $('#f_MxA_rightContainer').serialize();
-		if (true) {};
+		//.serialize doesn't work properly with text areas
+		drugs_not_why = $('#txa_MxA_drugNoChange').val();
+		drugs_change_why = $('#txa_MxA_drugWhyChange').val();
+		psychsoc_not_why = $('#txa_MxA_groupNoChange').val();
+		psychsoc_change_why = $('#txa_MxA_groupWhyChange').val();
+		pre_date_no_why = $('#txa_MxA_PreDateNo').val();
+
 
 		params_string_replace = params_string.replace(/&/g,',')
 		params_array = params_string_replace.split(',');
@@ -300,6 +307,12 @@ if ($('body.mx_assessments').length) {
 		params_hash['patient_id'] = pat_id.toString();
 		params_hash['meeting_date'] = meeting_date;
 		params_hash['updated_by'] = user_name;
+		params_hash['drugs_not_why'] = drugs_not_why;
+		params_hash['drugs_change_why'] = drugs_change_why;	
+		params_hash['psychsoc_change_why'] = psychsoc_change_why;	
+		params_hash['psychsoc_not_why'] = psychsoc_not_why; 
+		params_hash['pre_date_no_why'] = pre_date_no_why; 
+
 		// alert(meeting_date);
 		// return;
 
@@ -447,8 +460,6 @@ if ($('body.mx_assessments').length) {
 
 					
 
-
-
 					//Create and populate past Mx Assessments
 					text += '________________________________________________'
 					text += '\nMEETING DATE:  '+meeting_date_formatted+''
@@ -464,7 +475,7 @@ if ($('body.mx_assessments').length) {
 								text +='\n'+drugs_not_why+'';
 							};
 						text +='\n   PSYCHOSOCIAL LAST CHANGED: '+psychsoc_last_changed+'';
-							if (psychsoc_last_changed = '0-3Months') {
+							if (psychsoc_last_changed == '0-3Months') {
 								text +='\n'+psychsoc_change_why+'';
 							}else if (psychsoc_last_changed == 'Gt3Months') {
 								text +='\n'+psychsoc_not_why+'';
