@@ -427,7 +427,7 @@ if ($('body.mx_assessments').length) {
 					// var meeting_date = pat_assessments[i].meeting_date.slice(0,10)
 					var meeting_date = moment(pat_assessments[i].meeting_date, "YYYY-MM-DD")
 					var meeting_date_formatted = meeting_date.format('YYYY-MM-DD')
-					var updated_at = moment(pat_assessments[i].updated_at, "YYYY-MM").format('YYYY-MM-DD');
+					var updated_at = moment(pat_assessments[i].updated_at, "YYYY-MM-DD").format('YYYY-MM-DD');
 					var updated_by	= pat_assessments[i].updated_by
 					//NOTE: calculate Days in hosp to meeting date - WILL REPLACE
 						//WHEN ADD COLUMN "DAYS IN HOSPITAL" to database
@@ -435,6 +435,16 @@ if ($('body.mx_assessments').length) {
 					var days_in_hosp = Math.floor(diff.asDays());
 
 					var dangerYesNo = pat_assessments[i].danger_yn
+					var drugs_last_changed = pat_assessments[i].drugs_last_changed
+					var drugs_not_why = pat_assessments[i].drugs_not_why
+					var drugs_change_why = pat_assessments[i].drugs_change_why
+					var psychsoc_last_changed = pat_assessments[i].psychsoc_last_changed
+					var psychsoc_not_why = pat_assessments[i].psychsoc_not_why
+					var psychsoc_change_why = pat_assessments[i].psychsoc_change_why
+					var pre_date_yesno = pat_assessments[i].pre_date_yesno
+					var pre_date_no_why = pat_assessments[i].pre_date_no_why
+					var pre_date = moment(pat_assessments[i].pre_date, "YYYY-MM-DD").format('YYYY-MM-DD')
+
 					
 
 
@@ -447,9 +457,25 @@ if ($('body.mx_assessments').length) {
 					text += '\n\nPATIENT DANGEROUS (SELF/OTHERS) IF IN APPROVED HOUSING:  '+dangerYesNo+''
 
 					if (dangerYesNo == 'Y') {
-						// alert('danger: Y')
+						text +='\n   MEDS LAST CHANGED: '+drugs_last_changed+'';
+							if (drugs_last_changed == '0-8Weeks') {
+								text +='\n'+drugs_change_why+'';
+							}else if (drugs_last_changed == 'Gt8Weeks') {
+								text +='\n'+drugs_not_why+'';
+							};
+						text +='\n   PSYCHOSOCIAL LAST CHANGED: '+psychsoc_last_changed+'';
+							if (psychsoc_last_changed = '0-3Months') {
+								text +='\n'+psychsoc_change_why+'';
+							}else if (psychsoc_last_changed == 'Gt3Months') {
+								text +='\n'+psychsoc_not_why+'';
+							};
 					}else if (dangerYesNo == 'N') {
-						// alert('danger: N')
+						text +='\n   Date set for Pre-Conference Meeting: '+pre_date_yesno+'';
+							if (pre_date_yesno == 'Y') {
+								text +='\nDate: '+pre_date+'';
+							}else if (pre_date_yesno == 'N') {
+								text +='\n'+pre_date_no_why+'';
+							};
 					};
 
 					text +='\n\n\n'
