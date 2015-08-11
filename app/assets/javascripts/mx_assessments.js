@@ -131,7 +131,7 @@ if ($('body.mx_assessments').length) {
 		// 	// swal('test', id);
 		// 	clear_all_but_todo_done_lists();			
 		// 	get_pat_data();
-		// 	hide_followup_question_divs();
+		// 	hide_form_divs();
 		// 	$('#grid_MxA_RightContainer').show();
 		// });
 
@@ -428,144 +428,132 @@ if ($('body.mx_assessments').length) {
 			cache: false,
 			dataType: 'json'
 		}).done(function(data){
+				
 				clear_all_but_todo_done_lists();
 				$('#grid_MxA_RightContainer').show();	
-				//Pat_demog data
-				var pat_demog = data.pat_demog;
-				var lastname = pat_demog[0].lastname;
-				var firstname = pat_demog[0].firstname;
-				var identifier = pat_demog[0].identifier;
-				var site = pat_demog[0].site;
-				var doa = moment(pat_demog[0].doa,"YYYY-MM-DD").format('YYYY-MM-DD');
-					var name = ''+lastname+' '+firstname+''
-					var details = ''+identifier+': '+site+' DOA: '+doa+''
 
-				//Calculate days in Hosptital to chosen meeting date (meeting date - doa)
-				var duration = moment.duration(meeting_date.diff(doa));
-				var days = Math.floor(duration.asDays())
-				var daysInHosp = '  '+days+' days in hospital';
-
-				//Get pat_assessment for the date chosen if it exists
-				for (var i = 0; i < pat_assessments.length; i++) {
-					data_meeting_date = moment(pat_assessments[i].meeting_date, "YYYY_MM_DD").format("YYYY-MM-DD")
-					meeting_date_formatted = moment(meeting_date).format("YYYY-MM-DD");
-					if (data_meeting_date == meeting_date_formatted) {
-
-						var updated_at = moment(pat_assessments[i].updated_at, "YYYY-MM-DD").format('YYYY-MM-DD');
-						var updated_by	= pat_assessments[i].updated_by
-
-						var dangerYesNo = pat_assessments[i].danger_yn
-						var drugs_last_changed = pat_assessments[i].drugs_last_changed
-						var drugs_not_why = pat_assessments[i].drugs_not_why
-						var drugs_change_why = pat_assessments[i].drugs_change_why
-						var psychsoc_last_changed = pat_assessments[i].psychsoc_last_changed
-						var psychsoc_not_why = pat_assessments[i].psychsoc_not_why
-						var psychsoc_change_why = pat_assessments[i].psychsoc_change_why
-						var pre_date_yesno = pat_assessments[i].pre_date_yesno
-						var pre_date_no_why = pat_assessments[i].pre_date_no_why
-						var pre_date = moment(pat_assessments[i].pre_date, "YYYY-MM-DD").format('YYYY-MM-DD')
-				};
-
-				//Populate all fields in note
-				populate_form_if_data_entered_for_meeting_date (name, details, daysInHosp, dangerYesNo, drugs_last_changed
-								drugs_not_why, drugs_change_why, psychsoc_last_changed, psychsoc_not_why,
-								psychsoc_change_why, pre_date_yesno, pre_date_no_why, pre_date)
-
-
-
-				// Populate Past Assessment data
-				var pat_assessments = data.pat_assessments;
-				populate_past_mx_assessments(pat_assessments, doa, name);
+				// Populate Past Assessment data				
+				populate_past_mx_assessments(data);
 				
-				// Populate form if meeting data already entered for chosen date
-				hide_followup_question_divs();
-				// populate_form_if_data_entered_for_meeting_date (pat_assessments)
+								
 
-				 
+				//Hide then show divs
+					hide_form_divs();
+					// Populate form demographics plus content data if meeting data already entered for chosen date
+					populate_form_if_data_entered_for_meeting_date (data)				
+					show_appropriate_divs(data);
 
-				//Enter demographic data into rt form
-				// $('#sp_MxA_pat_name').html(name);
-				// $('#sp_MxA_pat_details').html(details)
-				// $('#sp_MxA_days_in_hospital').html(daysInHosp)
-
-				
-				
+							
 				
 		}).fail(function(jqXHR,textStatus,errorThrown){
 			alert(''+jqXHR+': '+textStatus+':'+errotThrown+'')
 		});
 	};
 
-	function hide_followup_question_divs() {
+	function hide_form_divs() {
+		$('#div_MxA_patient_identification').hide();
+		$('#div_MxA_dangerQuestion').hide();
 		$('[id^=div_MxA_danger]').hide();
+		$('[id^=div_MxA_dangerNo]').hide();
 	};
 
-	function populate_past_mx_assessments (pat_assessments, doa, name) {
-				var text = '';
-				for (var i=0; i < pat_assessments.length; i++) {
-					var data_meeting_date = moment(pat_assessments[i].meeting_date, "YYYY-MM-DD")
-					var data_meeting_date_formatted = data_meeting_date.format('YYYY-MM-DD')
-					var updated_at = moment(pat_assessments[i].updated_at, "YYYY-MM-DD").format('YYYY-MM-DD');
-					var updated_by	= pat_assessments[i].updated_by
-					//NOTE: calculate Days in hosp to meeting date - WILL REPLACE
-						//WHEN ADD COLUMN "DAYS IN HOSPITAL" to database
-					var diff = moment.duration(data_meeting_date.diff(doa));
-					var days_in_hosp = Math.floor(diff.asDays());
+	function populate_past_mx_assessments (data) {
+		//Get data arrays
+		var pat_demog = data.pat_demog;
+		var pat_assessments = data.pat_assessments;
+		//Pat_demog data				
+		var lastname = pat_demog[0].lastname;
+		var firstname = pat_demog[0].firstname;
+		// var identifier = pat_demog[0].identifier;
+		// var site = pat_demog[0].site;
+		var doa = moment(pat_demog[0].doa,"YYYY-MM-DD").format('YYYY-MM-DD');
+			var name = ''+lastname+' '+firstname+''
+			// var details = ''+identifier+': '+site+' DOA: '+doa+''
 
-					var dangerYesNo = pat_assessments[i].danger_yn
-					var drugs_last_changed = pat_assessments[i].drugs_last_changed
-					var drugs_not_why = pat_assessments[i].drugs_not_why
-					var drugs_change_why = pat_assessments[i].drugs_change_why
-					var psychsoc_last_changed = pat_assessments[i].psychsoc_last_changed
-					var psychsoc_not_why = pat_assessments[i].psychsoc_not_why
-					var psychsoc_change_why = pat_assessments[i].psychsoc_change_why
-					var pre_date_yesno = pat_assessments[i].pre_date_yesno
-					var pre_date_no_why = pat_assessments[i].pre_date_no_why
-					var pre_date = moment(pat_assessments[i].pre_date, "YYYY-MM-DD").format('YYYY-MM-DD')
+		//Calculate days in Hosptital to chosen meeting date (meeting date - doa)
+		// var duration = moment.duration(meeting_date.diff(doa));
+		// var days = Math.floor(duration.asDays())
+		// var daysInHosp = '  '+days+' days in hospital';
 
-					
+		// Create the past_mx_text
+		var text = '';
+		for (var i=0; i < pat_assessments.length; i++) {
+			var data_meeting_date = moment(pat_assessments[i].meeting_date, "YYYY-MM-DD")
+			var data_meeting_date_formatted = data_meeting_date.format('YYYY-MM-DD')
+			var updated_at = moment(pat_assessments[i].updated_at, "YYYY-MM-DD").format('YYYY-MM-DD');
+			var updated_by	= pat_assessments[i].updated_by
+			//NOTE: calculate Days in hosp to meeting date - WILL REPLACE
+				//WHEN ADD COLUMN "DAYS IN HOSPITAL" to database
+			var diff = moment.duration(data_meeting_date.diff(doa));
+			var days_in_hosp = Math.floor(diff.asDays());
 
-					//Create and populate past Mx Assessments
-					text += '________________________________________________'
-					text += '\nMEETING DATE:  '+data_meeting_date_formatted+''
-					text += '\nSAVED BY:  '+updated_by+'      ON: '+updated_at+''
-					text += '\nNAME: '+name+'    DOA:  '+doa+'  DAYS In HOSP: '+days_in_hosp+''
-					text += '\n\nPATIENT DANGEROUS (SELF/OTHERS) IF IN APPROVED HOUSING:  '+dangerYesNo+''
+			var dangerYesNo = pat_assessments[i].danger_yn
+			var drugs_last_changed = pat_assessments[i].drugs_last_changed
+			var drugs_not_why = pat_assessments[i].drugs_not_why
+			var drugs_change_why = pat_assessments[i].drugs_change_why
+			var psychsoc_last_changed = pat_assessments[i].psychsoc_last_changed
+			var psychsoc_not_why = pat_assessments[i].psychsoc_not_why
+			var psychsoc_change_why = pat_assessments[i].psychsoc_change_why
+			var pre_date_yesno = pat_assessments[i].pre_date_yesno
+			var pre_date_no_why = pat_assessments[i].pre_date_no_why
+			var pre_date = moment(pat_assessments[i].pre_date, "YYYY-MM-DD").format('YYYY-MM-DD')
 
-					if (dangerYesNo == 'Y') {
-						text +='\n   MEDS LAST CHANGED: '+drugs_last_changed+'';
-							if (drugs_last_changed == '0-8Weeks') {
-								text +='\n'+drugs_change_why+'';
-							}else if (drugs_last_changed == 'Gt8Weeks') {
-								text +='\n'+drugs_not_why+'';
-							};
-						text +='\n   PSYCHOSOCIAL LAST CHANGED: '+psychsoc_last_changed+'';
-							if (psychsoc_last_changed == '0-3Months') {
-								text +='\n'+psychsoc_change_why+'';
-							}else if (psychsoc_last_changed == 'Gt3Months') {
-								text +='\n'+psychsoc_not_why+'';
-							};
-					}else if (dangerYesNo == 'N') {
-						text +='\n   Date set for Pre-Conference Meeting: '+pre_date_yesno+'';
-							if (pre_date_yesno == 'Y') {
-								text +='\nDate: '+pre_date+'';
-							}else if (pre_date_yesno == 'N') {
-								text +='\n'+pre_date_no_why+'';
-							};
+			
+
+			//Create and populate past Mx Assessments
+			text += '________________________________________________'
+			text += '\nMEETING DATE:  '+data_meeting_date_formatted+''
+			text += '\nSAVED BY:  '+updated_by+'      ON: '+updated_at+''
+			text += '\nNAME: '+name+'    DOA:  '+doa+'  DAYS In HOSP: '+days_in_hosp+''
+			text += '\n\nPATIENT DANGEROUS (SELF/OTHERS) IF IN APPROVED HOUSING:  '+dangerYesNo+''
+
+			if (dangerYesNo == 'Y') {
+				text +='\n   MEDS LAST CHANGED: '+drugs_last_changed+'';
+					if (drugs_last_changed == '0-8Weeks') {
+						text +='\n'+drugs_change_why+'';
+					}else if (drugs_last_changed == 'Gt8Weeks') {
+						text +='\n'+drugs_not_why+'';
 					};
+				text +='\n   PSYCHOSOCIAL LAST CHANGED: '+psychsoc_last_changed+'';
+					if (psychsoc_last_changed == '0-3Months') {
+						text +='\n'+psychsoc_change_why+'';
+					}else if (psychsoc_last_changed == 'Gt3Months') {
+						text +='\n'+psychsoc_not_why+'';
+					};
+			}else if (dangerYesNo == 'N') {
+				text +='\n   Date set for Pre-Conference Meeting: '+pre_date_yesno+'';
+					if (pre_date_yesno == 'Y') {
+						text +='\nDate: '+pre_date+'';
+					}else if (pre_date_yesno == 'N') {
+						text +='\n'+pre_date_no_why+'';
+					};
+			};
 
-					text +='\n\n\n'
-
-				};
-				//Enter past assessments into txa_MxA_pastAssessments
-				$('#txa_MxA_pastAssessments').val(text)
+			text +='\n\n\n'
+		};
+		//Enter past assessments into txa_MxA_pastAssessments
+		$('#txa_MxA_pastAssessments').val(text)
 	}
 
-	function populate_form_if_data_entered_for_meeting_date (pat_assessments) {
-		$('#sp_MxA_pat_name').html(name);
-		$('#sp_MxA_pat_details').html(details)
-		$('#sp_MxA_days_in_hospital').html(daysInHosp)
+	function populate_form_if_data_entered_for_meeting_date (data) {
+		//Get data arrays
+		var pat_demog = data.pat_demog;
+		var pat_assessments = data.pat_assessments;
+		//Pat_demog data				
+		var lastname = pat_demog[0].lastname;
+		var firstname = pat_demog[0].firstname;
+		var identifier = pat_demog[0].identifier;
+		var site = pat_demog[0].site;
+		var doa = moment(pat_demog[0].doa,"YYYY-MM-DD").format('YYYY-MM-DD');
+			var name = ''+lastname+' '+firstname+''
+			var details = ''+identifier+': '+site+' DOA: '+doa+''
 
+		//Calculate days in Hosptital to chosen meeting date (meeting date - doa)
+		var duration = moment.duration(meeting_date.diff(doa));
+		var days = Math.floor(duration.asDays())
+		var daysInHosp = '  '+days+' days in hospital';
+
+		//Get pat_assessment for the date chosen if it exists
 		for (var i = 0; i < pat_assessments.length; i++) {
 			data_meeting_date = moment(pat_assessments[i].meeting_date, "YYYY_MM_DD").format("YYYY-MM-DD")
 			meeting_date_formatted = moment(meeting_date).format("YYYY-MM-DD");
@@ -584,46 +572,100 @@ if ($('body.mx_assessments').length) {
 				var pre_date_yesno = pat_assessments[i].pre_date_yesno
 				var pre_date_no_why = pat_assessments[i].pre_date_no_why
 				var pre_date = moment(pat_assessments[i].pre_date, "YYYY-MM-DD").format('YYYY-MM-DD')
+			};
+		};
 
+		//Populate Demographics
+		$('#sp_MxA_pat_name').html(name);
+		$('#sp_MxA_pat_details').html(details)
+		$('#sp_MxA_days_in_hospital').html(daysInHosp)
+		//Danger Assessment
+		if (dangerYesNo == 'Y') {
+			$('#rd_MxA_danger_yes').attr('checked',true);
+				$('#slt_Mxa_drugsChanged').val(drugs_last_changed);
+				if (drugs_last_changed == '0-8Weeks') {					
+					$('#txa_MxA_drugWhyChange').val(drugs_change_why);
+				}else if (drugs_last_changed == 'Gt8Weeks') {
+					$('#txa_MxA_drugNoChange').val(drugs_not_why);
+				};
 
+				$('#slt_Mxa_groupChanged').val(psychsoc_last_changed);
+			 	if (psychsoc_last_changed == '0-3Months') {
+					$('#txa_MxA_groupWhyChange').val(psychsoc_change_why);
+				}else if (psychsoc_last_changed == 'Gt3Months') {
+					$('#txa_MxA_groupNoChange').val(psychsoc_not_why);
+				};
+
+		}else if (dangerYesNo == 'N') {
+			$('#rd_MxA_danger_no').attr('checked',true);
+			var pre_date_yesno = pre_date_yesno;
+			if (pre_date_yesno == 'Y') {
+				$('#rd_MxA_preDate_yes').attr('checked',true);
+				var pre_date = moment(pre_date, "YYYY-MM-DD").format('YYYY-MM-DD')
+				$('#dt_MxA_preMeeting').val(pre_date);
+			}else if (pre_date_yesno == 'N') {
+				$('#rd_MxA_preDate_no').attr('checked',true);
+				$('#txa_MxA_PreDateNo').val(pre_date_no_why);
+			};
+		};
+	}
+
+	function show_appropriate_divs (data) {
+		//Get data arrays
+		// var pat_demog = data.pat_demog;
+		var pat_assessments = data.pat_assessments;
+		//Demographics
+		$('#div_MxA_patient_identification').show();
+		//Questions
+		$('#div_MxA_dangerQuestion').show();
+
+		for (var i = 0; i < pat_assessments.length; i++) {
+			data_meeting_date = moment(pat_assessments[i].meeting_date, "YYYY_MM_DD").format("YYYY-MM-DD")
+			meeting_date_formatted = moment(meeting_date).format("YYYY-MM-DD");
+			if (data_meeting_date == meeting_date_formatted) {
+
+				// var updated_at = moment(pat_assessments[i].updated_at, "YYYY-MM-DD").format('YYYY-MM-DD');
+				// var updated_by	= pat_assessments[i].updated_by
+				//GET APPROPRIAT VARIABLES
+				var dangerYesNo = pat_assessments[i].danger_yn
+				var drugs_last_changed = pat_assessments[i].drugs_last_changed
+				// var drugs_not_why = pat_assessments[i].drugs_not_why
+				// var drugs_change_why = pat_assessments[i].drugs_change_why
+				var psychsoc_last_changed = pat_assessments[i].psychsoc_last_changed
+				// var psychsoc_not_why = pat_assessments[i].psychsoc_not_why
+				// var psychsoc_change_why = pat_assessments[i].psychsoc_change_why
+				var pre_date_yesno = pat_assessments[i].pre_date_yesno
+				// var pre_date_no_why = pat_assessments[i].pre_date_no_why
+				// var pre_date = moment(pat_assessments[i].pre_date, "YYYY-MM-DD").format('YYYY-MM-DD')
+
+				
+		
+
+				//Dangerousness
 				if (dangerYesNo == 'Y') {
-					$('#rd_MxA_danger_yes').attr('checked',true);
-						$('#slt_Mxa_drugsChanged').val(drugs_last_changed);
 						$('#div_MxA_dangerYes_drug').show();
 						if (drugs_last_changed == '0-8Weeks') {					
-							$('#txa_MxA_drugWhyChange').val(pat_assessments[i].drugs_change_why);
 							$('#div_MxA_dangerYes_drugYes').show();
 						}else if (drugs_last_changed == 'Gt8Weeks') {
-							$('#txa_MxA_drugNoChange').val(pat_assessments[i].drugs_not_why);
 							$('#div_MxA_dangerYes_drugNo').show();
 						};
-					var psychsoc_last_changed = pat_assessments[i].psychsoc_last_changed
+
 						$('#slt_Mxa_groupChanged').val(psychsoc_last_changed);
 						$('#div_MxA_dangerYes_group').show();
 					 	if (psychsoc_last_changed == '0-3Months') {
-							$('#txa_MxA_groupWhyChange').val(pat_assessments[i].psychsoc_change_why);
 							$('#div_MxA_dangerYes_groupYes').show();
 						}else if (psychsoc_last_changed == 'Gt3Months') {
-							$('#txa_MxA_groupNoChange').val(pat_assessments[i].psychsoc_not_why);
 							$('#div_MxA_dangerYes_groupNo').show();
 						};
 
 				}else if (dangerYesNo == 'N') {
-					$('#rd_MxA_danger_no').attr('checked',true);
 					$('#div_MxA_dangerNo_date').show();
-					var pre_date_yesno = pat_assessments[i].pre_date_yesno;
 					if (pre_date_yesno == 'Y') {
-						$('#rd_MxA_preDate_yes').attr('checked',true);
-						var pre_date = moment(pat_assessments[i].pre_date, "YYYY-MM-DD").format('YYYY-MM-DD')
-						$('#dt_MxA_preMeeting').val(pre_date);
 						$('#div_MxA_dangerNo_dateYes').show();
 					}else if (pre_date_yesno == 'N') {
-						$('#rd_MxA_preDate_no').attr('checked',true);
-						$('#txa_MxA_PreDateNo').val(pat_assessments[i].pre_date_no_why);
 						$('#div_MxA_dangerNo_dateNo').show();
 					};
 				};
-
 				
 			};
 		};
