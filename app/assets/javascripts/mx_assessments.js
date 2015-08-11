@@ -235,6 +235,13 @@ if ($('body.mx_assessments').length) {
 			data = $('#f_MxA_rightContainer').serialize();
 			create_mx_assessment();
 		});
+		$('#bt_MxA_back').click(function(){
+			clear_all_but_todo_done_lists();
+			hide_form_divs();
+			$('#grid_MxA_RightContainer, #div_MxA_save_message')
+				.hide();
+		});
+
 
 	//TEXT HANDLERS
 		$('#bt_MxA_TogNotes').click(function(){
