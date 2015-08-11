@@ -277,6 +277,13 @@ $background_light_gray: #F5F5F5;
 	& .center {
 		text-align: center;
 	}
+	& .success_message {
+		font-size: 12px;
+		color: $r_alert;
+		text-align: center;
+		border: 1px solid $r_alert;;
+		padding: 2px;
+	}
   }
 
 
