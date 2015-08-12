@@ -84,7 +84,7 @@ if ($('body.mx_assessments').length) {
 		$('#slt_Mxa_drugsChanged').mjm_addOptions('DrugsChanged',{firstLine: 'Drugs Changed'});	
 		$('#slt_Mxa_groupChanged').mjm_addOptions('GroupsChanged',{firstLine: 'Group Changed'});
 		$('#slt_MxA_ward').mjm_addOptions('ward', {firstLine: 'All Wards', facility: user_facility, group: true})
-
+		$('#slt_MxA_danger_yn, #slt_MxA_pre_date_yesno').mjm_addOptions('YesNo',{firstLine: 'Choose Y/N'});
 
 		//Populate TODO and DONE lists
 		$('#slt_MxA_ward, #dt_MxA_newDate, #slt_MxA_date_history')
@@ -123,17 +123,6 @@ if ($('body.mx_assessments').length) {
 			//Hide Right container
 			$('#grid_MxA_RightContainer').hide();
 		});
-
-		//Choose Patient from ToDo list: (i)Show Rt Container, (ii)get pat data
-		// $('#slt_MxA_to_do').change(function(e){
-		// 	var id = $(this).val();
-		// 	set_id(id);
-		// 	// swal('test', id);
-		// 	clear_all_but_todo_done_lists();			
-		// 	get_pat_data();
-		// 	hide_form_divs();
-		// 	$('#grid_MxA_RightContainer').show();
-		// });
 
 		//Choose Patient From ToDo or Done lists (Show Form, get pat data, fill past Mx assessments & forms appropriately)
 		$('#slt_MxA_to_do, #slt_MxA_done').change(function(){
@@ -188,47 +177,46 @@ if ($('body.mx_assessments').length) {
 			};
 		})
 
-	//RADIO HANDLERS
-		$('#rd_MxA_danger_yes').click(function(){
-			checked = $(this).is(':checked');
-			if (checked) {
+		//Expose appropriate divs when danger_yn changed
+		$('#slt_MxA_danger_yn').change(function(){
+			value = $(this).val();
+			if (value == -1) {
+				hide_form_divs();
+				$('#div_MxA_patient_identification, #div_MxA_dangerQuestion').show();
+			}else if (value == 'Y') {
 				$('[id^=div_MxA_dangerNo]')
 					.hide();
 				$('#div_MxA_dangerYes_drug, #div_MxA_dangerYes_group')
 					.show();
 				$('#div_MxA_dangerYes_drugNo, #div_MxA_dangerYes_groupNo, #div_MxA_dangerYes_drugYes, #div_MxA_dangerYes_groupYes')
 					.hide();
-			};
-		});
-
-		$('#rd_MxA_danger_no').click(function(){
-			 checked = $(this).is(':checked');
-			if(checked){
+			}else if (value == 'N') {
 				$('#div_MxA_dangerNo_date').show();
 				$('[id^=div_MxA_dangerYes]').hide();
-				$('[id^=radioPreDat]').attr('checked',false);
-				$('#slt_Mxa_drugsChanged, #slt_Mxa_groupChanged').val(-1);
+				$('#slt_Mxa_drugsChanged, #slt_Mxa_groupChanged, #slt_MxA_pre_date_yesno').val(-1);
 				$('#txa_MxA_drugNoChange, #txa_MxA_drugWhyChange, #txa_MxA_groupNoChange ').val('');
 			};
 		});
 
-		$('#rd_MxA_preDate_yes').click(function(){
-			checked = $(this).is(':checked');
-			if (checked) {
+		//Expose appropriate divs when pre_date_yesno changed
+		$('#slt_MxA_pre_date_yesno').change(function(){
+			value = $(this).val();
+			if (value == -1) {
+				$('#div_MxA_dangerNo_dateNo, #div_MxA_dangerNo_dateYes').hide();
+				$('#dt_MxA_preMeeting, #txa_MxA_PreDateNo').val('');
+			}else if (value == 'Y') {
 				$('#div_MxA_dangerNo_dateNo').hide();
 				$('#div_MxA_dangerNo_dateYes').show();
 				$('#dt_MxA_preMeeting').val('');
-			};
-		});
-		$('#rd_MxA_preDate_no').click(function(){
-			checked = $(this).is(':checked');
-			if (checked) {
+			}else if (value == 'N') {
 				$('#div_MxA_dangerNo_dateYes').hide();
 				$('#div_MxA_dangerNo_dateNo').show();
 				$('#txa_MxA_PreDateNo').val('');
 			};
 		});
 
+	//RADIO HANDLERS
+	
 	//BUTTON HANDLERS
 		$('#bt_MxA_save').click(function(e){
 			// swal('hello')
@@ -381,9 +369,8 @@ if ($('body.mx_assessments').length) {
 	function clear_all_but_todo_done_lists () {
 		$('#sp_MxA_pat_name, #sp_MxA_pat_details, #sp_MxA_days_in_hospital, #dt_MxA_preMeeting')
 			.val('');
-		$('#slt_Mxa_drugsChanged, #slt_Mxa_groupChanged').val('-1');
+		$('#slt_Mxa_drugsChanged, #slt_Mxa_groupChanged, #slt_MxA_danger_yn, #slt_MxA_pre_date_yesno').val('-1');
 		$('[id^=txa]').val('');
-		$(':radio').removeAttr('checked');
 	};
 
 	function popPatientLists () { 
@@ -588,7 +575,8 @@ if ($('body.mx_assessments').length) {
 		$('#sp_MxA_days_in_hospital').html(daysInHosp)
 		//Danger Assessment
 		if (dangerYesNo == 'Y') {
-			$('#rd_MxA_danger_yes').attr('checked',true);
+			// $('#rd_MxA_danger_yes').attr('checked',true);
+			$('#slt_MxA_danger_yn').val('Y')
 				$('#slt_Mxa_drugsChanged').val(drugs_last_changed);
 				if (drugs_last_changed == '0-8Weeks') {					
 					$('#txa_MxA_drugWhyChange').val(drugs_change_why);
@@ -604,14 +592,14 @@ if ($('body.mx_assessments').length) {
 				};
 
 		}else if (dangerYesNo == 'N') {
-			$('#rd_MxA_danger_no').attr('checked',true);
+			$('#slt_MxA_danger_yn').val('N');
 			var pre_date_yesno = pre_date_yesno;
 			if (pre_date_yesno == 'Y') {
-				$('#rd_MxA_preDate_yes').attr('checked',true);
+				$('#slt_MxA_pre_date_yesno').val('Y')
 				var pre_date = moment(pre_date, "YYYY-MM-DD").format('YYYY-MM-DD')
 				$('#dt_MxA_preMeeting').val(pre_date);
 			}else if (pre_date_yesno == 'N') {
-				$('#rd_MxA_preDate_no').attr('checked',true);
+				$('#slt_MxA_pre_date_yesno').val('N');
 				$('#txa_MxA_PreDateNo').val(pre_date_no_why);
 			};
 		};
