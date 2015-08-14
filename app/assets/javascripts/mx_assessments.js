@@ -227,21 +227,102 @@ if ($('body.mx_assessments').length) {
 		});
 
 	//RADIO HANDLERS
+
 	
 	//BUTTON HANDLERS
 		$('#bt_MxA_save').click(function(e){
-			//Question Is patient danger answered yes or no
-			if ($('#slt_MxA_danger_yn').val()== '-1') {
-				eval ('Please answer question: \n"Is patient a danger to self/other..."');
-				$('#slt_MxA_danger_yn').focus();
-				return true;
-			};
-		
-			// All data filled out go ahead and save new assessment
+			//VALIDATE THAT FORM PROPERLY FILLED OUT
+				//Question Is patient danger answered yes or no
+				if ($('#slt_MxA_danger_yn').val()== '-1') {
+					alert('Please answer question: \n"Is patient a danger to self/other..."');
+					$('#slt_MxA_danger_yn').focus();
+					return true;
+				};
+
+				//Danger Yes
+					//Danger yes and drugs changed not chosen
+					if ($('#slt_MxA_danger_yn').val() == 'Y' 
+							&& $('#slt_Mxa_drugsChanged').val() == '-1') {	
+						alert('Please answer question: \n "When was medication ... last changed');
+						$('#slt_Mxa_drugsChanged').focus();
+						return true;
+					};
+
+					//Danger yes, Drugs changed 0-8Weeks but reason not given
+					if ($('#slt_MxA_danger_yn').val() == 'Y' 
+							&& $('#slt_Mxa_drugsChanged').val() == '0-8Weeks'
+							&& $('#txa_MxA_drugWhyChange').val() == '') {	
+						alert('Please give reason why drugs were changed');
+						$('#txa_MxA_drugWhyChange').focus();
+						return true;
+					};
+
+					//Danger yes, Drugs changed Gt8Weeks but reason not given
+					if ($('#slt_MxA_danger_yn').val() == 'Y' 
+							&& $('#slt_Mxa_drugsChanged').val() == 'Gt8Weeks'
+							&& $('#txa_MxA_drugNoChange').val() == '') {	
+						alert('Please give reason why drugs were NOT changed');
+						$('#txa_MxA_drugNoChange').focus();
+						return true;
+					};
+
+					//Danger yes and group/indiv not chosen
+					if ($('#slt_MxA_danger_yn').val() == 'Y' 
+							&& $('#slt_Mxa_groupChanged').val() == '-1') {
+						alert('Please answer question: \n "When was group/indiv ... last changed');
+						$('#slt_Mxa_groupChanged').focus();
+						return true;
+					};
+
+					//Danger yes and group/indiv changed 0-3 months reason not given
+					if ($('#slt_MxA_danger_yn').val() == 'Y' 
+							&& $('#slt_Mxa_groupChanged').val() == '0-3Months'
+							&& $('#txa_MxA_groupWhyChange').val() == '') {
+						alert('Please give reason group/indiv therapy WAS changed');
+						$('#txa_MxA_groupWhyChange').focus();
+						return true;
+					};
+
+					//Danger yes and group/indiv changed Gt3Months reason not given
+					if ($('#slt_MxA_danger_yn').val() == 'Y' 
+							&& $('#slt_Mxa_groupChanged').val() == 'Gt3Months'
+							&& $('#txa_MxA_groupNoChange').val() == '') {
+						alert('Please give reason group/indiv therapy WAS changed');
+						$('#txa_MxA_groupNoChange').focus();
+						return true;
+					};
+
+				//Danger No
+					//Danger No and pre-date not chosen
+					if ($('#slt_MxA_danger_yn').val() == 'N' 
+							&& $('#slt_MxA_pre_date_yesno').val() == '-1') {	
+						alert('Please answer question: \n "Has date been set for Pre-Conference Meeting');
+						$('#slt_MxA_pre_date_yesno').focus();
+						return true;
+					};
+
+					//Danger No, pre-date Yes and date not given
+					if ($('#slt_MxA_danger_yn').val() == 'N' 
+							&& $('#slt_MxA_pre_date_yesno').val() == 'Y'
+							&& $('#dt_MxA_preMeeting').val()== '') {	
+						alert('Please enter Date for pre-conference meeting');
+						$('#dt_MxA_preMeeting').focus();
+						return true;
+					};
+					//Danger No, pre-date No and reason not given
+					if ($('#slt_MxA_danger_yn').val() == 'N' 
+							&& $('#slt_MxA_pre_date_yesno').val() == 'N'
+							&& $('#txa_MxA_PreDateNo').val()== '') {	
+						alert('Please give reason why date for Pre meeting not set');
+						$('#txa_MxA_PreDateNo').focus();
+						return true;
+					};
+
+			// ALL DATA FILLED OUT go ahead and save new assessment
 			data = $('#f_MxA_rightContainer').serialize();
 			create_mx_assessment();
 		});
-		
+
 		$('#bt_MxA_back').click(function(){
 			clear_all_but_todo_done_lists();
 			hide_form_divs();
