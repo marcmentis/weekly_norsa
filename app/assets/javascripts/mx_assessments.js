@@ -102,13 +102,24 @@ if ($('body.mx_assessments').length) {
 				clear_all_but_todo_done_lists();
 			};
 
-			//When newDate is changed: (i) Set date_history = '', (ii) set meeting_date, (iii) Clear date_history, (iv) clear toDo lists and form data
+			//When newDate is changed: 
 			if (id == 'dt_MxA_newDate') {
+				//Check ward has been selected
+				if ($('#slt_MxA_ward').val() == '-1') {
+					swal('Please choose a ward before selecting a date');
+					$('#dt_MxA_newDate').val('');				
+					return true;
+				};
+				//Clear date_history
 				$('#slt_MxA_date_history').val('');
+				//Set meeting_date to new date value
 				set_meeting_date($(this).val());
-				//the two clears
+				//Clear todo, done lists and form data
 				clear_todo_done_selects();
 				clear_all_but_todo_done_lists();
+
+				
+				
 			};
 
 			//When DateHistory is changed: (i) set new Date ='', (ii)set meeting_date, (iii) clear all but todo lists
@@ -219,10 +230,18 @@ if ($('body.mx_assessments').length) {
 	
 	//BUTTON HANDLERS
 		$('#bt_MxA_save').click(function(e){
-			// swal('hello')
+			//Question Is patient danger answered yes or no
+			if ($('#slt_MxA_danger_yn').val()== '-1') {
+				eval ('Please answer question: \n"Is patient a danger to self/other..."');
+				$('#slt_MxA_danger_yn').focus();
+				return true;
+			};
+		
+			// All data filled out go ahead and save new assessment
 			data = $('#f_MxA_rightContainer').serialize();
 			create_mx_assessment();
 		});
+		
 		$('#bt_MxA_back').click(function(){
 			clear_all_but_todo_done_lists();
 			hide_form_divs();
