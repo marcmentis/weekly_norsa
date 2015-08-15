@@ -234,12 +234,7 @@ if ($('body.mx_assessments').length) {
 	//BUTTON HANDLERS
 		$('#bt_MxA_save, #bt_MxA_update').click(function(e){
 			var element_id = $(this).attr('id');
-			// alert(mx_assessment_id)
-			
 
-			// mx_id = $('#slt_MxA_to_do').val();
-			// alert(mx_id)
-			// return;
 			//VALIDATE THAT FORM PROPERLY FILLED OUT
 				//Question Is patient danger answered yes or no
 				if ($('#slt_MxA_danger_yn').val()== '-1') {
@@ -338,9 +333,9 @@ if ($('body.mx_assessments').length) {
 				var url = '/mx_assessments/'+mx_assessment_id+'';
 				var type = 'PATCH';
 			};
-			alert('url: '+url+'');
-			alert('type: '+type+'');
-			alert('data_for_params: '+data_for_params+'');
+			// alert('url: '+url+'');
+			// alert('type: '+type+'');
+			// alert('data_for_params: '+data_for_params+'');
 			create_update_mx_assessment (url, type, data_for_params)
 		});
 
@@ -349,6 +344,15 @@ if ($('body.mx_assessments').length) {
 			hide_form_divs();
 			$('#grid_MxA_RightContainer, #div_MxA_save_message')
 				.hide();
+		});
+
+		$('#bt_MxA_delete').click(function(){
+			var r = confirm("Are you sure?");
+			if (r == true) {
+				delete_form(); 
+			}else {
+				return true;
+			};
 		});
 
 
@@ -459,10 +463,6 @@ if ($('body.mx_assessments').length) {
 			cache: false,
 			dataType: 'json'
 		}).done(function(data){
-			clear_todo_done_selects();
-			clear_all_but_todo_done_lists();
-			// popSelectDateHistory();
-			popPatientLists();
 			//Show successful save message for 1.5 secs
 			text = 'Successful Save'
 			$('#div_MxA_save_message').html(text)
@@ -470,10 +470,40 @@ if ($('body.mx_assessments').length) {
 			setTimeout(function(){
 				$('#grid_MxA_RightContainer, #div_MxA_save_message')
 					.hide();
+				clear_todo_done_selects();
+				clear_all_but_todo_done_lists();
+				// popSelectDateHistory();
+				popPatientLists();
 			},1500);
 
 		}).fail(function(jqXHR,textStatus,errorThrown){
 				alert('jqXHR: '+jqXHR+' textStatus: '+textStatus+' errorThrown: '+errorThrown+'')
+		});
+	};
+
+	function delete_form () {
+		url = '/mx_assessments/'+mx_assessment_id+''
+		type = 'DELETE'
+
+		$.ajax({
+			url: url,
+			type: type,
+			cache: false,
+			dataType: 'json'
+		}).done(function(data){
+				text = 'Successful Delete'
+				$('#div_MxA_save_message').html(text)
+				$('#div_MxA_save_message').show();
+				setTimeout(function(){
+					$('#grid_MxA_RightContainer, #div_MxA_save_message')
+						.hide();
+					clear_todo_done_selects();
+					clear_all_but_todo_done_lists();
+					// popSelectDateHistory();
+					popPatientLists();
+				},1500); 
+		}).fail(function(jqXHR,textStatus,errorThrown){
+				alert('jqXHR: '+jqXHR+'/n textStatus: '+textStatus+' errorThrown: '+errorThrown+'')
 		});
 	};
 
@@ -494,9 +524,9 @@ if ($('body.mx_assessments').length) {
 		var new_date = $('#dt_MxA_newDate').val();
 		var date_history = $('#slt_MxA_date_history').val();
 
-		alert('site: '+site+'');
-		alert('new_date: '+new_date+'');
-		alert('date_history: '+date_history);
+		// alert('site: '+site+'');
+		// alert('new_date: '+new_date+'');
+		// alert('date_history: '+date_history);
 				
 		var url = 'mxa_pat_lists'
 		var data_for_params = {mx_assessment: {'site': site,
