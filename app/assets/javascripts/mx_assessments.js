@@ -10,6 +10,8 @@ if ($('body.mx_assessments').length) {
 			function set_meeting_date(x){
 				meeting_date = moment(x, "YYYY-MM_DD");  // Create a date object
 			};
+		var mx_assessment_id = -1;
+			function set_mx_assessment_id(x) {mx_assessment_id = x};
 
 
 		//textareas
@@ -230,7 +232,14 @@ if ($('body.mx_assessments').length) {
 
 	
 	//BUTTON HANDLERS
-		$('#bt_MxA_save').click(function(e){
+		$('#bt_MxA_save, #bt_MxA_update').click(function(e){
+			var element_id = $(this).attr('id');
+			// alert(mx_assessment_id)
+			
+
+			// mx_id = $('#slt_MxA_to_do').val();
+			// alert(mx_id)
+			// return;
 			//VALIDATE THAT FORM PROPERLY FILLED OUT
 				//Question Is patient danger answered yes or no
 				if ($('#slt_MxA_danger_yn').val()== '-1') {
@@ -318,9 +327,21 @@ if ($('body.mx_assessments').length) {
 						return true;
 					};
 
-			// ALL DATA FILLED OUT go ahead and save new assessment
-			data = $('#f_MxA_rightContainer').serialize();
-			create_mx_assessment();
+			// Create strong parameter for all data in form
+			var data_for_params = create_strong_parameter_for_form();
+
+			//Pass strong parameter to save or update
+			if (element_id == 'bt_MxA_save') {
+				var url = '/mx_assessments/';
+				var type = 'POST';				
+			} else if (element_id == 'bt_MxA_update') {
+				var url = '/mx_assessments/'+mx_assessment_id+'';
+				var type = 'PATCH';
+			};
+			alert('url: '+url+'');
+			alert('type: '+type+'');
+			alert('data_for_params: '+data_for_params+'');
+			create_update_mx_assessment (url, type, data_for_params)
 		});
 
 		$('#bt_MxA_back').click(function(){
@@ -389,9 +410,9 @@ if ($('body.mx_assessments').length) {
 		});
 	};
 
-	function create_mx_assessment () {
+	function create_strong_parameter_for_form (argument) {
+		var data_for_params = {};
 		var patient_id = pat_id.toString();
-		var url = '/mx_assessments/'
 		var params_string = $('#f_MxA_rightContainer').serialize();
 		//.serialize doesn't work properly with values from text areas
 		drugs_not_why = $('#txa_MxA_drugNoChange').val();
@@ -424,29 +445,23 @@ if ($('body.mx_assessments').length) {
 			params_hash[key] = value;
 		}
 
-		// alert(params_hash);
-		// meet = params_hash['meeting_date']
-		// alert(meet)
-		// return;
-
 		//Make strong params
-		var data_for_params = {mx_assessment: params_hash}
+	 	data_for_params = {mx_assessment: params_hash}
+	 	return data_for_params
+	};
 
-		// alert(data_for_params)
-		// meet = data_for_params['mx_assessment']['meeting_date']
-		// alert(meet)
-		// return;
-
+	function create_update_mx_assessment (url, type, data_for_params) {
+		
 		$.ajax({
 			url: url,
-			type: 'POST',
+			type: type,
 			data: data_for_params,
 			cache: false,
 			dataType: 'json'
 		}).done(function(data){
 			clear_todo_done_selects();
 			clear_all_but_todo_done_lists();
-			popSelectDateHistory();
+			// popSelectDateHistory();
 			popPatientLists();
 			//Show successful save message for 1.5 secs
 			text = 'Successful Save'
@@ -471,13 +486,18 @@ if ($('body.mx_assessments').length) {
 			.val('');
 		$('#slt_Mxa_drugsChanged, #slt_Mxa_groupChanged, #slt_MxA_danger_yn, #slt_MxA_pre_date_yesno').val('-1');
 		$('[id^=txa]').val('');
+		// $('#slt_MxA_to_do, #slt_MxA_done').val('');
 	};
 
 	function popPatientLists () { 
 		var site = $('#slt_MxA_ward').val();
 		var new_date = $('#dt_MxA_newDate').val();
 		var date_history = $('#slt_MxA_date_history').val();
-		
+
+		alert('site: '+site+'');
+		alert('new_date: '+new_date+'');
+		alert('date_history: '+date_history);
+				
 		var url = 'mxa_pat_lists'
 		var data_for_params = {mx_assessment: {'site': site,
 												'new_date': new_date,
@@ -528,8 +548,6 @@ if ($('body.mx_assessments').length) {
 
 				// Populate Past Assessment data				
 				populate_past_mx_assessments(data);
-				
-								
 
 				//Hide then show divs
 					hide_form_divs();
@@ -652,6 +670,8 @@ if ($('body.mx_assessments').length) {
 			data_meeting_date = moment(pat_assessments[i].meeting_date, "YYYY_MM_DD").format("YYYY-MM-DD")
 			meeting_date_formatted = moment(meeting_date).format("YYYY-MM-DD");
 			if (data_meeting_date == meeting_date_formatted) {
+				var id = pat_assessments[i].id;
+					set_mx_assessment_id(id);
 
 				var updated_at = moment(pat_assessments[i].updated_at, "YYYY-MM-DD").format('YYYY-MM-DD');
 				var updated_by	= pat_assessments[i].updated_by
