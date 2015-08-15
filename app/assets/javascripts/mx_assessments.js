@@ -5,7 +5,7 @@ if ($('body.mx_assessments').length) {
 		var user_id = $('#session-authen').val();
 		var user_name = $('#session-username').val();
 		var pat_id = '';
-			function set_id(x){pat_id = x};
+			function set_pat_id(x){pat_id = x};
 		var meeting_date = '';
 			function set_meeting_date(x){
 				meeting_date = moment(x, "YYYY-MM_DD");  // Create a date object
@@ -95,7 +95,7 @@ if ($('body.mx_assessments').length) {
 			var ward = $('#slt_MxA_ward').val();
 			var date = $('#dt_MxA_newDate').val();
 			//Setup and Validation
-			//When Ward Changed: (i) Populate slt_MxA_date_history (ii) clear dt_MxA_newDate, (iii) clear TODO lists and past history and input form																		
+			//When Ward Changed: 
 			if (id == 'slt_MxA_ward') {
 				// swal(ward)
 				popSelectDateHistory();
@@ -118,10 +118,7 @@ if ($('body.mx_assessments').length) {
 				set_meeting_date($(this).val());
 				//Clear todo, done lists and form data
 				clear_todo_done_selects();
-				clear_all_but_todo_done_lists();
-
-				
-				
+				clear_all_but_todo_done_lists();				
 			};
 
 			//When DateHistory is changed: (i) set new Date ='', (ii)set meeting_date, (iii) clear all but todo lists
@@ -139,9 +136,12 @@ if ($('body.mx_assessments').length) {
 
 		//Choose Patient From ToDo or Done lists (Show Form, get pat data, fill past Mx assessments & forms appropriately)
 		$('#slt_MxA_to_do, #slt_MxA_done').change(function(){
-			var id = $(this).val();
-			set_id(id);
-			get_pat_data();
+			var patient_id = $(this).val();
+			var element_id = $(this).attr('id');
+
+			set_pat_id(patient_id);
+			//Get Patient data and display new form and past assessments
+			get_pat_data(element_id);
 					
 		});
 
@@ -561,7 +561,7 @@ if ($('body.mx_assessments').length) {
 			$('#'+slt_name+'').append(html);
 	}
 
-	function get_pat_data () {
+	function get_pat_data (element_id) {
 				
 		var url = 'mxa_pat_data/';
 		var data_for_params = {mx_assessment: {patient_id: pat_id}}
@@ -579,14 +579,12 @@ if ($('body.mx_assessments').length) {
 				// Populate Past Assessment data				
 				populate_past_mx_assessments(data);
 
-				//Hide then show divs
-					hide_form_divs();
-					// Populate form demographics plus content data if meeting data already entered for chosen date
-					populate_form_if_data_entered_for_meeting_date (data)				
-					show_appropriate_divs(data);
-
-							
-				
+				//Appropriately: Hide then show divs/buttons and fill form
+				hide_form_divs();
+				populate_form_if_data_entered_for_meeting_date (data);
+				show_appropriate_submit_buttons(element_id)	;			
+				show_appropriate_divs(data);
+				set_nonselected_todo_done_to_null(element_id);			
 		}).fail(function(jqXHR,textStatus,errorThrown){
 			alert(''+jqXHR+': '+textStatus+':'+errotThrown+'')
 		});
@@ -675,7 +673,7 @@ if ($('body.mx_assessments').length) {
 		};
 		//Enter past assessments into txa_MxA_pastAssessments
 		$('#txa_MxA_pastAssessments').val(text)
-	}
+	};
 
 	function populate_form_if_data_entered_for_meeting_date (data) {
 		//Get data arrays
@@ -753,7 +751,7 @@ if ($('body.mx_assessments').length) {
 				$('#txa_MxA_PreDateNo').val(pre_date_no_why);
 			};
 		};
-	}
+	};
 
 	function show_appropriate_divs (data) {
 		//Get data arrays
@@ -814,7 +812,25 @@ if ($('body.mx_assessments').length) {
 				
 			};
 		};
-	}
+	};
+
+	function show_appropriate_submit_buttons (element_id) {
+		if (element_id == 'slt_MxA_to_do') {
+			$('#bt_MxA_save, #bt_MxA_update, #bt_MxA_back, #bt_MxA_save').hide();
+			$('#bt_MxA_save, #bt_MxA_back').show();
+		}else if (element_id == 'slt_MxA_done') {
+			$('#bt_MxA_save, #bt_MxA_update, #bt_MxA_back, #bt_MxA_save').hide();
+			$('#bt_MxA_update, #bt_MxA_back, #bt_MxA_delete').show();
+		};
+	};
+
+	function set_nonselected_todo_done_to_null (element_id) {
+		if (element_id == 'slt_MxA_to_do') {
+				$('#slt_MxA_done').val('');
+			}else if (element_id == 'slt_MxA_done') {
+				$('#slt_MxA_to_do').val('');
+			};
+	};
 
 };	//if ($('body.mx_assessments').length) {
 });  //$(function(){
