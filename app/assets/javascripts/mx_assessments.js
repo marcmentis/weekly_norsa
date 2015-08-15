@@ -145,10 +145,32 @@ if ($('body.mx_assessments').length) {
 					
 		});
 
+		//Expose appropriate divs when danger_yn changed
+		$('#slt_MxA_danger_yn').change(function(){
+			value = $(this).val();
+			$('.error_message').hide();
+			if (value == -1) {
+				hide_form_divs();
+				$('#div_MxA_patient_identification, #div_MxA_dangerQuestion').show();
+			}else if (value == 'Y') {
+				$('[id^=div_MxA_dangerNo]')
+					.hide();
+				$('#div_MxA_dangerYes_drug, #div_MxA_dangerYes_group')
+					.show();
+				$('#div_MxA_dangerYes_drugNo, #div_MxA_dangerYes_groupNo, #div_MxA_dangerYes_drugYes, #div_MxA_dangerYes_groupYes')
+					.hide();
+			}else if (value == 'N') {
+				$('#div_MxA_dangerNo_date').show();
+				$('[id^=div_MxA_dangerYes]').hide();
+				$('#slt_Mxa_drugsChanged, #slt_Mxa_groupChanged, #slt_MxA_pre_date_yesno').val(-1);
+				$('#txa_MxA_drugNoChange, #txa_MxA_drugWhyChange, #txa_MxA_groupNoChange ').val('');
+			};
+		});
 
 		//Expose appropriate questions for drug changes
 		$('#slt_Mxa_drugsChanged').change(function(){
 			value = $(this).val();
+			$('.error_message').hide();
 			// swal(value)
 			if(value == -1){
 				$('#div_MxA_dangerYes_drugNo, #div_MxA_dangerYes_drugYes').hide();
@@ -172,6 +194,7 @@ if ($('body.mx_assessments').length) {
 		//Expose appropriate questions for group changes
 		$('#slt_Mxa_groupChanged').change(function(){
 			value = $(this).val();
+			$('.error_message').hide();
 			// swal(value);
 			if (value == -1) {
 				$('#div_MxA_dangerYes_groupYes, #div_MxA_dangerYes_groupNo').hide();
@@ -190,30 +213,10 @@ if ($('body.mx_assessments').length) {
 			};
 		})
 
-		//Expose appropriate divs when danger_yn changed
-		$('#slt_MxA_danger_yn').change(function(){
-			value = $(this).val();
-			if (value == -1) {
-				hide_form_divs();
-				$('#div_MxA_patient_identification, #div_MxA_dangerQuestion').show();
-			}else if (value == 'Y') {
-				$('[id^=div_MxA_dangerNo]')
-					.hide();
-				$('#div_MxA_dangerYes_drug, #div_MxA_dangerYes_group')
-					.show();
-				$('#div_MxA_dangerYes_drugNo, #div_MxA_dangerYes_groupNo, #div_MxA_dangerYes_drugYes, #div_MxA_dangerYes_groupYes')
-					.hide();
-			}else if (value == 'N') {
-				$('#div_MxA_dangerNo_date').show();
-				$('[id^=div_MxA_dangerYes]').hide();
-				$('#slt_Mxa_drugsChanged, #slt_Mxa_groupChanged, #slt_MxA_pre_date_yesno').val(-1);
-				$('#txa_MxA_drugNoChange, #txa_MxA_drugWhyChange, #txa_MxA_groupNoChange ').val('');
-			};
-		});
-
 		//Expose appropriate divs when pre_date_yesno changed
 		$('#slt_MxA_pre_date_yesno').change(function(){
 			value = $(this).val();
+			$('.error_message').hide();
 			if (value == -1) {
 				$('#div_MxA_dangerNo_dateNo, #div_MxA_dangerNo_dateYes').hide();
 				$('#dt_MxA_preMeeting, #txa_MxA_PreDateNo').val('');
@@ -229,7 +232,6 @@ if ($('body.mx_assessments').length) {
 		});
 
 	//RADIO HANDLERS
-
 	
 	//BUTTON HANDLERS
 		$('#bt_MxA_save, #bt_MxA_update').click(function(e){
@@ -238,7 +240,11 @@ if ($('body.mx_assessments').length) {
 			//VALIDATE THAT FORM PROPERLY FILLED OUT
 				//Question Is patient danger answered yes or no
 				if ($('#slt_MxA_danger_yn').val()== '-1') {
-					alert('Please answer question: \n"Is patient a danger to self/other..."');
+					// alert('Please answer question: \n"Is patient a danger to self/other..."');
+					// $('#slt_MxA_danger_yn').focus();
+
+					$('#div_MxA_dangerQuestion')
+						.after('<div class="error_message">Please answer question: "Is patient a danger to self/other...</div>');
 					$('#slt_MxA_danger_yn').focus();
 					return true;
 				};
@@ -247,7 +253,9 @@ if ($('body.mx_assessments').length) {
 					//Danger yes and drugs changed not chosen
 					if ($('#slt_MxA_danger_yn').val() == 'Y' 
 							&& $('#slt_Mxa_drugsChanged').val() == '-1') {	
-						alert('Please answer question: \n "When was medication ... last changed');
+						// alert('Please answer question: \n "When was medication ... last changed');
+						$('#div_MxA_dangerYes_drug')
+							.after('<div class="error_message">Please answer question: "When was medication ... last changed</div>');
 						$('#slt_Mxa_drugsChanged').focus();
 						return true;
 					};
@@ -256,7 +264,9 @@ if ($('body.mx_assessments').length) {
 					if ($('#slt_MxA_danger_yn').val() == 'Y' 
 							&& $('#slt_Mxa_drugsChanged').val() == '0-8Weeks'
 							&& $('#txa_MxA_drugWhyChange').val() == '') {	
-						alert('Please give reason why drugs were changed');
+						// alert('Please give reason why drugs were changed');
+						$('#txa_MxA_drugWhyChange')
+							.after('<div class="error_message">Please give reason why drugs were changed</div>');
 						$('#txa_MxA_drugWhyChange').focus();
 						return true;
 					};
@@ -265,7 +275,9 @@ if ($('body.mx_assessments').length) {
 					if ($('#slt_MxA_danger_yn').val() == 'Y' 
 							&& $('#slt_Mxa_drugsChanged').val() == 'Gt8Weeks'
 							&& $('#txa_MxA_drugNoChange').val() == '') {	
-						alert('Please give reason why drugs were NOT changed');
+						// alert('Please give reason why drugs were NOT changed');
+						$('#txa_MxA_drugNoChange')
+							.after('<div class="error_message">Please give reason why drugs were NOT changed</div>');
 						$('#txa_MxA_drugNoChange').focus();
 						return true;
 					};
@@ -273,7 +285,9 @@ if ($('body.mx_assessments').length) {
 					//Danger yes and group/indiv not chosen
 					if ($('#slt_MxA_danger_yn').val() == 'Y' 
 							&& $('#slt_Mxa_groupChanged').val() == '-1') {
-						alert('Please answer question: \n "When was group/indiv ... last changed');
+						// alert('Please answer question: \n "When was group/indiv ... last changed');
+						$('#slt_Mxa_groupChanged')
+							.after('<div class="error_message">Please answer question: "When was group/indiv ... last changed</div>');
 						$('#slt_Mxa_groupChanged').focus();
 						return true;
 					};
@@ -282,7 +296,9 @@ if ($('body.mx_assessments').length) {
 					if ($('#slt_MxA_danger_yn').val() == 'Y' 
 							&& $('#slt_Mxa_groupChanged').val() == '0-3Months'
 							&& $('#txa_MxA_groupWhyChange').val() == '') {
-						alert('Please give reason group/indiv therapy WAS changed');
+						// alert('Please give reason group/indiv therapy WAS changed');
+						$('#txa_MxA_groupWhyChange')
+							.after('<div class="error_message">Please give reason group/indiv therapy WAS changed</div>');
 						$('#txa_MxA_groupWhyChange').focus();
 						return true;
 					};
@@ -291,7 +307,9 @@ if ($('body.mx_assessments').length) {
 					if ($('#slt_MxA_danger_yn').val() == 'Y' 
 							&& $('#slt_Mxa_groupChanged').val() == 'Gt3Months'
 							&& $('#txa_MxA_groupNoChange').val() == '') {
-						alert('Please give reason group/indiv therapy WAS changed');
+						// alert('Please give reason group/indiv therapy was NOT changed');
+						$('#txa_MxA_groupNoChange')
+							.after('<div class="error_message">Please give reason group/indiv therapy was NOT changed</div>');
 						$('#txa_MxA_groupNoChange').focus();
 						return true;
 					};
@@ -300,7 +318,9 @@ if ($('body.mx_assessments').length) {
 					//Danger No and pre-date not chosen
 					if ($('#slt_MxA_danger_yn').val() == 'N' 
 							&& $('#slt_MxA_pre_date_yesno').val() == '-1') {	
-						alert('Please answer question: \n "Has date been set for Pre-Conference Meeting');
+						// alert('Please answer question: \n "Has date been set for Pre-Conference Meeting');
+						$('#slt_MxA_pre_date_yesno')
+							.after('<div class="error_message">Please answer question: "Has date been set for Pre-Conference Meeting</div>');
 						$('#slt_MxA_pre_date_yesno').focus();
 						return true;
 					};
@@ -309,7 +329,9 @@ if ($('body.mx_assessments').length) {
 					if ($('#slt_MxA_danger_yn').val() == 'N' 
 							&& $('#slt_MxA_pre_date_yesno').val() == 'Y'
 							&& $('#dt_MxA_preMeeting').val()== '') {	
-						alert('Please enter Date for pre-conference meeting');
+						// alert('Please enter Date for pre-conference meeting');
+						$('#dt_MxA_preMeeting')
+							.after('<div class="error_message">Please enter Date for pre-conference meeting</div>');
 						$('#dt_MxA_preMeeting').focus();
 						return true;
 					};
@@ -317,7 +339,9 @@ if ($('body.mx_assessments').length) {
 					if ($('#slt_MxA_danger_yn').val() == 'N' 
 							&& $('#slt_MxA_pre_date_yesno').val() == 'N'
 							&& $('#txa_MxA_PreDateNo').val()== '') {	
-						alert('Please give reason why date for Pre meeting not set');
+						// alert('Please give reason why date for Pre meeting not set');
+						$('#txa_MxA_PreDateNo')
+								.after('<div class="error_message">Please give reason why date for Pre meeting not set</div>');
 						$('#txa_MxA_PreDateNo').focus();
 						return true;
 					};
@@ -355,8 +379,7 @@ if ($('body.mx_assessments').length) {
 			};
 		});
 
-
-	//TEXT HANDLERS
+	//BUTTON TOGGLE HANDLERS
 		$('#bt_MxA_TogNotes').click(function(){
 			element = $('#txa_MxA_pastAssessments');
 			tripleToggle(element, heightS1, heightL1, heightEL1)
@@ -382,7 +405,16 @@ if ($('body.mx_assessments').length) {
 			tripleToggle(element, heightS1, heightL1, heightEL1)
 		});
 
+	//TEXTAREA HANDLERS
+		// $('txa_MxA_drugWhyChange, #txa_MxA_drugNoChange, #txa_MxA_groupWhyChange, #txa_MxA_groupNoChange, txa_MxA_PreDateNo')
+		// .change(function(){
+		// 	$('.error_message').hide();
+		// });
 
+	//DATE HANDLERS
+		$('#dt_MxA_preMeeting').change(function(){
+			$('.error_message').hide();
+		});
 	
 	//	FUNCTIONS CALLED FROM ABOVE
 
@@ -470,6 +502,7 @@ if ($('body.mx_assessments').length) {
 			setTimeout(function(){
 				$('#grid_MxA_RightContainer, #div_MxA_save_message')
 					.hide();
+				$('.error_message').hide();
 				clear_todo_done_selects();
 				clear_all_but_todo_done_lists();
 				// popSelectDateHistory();
