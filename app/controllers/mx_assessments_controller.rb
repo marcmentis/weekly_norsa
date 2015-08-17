@@ -119,6 +119,13 @@ class MxAssessmentsController < ApplicationController
     end
   end
 
+
+  # TRACKER
+  # GET /mxa_tracker
+  def tracker
+    
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_mx_assessment
