@@ -1,4 +1,5 @@
 class MxAssessment < ActiveRecord::Base
+	include Jqgridconcern
 	belongs_to :patient
 
 	def self.get_pat_lists (params, facility)
@@ -54,4 +55,12 @@ class MxAssessment < ActiveRecord::Base
 	                  			.where.not(id: not_these_ids)
 	                  			.order(lastname: :asc)	
 		end
+
+	# Get jqGrid object for Mx Assessment Tracker
+	def get_mxaw_jqGrid_obj(params)
+		conditions = MxAssessment.all 
+		conditions = conditions.where("patient_id = ?", 10088)
+		
+		return jqGrid_obj = create_jqGrid_obj(conditions, params)
+	end
 end

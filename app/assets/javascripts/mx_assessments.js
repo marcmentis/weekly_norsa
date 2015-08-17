@@ -37,10 +37,10 @@ if ($('body.mx_assessments').length) {
 		$('#grid_MxA_RightContainer, #div_MxA_save_message')
 			.hide();
 		//REMOVE
-		$('[id^=divDanger]')
-			.hide();
-		$('[id^=div_MxA_danger')
-			.hide();
+		// $('[id^=divDanger]')
+		// 	.hide();
+		// $('[id^=div_MxA_danger')
+		// 	.hide();
 		 
 			
 		//dates
@@ -76,10 +76,10 @@ if ($('body.mx_assessments').length) {
 			.height(heightS1)
 
 		//REMOVE
-		$('[id^=textArea')
-			.addClass('text-content left')
-			.width('92%')
-			.height(heightS1);
+		// $('[id^=textArea')
+		// 	.addClass('text-content left')
+		// 	.width('92%')
+		// 	.height(heightS1);
 		
 	//SELECT HANDLERS
 		//populate selects
@@ -381,7 +381,7 @@ if ($('body.mx_assessments').length) {
 			};
 		});
 
-	//BUTTON TOGGLE HANDLERS
+		//Toggle handlers
 		$('#bt_MxA_TogNotes').click(function(){
 			element = $('#txa_MxA_pastAssessments');
 			tripleToggle(element, heightS1, heightL1, heightEL1)
