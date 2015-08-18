@@ -2,7 +2,7 @@
 
 function MxAW_refreshgrid(url){
 
-	if (url == 'nil') {url = '/mxa_tracker/index'};
+	if (url == 'nil') {url = '/mxa_tracker_search/'};
 	
 	//Create Table and Div for grid and navigation "pager" 
  	// $("#divUserGrid").remove();         
@@ -13,18 +13,19 @@ function MxAW_refreshgrid(url){
 		url: url,
 		datatype:"json",
 		mtype:"GET",
-		colNames:["id","FirstName","LastName","Ward","DOA", "Meeting", "Danger", "Drugs"],
+		colNames:["id","pat_id","FirstName","LastName","Ward","DOA", "Meeting", "Danger", "Drugs"],
 		colModel:[
-			{name:"id",index:"id",width:55, hidden:true},
+			{name:"id",index:"id",width:55},
+			{name: "patient_id",index: "patient_id", width: 55},
 			{name:"firstname",index:"firstname",width:125,align:"center"},
 			{name:"lastname",index:"lastname",width:125,align:"center"},
 			{name:"site",index:"site",width:100,align:"center"},
-			{name:"doa",index:"doa",width:200,align:"center"},
-			{name:"meeting_date",index:"meeting_date",width:25,align:"center"},
+			{name:"doa",index:"doa",width:125,align:"center", formatter: "date", formatoptions:{newformat: "Y-m-d"}},
+			{name:"meeting_date",index:"meeting_date",width:125,align:"center", formatter: "date", formatoptions:{newformat: "Y-m-d"}},
 			{name:"danger_yn",index:"danger_yn",width:25,align:"center"},
 			{name:"drugs_last_changed",index:"drugs_last_changed",width:75,align:"center"}
 		],
-		editurl:"/mxa_tracker/index",
+		editurl:"mxa_tracker_search",
 		pager:"#divPager",
 		height:390,
 		width: 700,
@@ -39,6 +40,7 @@ function MxAW_refreshgrid(url){
 		caption:"BPS Assessments ",
 
 	        loadComplete: function(){
+	        	// alert('load complete')
 	        	// reset_ID();
 	        	// user_clearFields();
 	        	// $('#divUserAsideRt, #b_user_Rt_Submit, #b_user_Rt_Back').hide();
@@ -46,6 +48,7 @@ function MxAW_refreshgrid(url){
 	        },
 
 			onSelectRow:function(id) { 
+				alert(id)
 				// set_id(id);  //set the ID variable
 				// data_for_params = {user: {id: id}}
 
@@ -71,12 +74,12 @@ function MxAW_refreshgrid(url){
 				// 		$('#slt_user_Rt_facility').val(data.facility);
 
 												  
-					}).fail(function(jqXHR, textStatus, errorThrown){
-						alert('HTTP status code: ' + jqXHR.status + '\n' +
-		              'textStatus: ' + textStatus + '\n' +
-		              'errorThrown: ' + errorThrown);
-						alert('Error in: /user');
-					});
+					// }).fail(function(jqXHR, textStatus, errorThrown){
+					// 	alert('HTTP status code: ' + jqXHR.status + '\n' +
+		   //            'textStatus: ' + textStatus + '\n' +
+		   //            'errorThrown: ' + errorThrown);
+					// 	alert('Error in: /user');
+					// });
 			},
 
 			loadError: function (jqXHR, textStatus, errorThrown) {
@@ -98,6 +101,7 @@ function MxAW_refreshgrid(url){
 		caption: 'Role',
 		buttonicon: '',
 		onClickButton: function(){	
+			alert('ROle');
 			// if(ID == ''){
 			// 	alert('Please select User from "Users" table');
 			// 	return false;
@@ -112,6 +116,7 @@ function MxAW_refreshgrid(url){
 		caption: 'Delete',
 		buttonicon: '',
 		onClickButton: function(){
+			alert('Delete')
 			// roles_clearFields();
 			// if(ID == '') {
 			// 	swal('Please select User', ' from "Users" table', 'warning');

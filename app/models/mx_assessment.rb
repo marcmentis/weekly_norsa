@@ -58,8 +58,9 @@ class MxAssessment < ActiveRecord::Base
 
 	# Get jqGrid object for Mx Assessment Tracker
 	def get_mxaw_jqGrid_obj(params)
-		conditions = MxAssessment.all 
-		conditions = conditions.where("patient_id = ?", 10088)
+		conditions = Patient.joins(:mx_assessments)
+							.select('mx_assessments.*',
+								:firstname, :lastname, :site, :doa)
 		
 		return jqGrid_obj = create_jqGrid_obj(conditions, params)
 	end
