@@ -15,10 +15,12 @@ if ($('body.mxa_tracker').length) {
 					'font-size': '17px',
 					'font-weight': 'bold',
 					'margin': '0 0 7px 0'});
-		//forms
+		// $('#div_MxAW_uppercontainer')
+		// 	.css({'background-color': 'red'});
+
 		//forms
 		$('#fMxAWsearch').addClass('form_container')
-						.css({'width':'90%'});
+						.css({'width':'60%'});
 
 	//SELECT HANDLERS
 
