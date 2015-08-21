@@ -1,5 +1,18 @@
 //"Model" for mxa_tracker.js
 
+function MxAw_complex_search1 (user_facility) {
+ 
+	var site = $('#slt_MxAW_Ward').val();
+	// var patient_id =('#slt_MxAW_Patient').val();
+	// var all_last = $('#slt_MxAW_AllLatestNote').val();
+	var danger_yn = $('#slt_MxAW_danger_yn').val();
+	var drugs_last_changed = $('#slt_MxAW_drugsChanged').val();
+
+
+	url = '/mxa_tracker_search?facility='+user_facility+'&site='+site+'&danger_yn='+danger_yn+'&drugs_last_changed='+drugs_last_changed+''
+	MxAW_refreshgrid(url);
+}
+
 function MxAW_refreshgrid(url){
 
 	if (url == 'nil') {url = '/mxa_tracker_search/'};
@@ -13,22 +26,26 @@ function MxAW_refreshgrid(url){
 		url: url,
 		datatype:"json",
 		mtype:"GET",
-		colNames:["id","pat_id","FirstName","LastName","Ward","DOA", "Meeting", "Danger", "Drugs"],
+		colNames:["id","pat_id","FirstName","LastName","C#","Ward","DOA", "Meeting", "Danger", "Drugs", "PsySoc", "Pre", "PreDate"],
 		colModel:[
-			{name:"id",index:"id",width:55},
-			{name: "patient_id",index: "patient_id", width: 55},
+			{name:"id",index:"id",width:55, hidden: true},
+			{name: "patient_id",index: "patient_id", width: 55, hidden: true},
 			{name:"firstname",index:"firstname",width:125,align:"center"},
 			{name:"lastname",index:"lastname",width:125,align:"center"},
+			{name:"identifier",index:"identifier",width:100,align:"center"},
 			{name:"site",index:"site",width:100,align:"center"},
-			{name:"doa",index:"doa",width:125,align:"center", formatter: "date", formatoptions:{newformat: "Y-m-d"}},
-			{name:"meeting_date",index:"meeting_date",width:125,align:"center", formatter: "date", formatoptions:{newformat: "Y-m-d"}},
-			{name:"danger_yn",index:"danger_yn",width:25,align:"center"},
-			{name:"drugs_last_changed",index:"drugs_last_changed",width:75,align:"center"}
+			{name:"doa",index:"doa",width:120,align:"center", formatter: "date", formatoptions:{newformat: "Y-m-d"}},
+			{name:"meeting_date",index:"meeting_date",width:120,align:"center", formatter: "date", formatoptions:{newformat: "Y-m-d"}},
+			{name:"danger_yn",index:"danger_yn",width:50,align:"center"},
+			{name:"drugs_last_changed",index:"drugs_last_changed",width:100,align:"center"},
+			{name:"psychsoc_last_changed",index:"psychsoc_last_changed",width:100,align:"center"},
+			{name:"pre_date_yesno",index:"pre_date_yesno",width:50,align:"center"},
+			{name:"pre_date",index:"pre_date",width:120,align:"center", formatter: "date", formatoptions:{newformat: "Y-m-d"}}
 		],
 		editurl:"mxa_tracker_search",
 		pager:"#divPager",
 		height:390,
-		width: 700,
+		width: 900,
 		altRows: true,
 		rowNum:15,
 		rowList:[15,25,40],
