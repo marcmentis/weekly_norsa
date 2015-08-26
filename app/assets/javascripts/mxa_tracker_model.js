@@ -2,14 +2,19 @@
 
 function MxAw_complex_search1 (user_facility) {
  
-	var site = $('#slt_MxAW_Ward').val();
-	// var patient_id =('#slt_MxAW_Patient').val();
-	// var all_last = $('#slt_MxAW_AllLatestNote').val();
-	var danger_yn = $('#slt_MxAW_danger_yn').val();
-	var drugs_last_changed = $('#slt_MxAW_drugsChanged').val();
+ 	var aln = $('#slt_MxAW_AllLatestNote').val();
+ 	var dma = $('#dt_MxAW_meetingAfter').val();
+ 	var dmb = $('#dt_MxAW_meetingBefore').val();
+ 	var dda = $('#dt_MxAW_doaAfter').val();
+ 	var ddb = $('#dt_MxAW_doaBefore').val();
+ 	var dpa = $('#dt_MxAW_preAfter').val();
+ 	var dpb = $('#dt_MxAW_preBefore').val();
 
+	var params_string = $('#fMxAWsearch').serialize();
+	//Add user_facility to params_string
+	params_string = 'facility='+user_facility+'&allLatestNote='+aln+'&dma='+dma+'&dmb='+dmb+'&dda='+dda+'&ddb='+ddb+'&dpa='+dpa+'&dpb='+dpb+'&'+params_string+'' 
 
-	url = '/mxa_tracker_search?facility='+user_facility+'&site='+site+'&danger_yn='+danger_yn+'&drugs_last_changed='+drugs_last_changed+''
+	url = '/mxa_tracker_search?'+params_string+''
 	MxAW_refreshgrid(url);
 }
 

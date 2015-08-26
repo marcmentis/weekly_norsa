@@ -36,11 +36,23 @@ if ($('body.mxa_tracker').length) {
 	//SELECT HANDLERS
 	//populate selects
 		$('#slt_MxAW_Ward').mjm_addOptions('ward', {firstLine: 'All Wards', facility: user_facility, group: true})
-		$('#slt_MxAW_danger_yn').mjm_addOptions('YesNo',{firstLine: 'Dangerous?'});
-		$('#slt_MxAW_preDateYesNo').mjm_addOptions('YesNo',{firstLine: 'PreDate?'});
+		$('#slt_MxAW_AllLatestNote').mjm_addOptions('AllLatest', {firstLine: 'All/LatestNote'})
+		$('#slt_MxAW_danger_yn').mjm_addOptions('YesNo',{firstLine: 'Dangerous'});
+		$('#slt_MxAW_preDateYesNo').mjm_addOptions('YesNo',{firstLine: 'PreDate Set'});
 		$('#slt_MxAW_drugsChanged').mjm_addOptions('DrugsChanged',{firstLine: 'Drugs Changed'});	
 		$('#slt_MxAW_groupChanged').mjm_addOptions('GroupsChanged',{firstLine: 'Group Changed'});
-		
+	
+	//select functions
+		//Populate Patient select when ward is selected
+		$('#slt_MxAW_Ward').change(function(){
+			// $('#slt_MxAW_Patient').val();
+		});	
+
+		//Run complex search when select changes
+		// $('#slt_MxAW_danger_yn, #slt_MxAW_drugsChanged')
+		$('[id^=slt_MxAW_]').change(function(){
+			MxAw_complex_search1(user_facility)
+		});
 
 	//DATE HANDLERS
 		$('[id^=dt]')
@@ -51,13 +63,14 @@ if ($('body.mxa_tracker').length) {
 				yearRange: "-10: +10" })
 			.addClass('texts')
 			.css({'width':'7em'});
+		$('[id^=dt]').change(function(){
+			MxAw_complex_search1(user_facility);
+		});
 
 	//BUTTON HANLERS
 		$('#fMxAWsearch').submit(function(e){		
 			e.preventDefault();
-			alert(user_facility)
 			MxAw_complex_search1(user_facility);
-			alert('two')
 		});
 
 	//RADIO HANLDERS

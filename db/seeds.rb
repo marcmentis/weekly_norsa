@@ -36,7 +36,10 @@ ForSelect.find_or_initialize_by_value('9999').update_attributes(facility: '9999'
 
 # Selects for All Hosptials
 ForSelect.find_or_initialize_by_value('Y').update_attributes(facility: '9999', code: 'YesNo', value: 'Y', text: 'Yes', option_order: 1, grouper: '')
-ForSelect.find_or_initialize_by_value('N').update_attributes(facility: '9999', code: 'YesNo', value: 'N', text: 'No', option_order: 2, grouper: '')
+
+ForSelect.find_or_initialize_by_value('All').update_attributes(facility: '9999', code: 'AllLatest', value: 'All', text: 'All', option_order: 1, grouper: '')
+ForSelect.find_or_initialize_by_value('Latest').update_attributes(facility: '9999', code: 'AllLatest', value: 'Latest', text: 'Latest', option_order: 2, grouper: '')
+
 
 # Pilgrim Ward Names
 ForSelect.find_or_initialize_by_value('81/101').update_attributes(facility: '0013', code: 'ward', value: '81/101', text: '81/101', option_order: 1, grouper: 'bld81')
