@@ -74,7 +74,6 @@ class MxAssessment < ActiveRecord::Base
 			# Create an empty activeRecord object
 			conditions = conditions.where("1=2")
 		end 
-
 		conditions = conditions.where("facility = :facility", {facility: params[:facility]}) unless params[:facility] == '-1'
 	    conditions = conditions.where("site = :site", {site: params[:site]}) unless params[:site] == '-1'
 	    conditions = conditions.where("danger_yn = :danger_yn", {danger_yn: params[:danger_yn]}) unless params[:danger_yn] == '-1'
@@ -87,11 +86,7 @@ class MxAssessment < ActiveRecord::Base
 	    conditions = conditions.where("doa < :ddb", {ddb: params[:ddb]}) unless params[:ddb].blank?
 	    conditions = conditions.where("pre_date > :dpa", {dpa: params[:dpa]}) unless params[:dpa].blank?
 	    conditions = conditions.where("pre_date < :dpb", {dpb: params[:dpb]}) unless params[:dpb].blank?
-	    
-
-	    # conditions = conditions.order("lastname ASC, meeting_date DESC")
-
-		
+	    # conditions = conditions.order("lastname ASC, meeting_date DESC")	
 		return jqGrid_obj = create_jqGrid_obj(conditions, params)
 	end
 end

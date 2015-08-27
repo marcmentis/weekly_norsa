@@ -45,7 +45,10 @@ if ($('body.mxa_tracker').length) {
 	//select functions
 		//Populate Patient select when ward is selected
 		$('#slt_MxAW_Ward').change(function(){
-			// $('#slt_MxAW_Patient').val();
+			var site = $('#slt_MxAW_Ward').val();
+
+			//Get Pat C# and name and populate ward select
+			get_site_patients_pop_pat_select(site)
 		});	
 
 		//Run complex search when select changes
@@ -79,5 +82,8 @@ if ($('body.mxa_tracker').length) {
 
 	//Run on open
 	MxAW_refreshgrid('nil')
+	//Populate Patient select on first opening with one line
+	populate_site_select_on_page_open ('slt_MxAW_Patient') 
+			
 };  // if ($('body.widgets').length) {
 }); // $(function(){

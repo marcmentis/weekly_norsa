@@ -164,3 +164,44 @@ function MxAW_refreshgrid(url){
 		position:'last'
 	});
 };
+
+function get_site_patients (site) {
+	// body...
+}
+
+function get_site_patients_pop_pat_select (site) { 	
+		var url = '/patients_site_search'
+		var data_for_params = {'site': site}
+		$.ajax({
+			url: url,
+			type: 'GET',
+			data: data_for_params,
+			cache: false,
+			dataType: 'json'
+		}).done(function(data){
+			patient_select = 'slt_MxAW_Patient';
+			populate_site_select(patient_select, data);
+		}).fail(function(jqXHR,textStatus,errorThrown){
+			alert('jqXHR: '+jqXHR+'/n textStatus: '+textStatus+' errorThrown: '+errorThrown+'')
+		});
+	}
+
+function populate_site_select (slt_name, data) {
+	$('#'+slt_name+'').find('option').remove();
+		// var html = '';
+		var html ='<option value="-1">All Patients</option>';
+		for(var i = 0; i < data.length; i++){
+			id = data[i].id;
+			lastname = data[i].lastname;
+			firstname = data[i].firstname;
+			identifier = data[i].identifier;
+			html += '<option value="'+id+'">' + lastname + ' '+firstname+'</option>'
+		}
+		$('#'+slt_name+'').append(html);
+}
+
+function populate_site_select_on_page_open (slt_name) {
+	$('#'+slt_name+'').find('option').remove();
+	var html ='<option value="-1">All Patients</option>';
+	$('#'+slt_name+'').append(html);
+}

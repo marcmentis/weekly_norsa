@@ -1,7 +1,7 @@
 class PatientsController < ApplicationController
   before_action :set_patient, only: [:show, :edit, :update, :destroy]
   after_action :create_phi, only: [:create]
-  after_action :show_phi, only: [:complex_search, :show]
+  after_action :show_phi, only: [:complex_search, :show, :patients_site_search]
   after_action :update_phi, only: [:update]
   after_action :destroy_phi, only: [:destroy]
 
@@ -9,17 +9,18 @@ class PatientsController < ApplicationController
   # GET /patients
   # GET /patients.json
   def index
-  #   puts "IN INDEX ACTION"
-  #   params = {facility: '-1', site: '-1', firstname: '', lastname: '', identifier: ''}
-  #   patient = Patient.new
-  #   @jqGrid_obj = patient.get_jqGrid_obj(params, session[:admin3])
+    # puts "IN INDEX ACTION"
+    # params = {facility: '-1', site: '-1', firstname: '', lastname: '', identifier: ''}
+    # patient = Patient.new
+    # @jqGrid_obj = patient.get_jqGrid_obj(params, session[:admin3])
 
-  #   respond_to do |format|
-  #     format.html
-  #     format.json {render json: @jqGrid_obj }
-  #   end
+    # respond_to do |format|
+    #   format.html
+    #   format.json {render json: @jqGrid_obj }
+    # end
   end
 
+  # GET /patients_search
   def complex_search
 
     # Get instance of Patient so can run instance method 'get_jqGrid_obj'
@@ -84,6 +85,20 @@ class PatientsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to patients_url }
       format.json { head :no_content }
+    end
+  end
+
+
+  # GET /patients_site_search.json
+  def patients_site_search
+
+    # Get instance of Patient so can run instance method 'get_jqGrid_obj'
+    @patients = Patient.new
+    @patients = Patient.select(:id, :firstname, :lastname)
+                       .where("site = :site",{site: params[:site]})
+    respond_to do |format|
+      # format.html
+      format.json {render json: @patients }
     end
   end
 
