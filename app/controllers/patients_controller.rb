@@ -96,6 +96,7 @@ class PatientsController < ApplicationController
     @patients = Patient.new
     @patients = Patient.select(:id, :firstname, :lastname)
                        .where("site = :site",{site: params[:site]})
+                       .order(lastname: :asc)
     respond_to do |format|
       # format.html
       format.json {render json: @patients }

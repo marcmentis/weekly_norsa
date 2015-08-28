@@ -15,7 +15,7 @@ if ($('body.mx_assessments').length) {
 
 
 		//textareas
-		var width1 = '33em'
+		// var width1 = '33em'
 		var heightS1 = '90';
 		var heightL1 = '180';
 		var heightEL1 = '360';

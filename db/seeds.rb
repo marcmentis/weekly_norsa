@@ -40,6 +40,11 @@ ForSelect.find_or_initialize_by_value('Y').update_attributes(facility: '9999', c
 ForSelect.find_or_initialize_by_value('All').update_attributes(facility: '9999', code: 'AllLatest', value: 'All', text: 'All', option_order: 1, grouper: '')
 ForSelect.find_or_initialize_by_value('Latest').update_attributes(facility: '9999', code: 'AllLatest', value: 'Latest', text: 'Latest', option_order: 2, grouper: '')
 
+ForSelect.find_or_initialize_by_value('MedChange').update_attributes(facility: '9999', code: 'MxTracker', value: 'MedChange', text: 'MedChange', option_order: 1, grouper: '')
+ForSelect.find_or_initialize_by_value('MedNoChange').update_attributes(facility: '9999', code: 'MxTracker', value: 'MedNoChange', text: 'MedNoChange', option_order: 2, grouper: '')
+ForSelect.find_or_initialize_by_value('GroupChange').update_attributes(facility: '9999', code: 'MxTracker', value: 'GroupChange', text: 'GroupChange', option_order: 3, grouper: '')
+ForSelect.find_or_initialize_by_value('GroupNoChange').update_attributes(facility: '9999', code: 'MxTracker', value: 'GroupNoChange', text: 'GroupNoChange', option_order: 4, grouper: '')
+
 
 # Pilgrim Ward Names
 ForSelect.find_or_initialize_by_value('81/101').update_attributes(facility: '0013', code: 'ward', value: '81/101', text: '81/101', option_order: 1, grouper: 'bld81')

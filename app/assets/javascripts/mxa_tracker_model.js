@@ -9,10 +9,11 @@ function MxAw_complex_search1 (user_facility) {
  	var ddb = $('#dt_MxAW_doaBefore').val();
  	var dpa = $('#dt_MxAW_preAfter').val();
  	var dpb = $('#dt_MxAW_preBefore').val();
+ 	var pid = $('#slt_MxAW_Patient').val();
 
 	var params_string = $('#fMxAWsearch').serialize();
 	//Add user_facility to params_string
-	params_string = 'facility='+user_facility+'&allLatestNote='+aln+'&dma='+dma+'&dmb='+dmb+'&dda='+dda+'&ddb='+ddb+'&dpa='+dpa+'&dpb='+dpb+'&'+params_string+'' 
+	params_string = 'facility='+user_facility+'&allLatestNote='+aln+'&dma='+dma+'&dmb='+dmb+'&dda='+dda+'&ddb='+ddb+'&dpa='+dpa+'&dpb='+dpb+'&pid='+pid+'&'+params_string+'' 
 
 	url = '/mxa_tracker_search?'+params_string+''
 	MxAW_refreshgrid(url);

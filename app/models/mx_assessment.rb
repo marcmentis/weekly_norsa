@@ -76,6 +76,7 @@ class MxAssessment < ActiveRecord::Base
 		end 
 		conditions = conditions.where("facility = :facility", {facility: params[:facility]}) unless params[:facility] == '-1'
 	    conditions = conditions.where("site = :site", {site: params[:site]}) unless params[:site] == '-1'
+	    conditions = conditions.where("patient_id = :pid", {pid: params[:pid]}) unless params[:pid] == '-1'
 	    conditions = conditions.where("danger_yn = :danger_yn", {danger_yn: params[:danger_yn]}) unless params[:danger_yn] == '-1'
 	    conditions = conditions.where("drugs_last_changed = :drugs_last_changed", {drugs_last_changed: params[:drugs_last_changed]}) unless params[:drugs_last_changed] == '-1'
 	    conditions = conditions.where("psychsoc_last_changed = :psychsoc_last_changed", {psychsoc_last_changed: params[:psychsoc_last_changed]}) unless params[:psychsoc_last_changed] == '-1'

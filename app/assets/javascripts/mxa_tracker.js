@@ -4,6 +4,12 @@ if ($('body.mxa_tracker').length) {
 		var user_facility = $('#session-facility').val();
 		var user_id = $('#session-authen').val();
 		var user_name = $('#session-username').val();
+
+		//textareas
+		var heightS1 = '90';
+		var heightL1 = '180';
+		var heightEL1 = '360';
+
 	//STYLING
 		//divs
 		$('#divMxAWPageWrapper')
@@ -27,6 +33,14 @@ if ($('body.mxa_tracker').length) {
 		//forms
 		$('#fMxAWsearch').addClass('form_container')
 						.css({'width':'60%'});
+		$('#fMxAW_pat_info').addClass('form_container')
+						.css({'width': '60%'});
+
+		//textareas
+		$('[id^=txa]')
+			.addClass('text-content left')
+			.width('92%')
+			.height(heightS1);
 
 		//buttons
 			$('[id^=bt_]').button().addClass('reduce_button')
@@ -41,6 +55,7 @@ if ($('body.mxa_tracker').length) {
 		$('#slt_MxAW_preDateYesNo').mjm_addOptions('YesNo',{firstLine: 'PreDate Set'});
 		$('#slt_MxAW_drugsChanged').mjm_addOptions('DrugsChanged',{firstLine: 'Drugs Changed'});	
 		$('#slt_MxAW_groupChanged').mjm_addOptions('GroupsChanged',{firstLine: 'Group Changed'});
+		$('#slt_MxAW_ChooseInfo').mjm_addOptions('MxTracker', {firstLine: 'Choose Info'})
 	
 	//select functions
 		//Populate Patient select when ward is selected
