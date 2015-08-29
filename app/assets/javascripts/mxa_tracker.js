@@ -57,7 +57,7 @@ if ($('body.mxa_tracker').length) {
 		$('#slt_MxAW_groupChanged').mjm_addOptions('GroupsChanged',{firstLine: 'Group Changed'});
 		$('#slt_MxAW_ChooseInfo').mjm_addOptions('MxTracker', {firstLine: 'Choose Info'})
 	
-	//select functions
+	//SELECT HANDLERS
 		//Populate Patient select when ward is selected
 		$('#slt_MxAW_Ward').change(function(){
 			var site = $('#slt_MxAW_Ward').val();

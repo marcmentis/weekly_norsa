@@ -60,7 +60,7 @@ class MxAssessment < ActiveRecord::Base
 	def get_mxaw_jqGrid_obj(params)
 		conditions = Patient.joins(:mx_assessments)
 							.select('mx_assessments.*',
-								:firstname, :lastname, :identifier, :site, :doa)
+								:firstname, :lastname, :identifier, :site, :doa,)
 		# User MUST CHOOSE one of the two allLastNote options
 		if params[:allLatestNote] == 'Latest'
 			# Make subquery (IN) and GROUP BY in a text string

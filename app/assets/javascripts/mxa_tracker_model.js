@@ -32,10 +32,10 @@ function MxAW_refreshgrid(url){
 		url: url,
 		datatype:"json",
 		mtype:"GET",
-		colNames:["id","pat_id","FirstName","LastName","C#","Ward","DOA", "Meeting", "Danger", "Drugs", "PsySoc", "Pre", "PreDate"],
+		colNames:["id","Pat_id","FirstName","LastName","C#","Ward","DOA", "Meeting", "Danger", "Drugs", "PsySoc", "Pre", "PreDate"],
 		colModel:[
 			{name:"id",index:"id",width:55, hidden: true},
-			{name: "patient_id",index: "patient_id", width: 55, hidden: true},
+			{name: "patient_id",index: "patient_id", width: 55},
 			{name:"firstname",index:"firstname",width:125,align:"center"},
 			{name:"lastname",index:"lastname",width:125,align:"center"},
 			{name:"identifier",index:"identifier",width:100,align:"center"},
@@ -71,38 +71,91 @@ function MxAW_refreshgrid(url){
 	        },
 
 			onSelectRow:function(id) { 
-				alert(id)
-				// set_id(id);  //set the ID variable
-				// data_for_params = {user: {id: id}}
+				var ret = $("#divTable").jqGrid('getRowData', id);
+				var url = '/mxa_pat_data/';
+				var data_for_params = {mx_assessment: {patient_id: ret.patient_id}}
 
-				// $.ajax({ 
-				// 		  url: '/users/'+id+'',
-				// 		  data: data_for_params,
-				// 		  //type: 'POST',
-				// 		  type: 'GET',
-				// 		  cache: false,
-				// 		  dataType: 'json'
-				// 	}).done(function(data){
-				// 		user_clearFields();
-				// 		roles_clearFields();
-				// 		$('#b_user_Rt_Submit').attr('value','Edit');
-				// 		$('#divUserAsideRt, #b_user_Rt_Submit, #b_user_Rt_Back').show();
-				// 		$('#id').val(data.id);
-				// 		$('#ftx_user_Rt_firstname').val(data.firstname);
-				// 		$('#ftx_user_Rt_lastname').val(data.lastname);
-				// 		$('#ftx_user_Rt_authen').val(data.authen);
-				// 		$('#ftx_user_Rt_email').val(data.email);
-				// 		$('#ftx_user_Rt_firstinitial').val(data.firstinitial);
-				// 		$('#ftx_user_Rt_middleinitial').val(data.middleinitial);
-				// 		$('#slt_user_Rt_facility').val(data.facility);
+				$.ajax({ 
+						  url: url,
+						  data: data_for_params,
+						  type: 'GET',
+						  cache: false,
+						  dataType: 'json'
+					}).done(function(data){
+		
+						//Clear the two textareas
+						$('[id^=txa_MxAW]').val('');
+						//populate past Mx Assessment
+						var pat_demog = data.pat_demog;
+						var pat_assessments = data.pat_assessments;
+						//Pat_demog data				
+						var lastname = pat_demog.lastname;
+						var firstname = pat_demog.firstname;
+						var doa = moment(pat_demog.doa,"YYYY-MM-DD").format('YYYY-MM-DD');
+						var name = ''+lastname+' '+firstname+''
 
+						// Create the past_mx_text
+						var text = '';
+						for (var i=0; i < pat_assessments.length; i++) {
+							var data_meeting_date = moment(pat_assessments[i].meeting_date, "YYYY-MM-DD")
+							var data_meeting_date_formatted = data_meeting_date.format('YYYY-MM-DD')
+							var updated_at = moment(pat_assessments[i].updated_at, "YYYY-MM-DD").format('YYYY-MM-DD');
+							var updated_by	= pat_assessments[i].updated_by
+							//NOTE: calculate Days in hosp to meeting date - WILL REPLACE
+								//WHEN ADD COLUMN "DAYS IN HOSPITAL" to database
+							var diff = moment.duration(data_meeting_date.diff(doa));
+							var days_in_hosp = Math.floor(diff.asDays());
+
+							var dangerYesNo = pat_assessments[i].danger_yn
+							var drugs_last_changed = pat_assessments[i].drugs_last_changed
+							var drugs_not_why = pat_assessments[i].drugs_not_why
+							var drugs_change_why = pat_assessments[i].drugs_change_why
+							var psychsoc_last_changed = pat_assessments[i].psychsoc_last_changed
+							var psychsoc_not_why = pat_assessments[i].psychsoc_not_why
+							var psychsoc_change_why = pat_assessments[i].psychsoc_change_why
+							var pre_date_yesno = pat_assessments[i].pre_date_yesno
+							var pre_date_no_why = pat_assessments[i].pre_date_no_why
+							var pre_date = moment(pat_assessments[i].pre_date, "YYYY-MM-DD").format('YYYY-MM-DD')
+
+							
+
+							//Create and populate past Mx Assessments
+							text += '________________________________________________'
+							text += '\nMEETING DATE:  '+data_meeting_date_formatted+''
+							text += '\nSAVED BY:  '+updated_by+'      ON: '+updated_at+''
+							text += '\nNAME: '+name+'    DOA:  '+doa+'  DAYS In HOSP: '+days_in_hosp+''
+							text += '\n\nPATIENT DANGEROUS (SELF/OTHERS) IF IN APPROVED HOUSING:  '+dangerYesNo+''
+
+							if (dangerYesNo == 'Y') {
+								text +='\n   MEDS LAST CHANGED: '+drugs_last_changed+'';
+									if (drugs_last_changed == '0-8Weeks') {
+										text +='\n'+drugs_change_why+'';
+									}else if (drugs_last_changed == 'Gt8Weeks') {
+										text +='\n'+drugs_not_why+'';
+									};
+								text +='\n   PSYCHOSOCIAL LAST CHANGED: '+psychsoc_last_changed+'';
+									if (psychsoc_last_changed == '0-3Months') {
+										text +='\n'+psychsoc_change_why+'';
+									}else if (psychsoc_last_changed == 'Gt3Months') {
+										text +='\n'+psychsoc_not_why+'';
+									};
+							}else if (dangerYesNo == 'N') {
+								text +='\n   Date set for Pre-Conference Meeting: '+pre_date_yesno+'';
+									if (pre_date_yesno == 'Y') {
+										text +='\nDate: '+pre_date+'';
+									}else if (pre_date_yesno == 'N') {
+										text +='\n'+pre_date_no_why+'';
+									};
+							};
+
+							text +='\n\n\n'
+						};
+						//Enter past assessments into txa_MxAW_pastAssessments
+						$('#txa_MxAW_pastAssessments').val(text)
 												  
-					// }).fail(function(jqXHR, textStatus, errorThrown){
-					// 	alert('HTTP status code: ' + jqXHR.status + '\n' +
-		   //            'textStatus: ' + textStatus + '\n' +
-		   //            'errorThrown: ' + errorThrown);
-					// 	alert('Error in: /user');
-					// });
+					}).fail(function(jqXHR,textStatus,errorThrown){
+						alert(''+jqXHR+': '+textStatus+':'+errotThrown+'')
+					});
 			},
 
 			loadError: function (jqXHR, textStatus, errorThrown) {
