@@ -91,6 +91,16 @@ if ($('body.mxa_tracker').length) {
 			MxAw_complex_search1(user_facility);
 		});
 
+		//Toggle handlers
+		$('#bt_MxAW_TogNotes').click(function(){
+			element = $('#txa_MxAW_pastAssessments');
+			tripleToggle(element, heightS1, heightL1, heightEL1)
+		});
+		$('#bt_MxAW_TogChoseInfo').click(function(){
+			element = $('#txa_MxAW_specificAssessments');
+			tripleToggle(element, heightS1, heightL1, heightEL1)
+		});
+
 	//RADIO HANLDERS
 
 	//TEXTAREA HANDLERS
