@@ -4,6 +4,7 @@ class PatientsController < ApplicationController
   after_action :show_phi, only: [:complex_search, :show, :patients_site_search]
   after_action :update_phi, only: [:update]
   after_action :destroy_phi, only: [:destroy]
+  
 
 
   # GET /patients
@@ -114,18 +115,19 @@ class PatientsController < ApplicationController
       params.require(:patient).permit(:firstname, :lastname, :identifier, :facility, :site, :doa, :dob, :dod, :updated_by)
     end
 
+    
     def create_phi
-      accessauditlog_entry('I')
+      accessauditlog_entry('I', 6387)
     end
     def show_phi
-      accessauditlog_entry('S')
+      accessauditlog_entry('S', 6387)
     end
     def update_phi
-      accessauditlog_entry('U')
+      accessauditlog_entry('U', 6387)
     end
     def destroy_phi
 
-      accessauditlog_entry('D')
+      accessauditlog_entry('D', 6387)
     end
 
 end

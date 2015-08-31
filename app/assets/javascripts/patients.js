@@ -1,5 +1,5 @@
 $(function(){
-// $(document).on("ready page:change", function(){ 
+// $(document).on("ready page:change", function(){ on_opening
 if ($('body.patients').length) {
 
 	//DECLARE VARIABLES
@@ -31,11 +31,14 @@ if ($('body.patients').length) {
 
 	// SELECTS
 		// TO DO Show only if Admin2
-		// $('#slt_S_facility').mjm_addOptions('facility', {firstLine: 'All Facilities'})
 		// Show appropriate wards in
 		$('#slt_S_facility').change(function(){
 			var chosen_facility = $('#slt_S_facility').val();
 			$('#slt_S_ward').mjm_addOptions('ward', {firstLine: 'All Wards', facility: chosen_facility, group: true})
+		});
+		$('#slt_F_facility').change(function(){
+			var chosen_facility = $('#slt_F_facility').val();
+			$('#slt_F_ward').mjm_addOptions('ward', {firstLine: 'All Wards', facility: chosen_facility, group: true})
 		});
 
 		// Filter when Facility changed
@@ -107,7 +110,7 @@ if ($('body.patients').length) {
 	if ($('#session-admin3').val() == 'true') {
 		facility = '-1';
 		//Make sure 'facility' and 'ward' selects are populated before running 'complex_search1'
-		$('#slt_S_facility').mjm_addOptions('facility', {
+		$('#slt_S_facility, #slt_F_facility').mjm_addOptions('facility', {
 											firstLine: 'All Facilities', 
 											complete: function(){
 												on_opening();
@@ -117,12 +120,13 @@ if ($('body.patients').length) {
 	} else { 
 		facility = $('#session-facility').val();
 		//Make sure 'facility' and 'ward' selects are populated before running 'complex_search1'
-		$('#slt_S_facility').mjm_addOptions('facility', {
+		$('#slt_S_facility, #slt_F_facility').mjm_addOptions('facility', {
 											firstLine: 'All Facilities',
 											complete: function(){
 												on_opening();
 											}
 										});
+		$('#slt_S_ward, #slt_F_ward').mjm_addOptions('ward', {firstLine: 'All Wards', facility: facility, group: true})
 	};
 
 
@@ -192,10 +196,17 @@ if ($('body.patients').length) {
 							$('#firstname').val(data.firstname);
 							$('#lastname').val(data.lastname);
 							$('#number').val(data.identifier);
-							$('#facility').val(data.facility);
-							$('#ward').val(data.site);
+							$('#slt_F_facility').val(data.facility);
 
-													  
+							
+							$('#slt_F_ward').mjm_addOptions('ward', {firstLine: 'All Wards', facility: data.facility, group: true})
+							// IF ADMIN-3 - need to first populate slt_F_ward as table can include any facililty
+							 //If not ADMIN-3, can populate slt_F_ward with session-facility in begining and so
+							 //just choose the ward here.
+							setTimeout(function(){
+								$('#slt_F_ward').val(data.site);
+							}, 200)
+		  
 						}).fail(function(){
 							alert('Error in: /inpatient');
 						});
@@ -207,6 +218,7 @@ if ($('body.patients').length) {
 			              'errorThrown: ' + errorThrown);
 			        alert('HTTP message body (jqXHR.responseText): ' + '\n' + jqXHR.responseText);
 			    },
+
 
 			    //The JASON reader. This defines what the JSON data returned should look 
 				    //This is the default. Not needed - only if return does NOT look like this
@@ -282,7 +294,8 @@ if ($('body.patients').length) {
 	};
 
 	function clearFields(){
-		$('#firstname, #lastname, #number, #facility, #ward').val('');
+		$('#firstname, #lastname, #number').val('');
+		$('#slt_F_facility, #slt_F_ward').val('-1')
 		$('#PatientAsideRtErrors').html('').hide();
 	 };
 
@@ -290,8 +303,9 @@ if ($('body.patients').length) {
 		var firstname = $('#firstname').val();
 		var lastname = $('#lastname').val();
 		var number = $('#number').val();
-		var facility = $('#facility').val();
+		var facility = $('#slt_F_facility').val();
 		var ward = $('#ward').val();
+		alert(facility)
 		// Create strong parameter
 		data_for_params ={patient: {'firstname': firstname, 'lastname': 
 						lastname, 'identifier': number, 
