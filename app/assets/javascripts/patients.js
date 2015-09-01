@@ -65,6 +65,15 @@ if ($('body.patients').length) {
 			complex_search1();
 		});
 
+		//Search Authoritative source if only number filled out
+		$('#txt_Pat_number').change(function(){
+			firstname = $('#txt_Pat_firstname').val();
+			lastname = $('#txt_Pat_lastname').val();
+			if (firstname == '' && lastname == '') {
+				alert ('Will search Authoritative source and fill fields if found')
+			};
+		});
+
 
 	//FORM VALIDATION, SUBMIT HANDLER
 		//Validate and Submit fPatientAsideRt
