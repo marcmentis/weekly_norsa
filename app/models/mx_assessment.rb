@@ -59,7 +59,7 @@ class MxAssessment < ActiveRecord::Base
 	def get_mxaw_jqGrid_obj(params)
 		conditions = Patient.joins(:mx_assessments)
 							.select('mx_assessments.*',
-								:firstname, :lastname, :identifier, :site, :doa,)
+								:firstname, :lastname, :identifier, :site, :doa)
 		# User MUST CHOOSE one of the two allLastNote options
 		if params[:allLatestNote] == 'Latest'
 			# Make subquery (IN) and GROUP BY in a text string
@@ -91,6 +91,24 @@ class MxAssessment < ActiveRecord::Base
 	end
 
 	def get_mxaw_reasons_from_notes(params)
-		
+		conditions = Patient.joins(:mx_assessments)
+						.select('mx_assessments.*',
+							:firstname, :lastname, :identifier, :site, :doa)
+		conditions = conditions.where("patient_id = :pid", {pid: params[:patient_id]})
+		case params[:reason]
+		when 'MedChange'
+			conditions = conditions.where("drugs_last_changed = :drugs_last_changed", {drugs_last_changed: '0-8Weeks'})
+		when 'MedNoChange'
+			conditions = conditions.where("drugs_last_changed = :drugs_last_changed", {drugs_last_changed: 'Gt8Weeks'})
+		when 'GroupChange'
+			conditions = conditions.where("psychsoc_last_changed = :psychsoc_last_changed", {psychsoc_last_changed: '0-3Months'})
+		when 'GroupNoChange'
+			conditions = conditions.where("psychsoc_last_changed = :psychsoc_last_changed", {psychsoc_last_changed: 'Gt3Months'})
+		when 'PreNoDate'
+			conditions = conditions.where("pre_date_yesno = :pre_date_yesno", {pre_date_yesno: 'N'})
+		else
+			conditions = conditions.where("1=2")
+		end	
+		conditions = conditions.order("meeting_date DESC")
 	end
 end

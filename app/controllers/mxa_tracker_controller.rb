@@ -13,10 +13,10 @@ class MxaTrackerController < ApplicationController
     end
   end
 
-  # GET /get_reasons/ID
+  # GET /mxa_tracker_get_reasons/:id
   def get_reasons
     mxassessment = MxAssessment.new
-    @reasons = get_mxaw_reasons_from_notes(params)
+    @reasons = mxassessment.get_mxaw_reasons_from_notes(params)
 
     respond_to do |format|
       format.json {render json: @reasons}

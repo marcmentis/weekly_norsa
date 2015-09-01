@@ -44,6 +44,7 @@ ForSelect.find_or_initialize_by_value('MedChange').update_attributes(facility: '
 ForSelect.find_or_initialize_by_value('MedNoChange').update_attributes(facility: '9999', code: 'MxTracker', value: 'MedNoChange', text: 'MedNoChange', option_order: 2, grouper: '')
 ForSelect.find_or_initialize_by_value('GroupChange').update_attributes(facility: '9999', code: 'MxTracker', value: 'GroupChange', text: 'GroupChange', option_order: 3, grouper: '')
 ForSelect.find_or_initialize_by_value('GroupNoChange').update_attributes(facility: '9999', code: 'MxTracker', value: 'GroupNoChange', text: 'GroupNoChange', option_order: 4, grouper: '')
+ForSelect.find_or_initialize_by_value('PreNoDate').update_attributes(facility: '9999', code: 'MxTracker', value: 'PreNoDate', text: 'PreNoDate', option_order: 5, grouper: '')
 
 
 # Pilgrim Ward Names

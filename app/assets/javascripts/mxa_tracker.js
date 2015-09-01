@@ -37,7 +37,7 @@ if ($('body.mxa_tracker').length) {
 						.css({'width': '70%'});
 
 		//texts
-		// $('#txt_MxAW_PatientID').addClass('hidden');
+		$('#txt_MxAW_PatientID').addClass('hidden');
 
 		//textareas
 		$('[id^=txa]')
@@ -77,7 +77,14 @@ if ($('body.mxa_tracker').length) {
 
 		//Extract specific info from within notes
 		$('#slt_MxAWinfo_ChooseInfo').change(function(){
-			patient_id
+			//Check that patient_id exists i.e., patient chosen
+			//Check that select value not -1 - abort if it is
+
+			patient_id = $('#txt_MxAW_PatientID').val();
+			reason = $('#slt_MxAWinfo_ChooseInfo').val();
+
+			get_reasons_from_note(patient_id, reason)
+
 		});
 
 	//DATE HANDLERS
