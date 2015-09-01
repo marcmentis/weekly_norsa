@@ -35,7 +35,7 @@ function MxAW_refreshgrid(url){
 		colNames:["id","Pat_id","FirstName","LastName","C#","Ward","DOA", "Meeting", "Danger", "Drugs", "PsySoc", "Pre", "PreDate"],
 		colModel:[
 			{name:"id",index:"id",width:55, hidden: true},
-			{name: "patient_id",index: "patient_id", width: 55},
+			{name: "patient_id",index: "patient_id", width: 55, hidden: true},
 			{name:"firstname",index:"firstname",width:125,align:"center"},
 			{name:"lastname",index:"lastname",width:125,align:"center"},
 			{name:"identifier",index:"identifier",width:100,align:"center"},
@@ -72,6 +72,8 @@ function MxAW_refreshgrid(url){
 
 			onSelectRow:function(id) { 
 				var ret = $("#divTable").jqGrid('getRowData', id);
+				//Enter PatientID into hidden text
+				$('#txt_MxAW_PatientID').val(ret.patient_id);
 				var url = '/mxa_pat_data/';
 				var data_for_params = {mx_assessment: {patient_id: ret.patient_id}}
 
@@ -219,9 +221,9 @@ function MxAW_refreshgrid(url){
 	});
 };
 
-function get_site_patients (site) {
-	// body...
-}
+// function get_site_patients (site) {
+// 	// body...
+// }
 
 function get_site_patients_pop_pat_select (site) { 	
 		var url = '/patients_site_search'

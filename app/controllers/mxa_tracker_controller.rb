@@ -12,4 +12,14 @@ class MxaTrackerController < ApplicationController
       format.json {render json: @mxaw_jqGrid_obj }
     end
   end
+
+  # GET /get_reasons/ID
+  def get_reasons
+    mxassessment = MxAssessment.new
+    @reasons = get_mxaw_reasons_from_notes(params)
+
+    respond_to do |format|
+      format.json {render json: @reasons}
+    end
+  end
 end

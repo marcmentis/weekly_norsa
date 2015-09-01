@@ -25,8 +25,7 @@ class MxAssessment < ActiveRecord::Base
 	      chosen_date = ""
 	    end
 
-	    return {pat_all_done: all_done, pat_all_to_do: all_to_do, meeting_date: chosen_date}
-		
+	    return {pat_all_done: all_done, pat_all_to_do: all_to_do, meeting_date: chosen_date}	
 	end
 
 	# Get all the Patients who have weekly notes from a given ward and date
@@ -89,5 +88,9 @@ class MxAssessment < ActiveRecord::Base
 	    conditions = conditions.where("pre_date < :dpb", {dpb: params[:dpb]}) unless params[:dpb].blank?
 	    # conditions = conditions.order("lastname ASC, meeting_date DESC")	
 		return jqGrid_obj = create_jqGrid_obj(conditions, params)
+	end
+
+	def get_mxaw_reasons_from_notes(params)
+		
 	end
 end

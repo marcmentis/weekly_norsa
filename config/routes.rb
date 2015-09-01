@@ -24,6 +24,7 @@ Rollify::Application.routes.draw do
 
   get '/mxa_tracker_search/' => 'mxa_tracker#complex_search', as: :mxa_tracker_complex_search
   get '/patients_site_search' => 'patients#patients_site_search', as: :patients_site_search
+  get '/mxa_tracker_get_reasons/:id' => 'mx_assessments#get_reasons', as: :get_reasons
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

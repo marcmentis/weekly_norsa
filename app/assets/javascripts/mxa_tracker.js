@@ -34,7 +34,10 @@ if ($('body.mxa_tracker').length) {
 		$('#fMxAWsearch').addClass('form_container')
 						.css({'width':'60%'});
 		$('#fMxAW_pat_info').addClass('form_container')
-						.css({'width': '60%'});
+						.css({'width': '70%'});
+
+		//texts
+		// $('#txt_MxAW_PatientID').addClass('hidden');
 
 		//textareas
 		$('[id^=txa]')
@@ -55,7 +58,7 @@ if ($('body.mxa_tracker').length) {
 		$('#slt_MxAW_preDateYesNo').mjm_addOptions('YesNo',{firstLine: 'PreDate Set'});
 		$('#slt_MxAW_drugsChanged').mjm_addOptions('DrugsChanged',{firstLine: 'Drugs Changed'});	
 		$('#slt_MxAW_groupChanged').mjm_addOptions('GroupsChanged',{firstLine: 'Group Changed'});
-		$('#slt_MxAW_ChooseInfo').mjm_addOptions('MxTracker', {firstLine: 'Choose Info'})
+		$('#slt_MxAWinfo_ChooseInfo').mjm_addOptions('MxTracker', {firstLine: 'Choose Info'})
 	
 	//SELECT HANDLERS
 		//Populate Patient select when ward is selected
@@ -70,6 +73,11 @@ if ($('body.mxa_tracker').length) {
 		// $('#slt_MxAW_danger_yn, #slt_MxAW_drugsChanged')
 		$('[id^=slt_MxAW_]').change(function(){
 			MxAw_complex_search1(user_facility)
+		});
+
+		//Extract specific info from within notes
+		$('#slt_MxAWinfo_ChooseInfo').change(function(){
+			patient_id
 		});
 
 	//DATE HANDLERS
