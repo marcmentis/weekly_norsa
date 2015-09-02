@@ -176,7 +176,8 @@ function refreshgrid(url){
 function clearFields(){
 	$('#txt_Pat_firstname, #txt_Pat_lastname, #txt_Pat_number, #dt_Pat_DOA, #dt_Pat_DOB, #dt_Pat_DOD')
 			.val('');
-	// $('#slt_F_facility').val('-1')
+	$('.error_message').hide();
+
 	$('#PatientAsideRtErrors').html('').hide();
 	if ($('#session-admin3').val() == 'true') {
 		$('#slt_F_facility').val('-1')
