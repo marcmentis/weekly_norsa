@@ -8,19 +8,33 @@ if ($('body.patients').length) {
 		
 
 	// STYLING
-		$('#divPatientPageWrapper').addClass('pad_3_sides')
-		$('#divPatientPageInnerWrapper').addClass('centered')
-										.css({'width':'75em'});
-		$('#divPatientAsideRt').addClass('float_right form_container')
-								.css({'width':'250px'})
-								.hide();
+		$('#divPatientPageWrapper')
+				.addClass('pad_3_sides')
+		// $('#divPatientPageInnerWrapper')
+		// 		.addClass('centered')
+		// 		.css({'width':'75em'});
+		// $('#divPatientAsideRt').addClass('float_right form_container')
+		// 						.css({'width':'250px'})
+		// 						.hide();
 		$('#PatientAsideRtErrors').addClass('error_explanation')
 									.hide();
 
-		$('#fPatientSearch').addClass('form_container').css({'width':'692px'});
+		// $('#fPatientSearch').addClass('form_container')
+		// 		.css({'width':'692px'});
 		// Can't use .hide() as wont work with IE 10
 		$('#btnSubmit').addClass('move_off_page')
 		$('.error_message').hide();
+
+
+		$('#divPatientPageInnerWrapper')
+				.addClass('centered')
+				.css({'max-width': '980px'});
+		$('#divPatientAsideRt').addClass('form_container')
+								.hide();
+		$('#fPatientSearch')
+			.addClass('form_container')
+			.css({'width': '700px'});
+
 
 		//button
 		//REMOVE id^=b
@@ -39,7 +53,8 @@ if ($('body.patients').length) {
 			.css({'width':'7em'});
 
 		//text
-		$('#Pat_ID').addClass('hidden');
+		// $('#Pat_ID').addClass('hidden');
+		$('#Pat_ID').addClass('display_none')
 
 	// SELECTS
 		//selects
@@ -135,40 +150,22 @@ if ($('body.patients').length) {
 		//Submit New, Edit from input form
 			$('#fPatientAsideRt').submit(function(e){		
 	 			e.preventDefault();
-	 			//Validate that form properly filled out
-	 			remove_error_divs_if_corrected()
+	 			//VALIDATE that form properly filled out
+	 			validation_array = [
+	 				['txt_Pat_firstname','','Please enter First Name'],
+	 				['txt_Pat_lastname','','Please enter Last Name'],
+	 				['txt_Pat_number','','Please enter Number'],
+	 				['slt_F_facility','-1','Please choose Facility'],
+	 				['slt_F_ward','-1','Please choose Ward'],
+	 				['dt_Pat_DOA','','Please choose DOA']
+	 			]
 
-	 			if ($('#txt_Pat_firstname').val() == '') {
-	 				$('#txt_Pat_firstname')
-	 					.after('<div class="error_message">Please enter First Name</div>')
-	 					.focus();
-	 				return true;
-	 			};
-	 			if ($('#txt_Pat_lastname').val() == '') {
-	 				$('#txt_Pat_lastname')
-	 					.after('<div class="error_message">Please enter Last Name</div>')
-	 					.focus();
-	 				return true;
-	 			};
-	 			if ($('#txt_Pat_number').val() == '') {
-	 				$('#txt_Pat_number')
-	 					.after('<div class="error_message">Please enter Number</div>')
-	 					.focus();
-	 				return true;
-	 			};
+	 			//Loop through array and remove error messages if corrected       
+	 			remove_error_divs_if_corrected(validation_array)
+	 			//Loop through array and show error message if '', '-1' etc.
+	 			exit = validate_elements(validation_array)
+	 			if (exit) {return true};
 
-function remove_error_divs_if_corrected() {
-	if ($('#txt_Pat_firstname').val().length > 0) {
-		$('#txt_Pat_firstname').nextAll('.error_message').remove();
-	};
-	if ($('#txt_Pat_lastname').val().length > 0) {
-		$('#txt_Pat_lastname').nextAll('.error_message').remove();
-	};
-	if ($('#txt_Pat_number').val().length > 0) {
-		$('#txt_Pat_number').nextAll('.error_message').remove();
-	};
-}
-	 			
 
 	 			//Get value of submit button to determine which AJAX call to make
 				submit_value = $(this).find('input[type=submit]').attr('value')

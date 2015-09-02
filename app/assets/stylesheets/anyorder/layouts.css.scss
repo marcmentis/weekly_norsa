@@ -175,6 +175,9 @@ $background_light_gray: #F5F5F5;
 .hidden {
 	visibility: hidden;
 }
+.display_none {
+	display: none;
+}
 
 //GENERIC BASIC WIDGET SETUP - some Redmont theming
 
@@ -421,6 +424,9 @@ $pad: 10px;
 }
 .col-1-4 {
 	width: 25%;
+}
+.col-3-4{
+	width: 75%;
 }
 .col-1-6 {
 	width: 16.66%;
