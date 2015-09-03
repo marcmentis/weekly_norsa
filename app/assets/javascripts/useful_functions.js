@@ -80,7 +80,7 @@ function ajax_error1 (header, msg, divname, msec) {
   
   function remove_error_divs_if_corrected(arr) {
     for (var i = 0; i < arr.length; i++) { 
-      input = $('#'+arr[i][0]+'').val() 
+      input = $('#'+arr[i][0]+'').val();
       if (input.length > 0 && input != '-1') {
         $('#'+arr[i][0]+'').nextAll('.error_message').remove();
       };
