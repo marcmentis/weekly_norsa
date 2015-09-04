@@ -68,10 +68,19 @@ if($('body.users').length) {
 		});
 
 	//SELECTS
-		//TO DO show appropriate only if Admin3
-		// $('#slt_user_S_facility, #slt_user_Rt_facility').mjm_addOptions('facility', {firstLine: 'Facilities'})
-		// $('#slt_user_Rt_facility').mjm_addOptions('facility', {firstLine: 'Facilities'})
+		$('#slt_User_roles').mjm_addOptions('Roles', {firstLine: 'Add Role'});
 
+		$('#slt_User_roles').change(function(){
+			new_role_name = $('#slt_User_roles').val();
+			if (new_role_name == '-1') {
+				return true;
+			};
+			ID = $('#hd_User_userID').val();
+			url = '/users_add_role/'+ID+'';
+			type = 'POST'
+			add_remove_role(new_role_name, ID, url, type);
+		});
+		
 
 	// BUTTONS
 		//Submit complex search on fPatientSearch using hidden submit button
@@ -121,32 +130,32 @@ if($('body.users').length) {
 			user_clearFields();
 		});
 
-		$('#b_user_R_addRole').click(function(){
-			no_options_selected = $('#slt_user_R_allRoles :selected').length;
-			if (no_options_selected != 1) {
-				alert('Please select 1 role only from All Roles list')
-				return;
-			};
-			role_name_array = $('#slt_user_R_allRoles').val();
-			role_name = role_name_array[0];
-			ID = $('#hd_User_userID').val();
-			url = '/users_add_role/'+ID+'';
-			type = 'POST'
-			add_remove_role(role_name, ID, url, type);
-		});
+		// $('#b_user_R_addRole').click(function(){
+		// 	no_options_selected = $('#slt_user_R_allRoles :selected').length;
+		// 	if (no_options_selected != 1) {
+		// 		alert('Please select 1 role only from All Roles list')
+		// 		return;
+		// 	};
+		// 	role_name_array = $('#slt_user_R_allRoles').val();
+		// 	role_name = role_name_array[0];
+		// 	ID = $('#hd_User_userID').val();
+		// 	url = '/users_add_role/'+ID+'';
+		// 	type = 'POST'
+		// 	add_remove_role(role_name, ID, url, type);
+		// });
 
-		$('#b_user_R_newRole').click(function(){
-			new_role_name = $('#txt_user_R_newRole').val();
-			if (new_role_name == '') {
-				alert('Please enter new role in Text box');
-				$('#txt_user_R_newRole').focus();
-				return true;
-			};
-			ID = $('#hd_User_userID').val();
-			url = '/users_add_role/'+ID+'';
-			type = 'POST'
-			add_remove_role(new_role_name, ID, url, type);
-		});
+		// $('#b_user_R_newRole').click(function(){
+		// 	new_role_name = $('#txt_user_R_newRole').val();
+		// 	if (new_role_name == '') {
+		// 		alert('Please enter new role in Text box');
+		// 		$('#txt_user_R_newRole').focus();
+		// 		return true;
+		// 	};
+		// 	ID = $('#hd_User_userID').val();
+		// 	url = '/users_add_role/'+ID+'';
+		// 	type = 'POST'
+		// 	add_remove_role(new_role_name, ID, url, type);
+		// });
 
 		$('#b_user_R_removeRole').click(function(){
 			no_options_selected = $('#slt_user_R_userRoles :selected').length;
@@ -181,18 +190,6 @@ if($('body.users').length) {
 											}
 										})
 		$('#slt_user_Rt_facility').mjm_addOptions('facility',{firstLine: 'All Facilities'})
-
-
-
-	// user_refreshgrid('nil');
-
-	//Only want to run 'user_complex_search1() after select filled i.e., synchranously'
-	// $('#slt_user_S_facility').mjm_addOptions('facility', {firstLine: 'Facilities'})
-	// user_complex_search1();
-
-
-	//*****************************************************
-	//FUNCTIONS CALLED FROM ABOVE
 
 
 
