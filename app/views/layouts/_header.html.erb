@@ -3,13 +3,13 @@
 	<div id="layoutHeader">
 		<div id="layoutFig">
 			<a href="#"><%= image_tag 'rails.jpg', size: '20x28' %></a>
-			<span id='inpatient'>INPATIENT</span>
+			<span id='inpatient' style="color: white; font-weight: bold">INPATIENT</span>
 		</div>
 		<div id="layoutNavigation">
 			<ul class="sf-menu" id="example">
 
 				<li class="current">			 
-					<a href="#">Notes</a>
+					<a href="#">notes</a>
 					<ul>
 						<li>
 							<%= link_to("BioPsychoSocial Assessment", mx_assessments_path) %>
@@ -47,7 +47,7 @@
 					</ul>
 				</li>
 				<li class="current">
-					<a href="#">Trackers</a>
+					<a href="#">trackers</a>
 					<ul>
 						<li>
 							<%= link_to("BioPsychoSocial Assessment", mxa_tracker_index_path) %>
@@ -57,7 +57,7 @@
 				<li>
 					<%= link_to("patients", patients_path) %>
 				</li>
-				<li>
+				<!-- <li>
 					<a href="#">menu item 3</a>
 					<ul>
 						<li>
@@ -120,9 +120,9 @@
 							</ul>
 						</li>
 					</ul>
-				</li>
+				</li> -->
 				<li>
-					<a href="#">builders</a>
+					<a href="#">admin</a>
 					<ul>
 						<li><%= link_to('users', users_path) %></li>
 						<li><%= link_to('for_selects', for_selects_path) %></li>

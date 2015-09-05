@@ -68,7 +68,7 @@ if($('body.users').length) {
 		});
 
 	//SELECTS
-		$('#slt_User_roles').mjm_addOptions('Roles', {firstLine: 'Add Role'});
+		$('#slt_User_roles').mjm_addOptions('Roles', {firstLine: 'add role'});
 
 		$('#slt_User_roles').change(function(){
 			new_role_name = $('#slt_User_roles').val();

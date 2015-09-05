@@ -2,25 +2,14 @@ $(function(){
 // $(document).on("ready page:change", function(){ on_opening
 if ($('body.patients').length) {
 
-	//DECLARE VARIABLES
-		// var ID = '';
-		//   	function set_id(x){ID = x};
-		
 
 	// STYLING
 		$('#divPatientPageWrapper')
 				.addClass('pad_3_sides')
-		// $('#divPatientPageInnerWrapper')
-		// 		.addClass('centered')
-		// 		.css({'width':'75em'});
-		// $('#divPatientAsideRt').addClass('float_right form_container')
-		// 						.css({'width':'250px'})
-		// 						.hide();
+
 		$('#PatientAsideRtErrors').addClass('error_explanation')
 									.hide();
 
-		// $('#fPatientSearch').addClass('form_container')
-		// 		.css({'width':'692px'});
 		// Can't use .hide() as wont work with IE 10
 		$('#btnSubmit').addClass('move_off_page')
 		$('.error_message').hide();
@@ -40,7 +29,7 @@ if ($('body.patients').length) {
 		//REMOVE id^=b
 		$('[id^=b]').button().addClass('reduce_button')
 		$('[id^=bt').button().addClass('reduce_button')
-		// $('#lastname').addClass('input_field')
+
 
 		//dates
 		$('[id^=dt]')
@@ -53,7 +42,6 @@ if ($('body.patients').length) {
 			.css({'width':'7em'});
 
 		//text
-		// $('#Pat_ID').addClass('hidden');
 		$('#Pat_ID').addClass('display_none')
 
 	// SELECTS
@@ -93,47 +81,6 @@ if ($('body.patients').length) {
 		});
 
 
-	//FORM VALIDATION, SUBMIT HANDLER
-		//Validate and Submit fPatientAsideRt
-		// $('#fPatientAsideRt').validate({
-		// 	rules: {
-		// 		firstname: {
-		// 			required: true,
-		// 			minlength: 2
-		// 		},
-		// 		lastname: {
-		// 			required: true,
-		// 			minlength: 4
-		// 		}
-		// 	},
-		// 	messages: {
-		// 		firstname: {
-		// 			required: "Firstname is required",
-		// 			minlength: "Two characters required"
-		// 		},
-		// 		lastname: {
-		// 			required: "Lastname is required",
-		// 			minlength: "Four chararcters required"
-		// 		}
-		// 	},
-		// 	submitHandler: function(form){
-		// 		//Get value of submit button to determine which AJAX call to make
-		// 		submit_value = $(form).find('input[type=submit]').attr('value')
-		// 		switch(submit_value){
-		// 			case 'New':
-		// 				patients_ajax1('/patients/', 'POST');
-		// 				break;
-		// 			case 'Edit':
-		// 				ID = $('#Pat_ID').val();
-		// 				patients_ajax1('/patients/'+ID+'', 'PATCH');
-		// 				break;
-		// 			default:
-		// 				alert('submit_id not found');
-		// 				return false;
-		// 		};
-				
-		// 	}
-		// });
 
 	// BUTTONS
 		//Submit complex search on fPatientSearch using hidden submit button
