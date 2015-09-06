@@ -10,10 +10,11 @@
 
 				<li class="current">			 
 					<a href="#">notes</a>
-					<ul>
+					<ul> <%#= if policy(MxAssessments).complex_search? %>
 						<li>
 							<%= link_to("BioPsychoSocial Assessment", mx_assessments_path) %>
 						</li>
+						<%# end %>
 						<li class="current">
 							<a href="#">long menu item sets sub width</a>
 							<ul>
@@ -125,7 +126,7 @@
 					<a href="#">admin</a>
 					<ul>
 						<li><%= link_to('users', users_path) %></li>
-						<li><%= link_to('for_selects', for_selects_path) %></li>
+						<li><%= link_to('for_selects', for_selects_path) if policy(ForSelect).complex_search? %></li>
 						<li><%= link_to('widgets', widgets_path) %></li>
 					</ul>
 				</li>	
