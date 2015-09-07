@@ -1,6 +1,7 @@
 class MxaTrackerController < ApplicationController
   def index
   	
+    authorize :mxa_tracker, :index?
   end
 
   # GET /mxa_tracker_search/

@@ -11,9 +11,12 @@ class ForSelectPolicy
 	# end
 
 	def complex_search?
-		@current_user.has_role? :users_d and
-		@current_user.has_role? :users_cruS or 
-		@current_user.has_role? :admin3
+		@current_user.has_role? :admin3 or 
+		@current_user.has_role? :admin2 or
+		(			
+			@current_user.has_role? :trash1 and 
+			@current_user.has_role? :trash2
+		)
 	end
 
 end

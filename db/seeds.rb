@@ -42,6 +42,20 @@ ForSelect.find_or_initialize_by_value('0045').update_attributes(facility: '9999'
 ForSelect.find_or_initialize_by_value('0048').update_attributes(facility: '9999', code: 'facility', value: '0048', text: 'NYCCC', option_order: 25, grouper: '')
 ForSelect.find_or_initialize_by_value('9999').update_attributes(facility: '9999', code: 'facility', value: '9999', text: 'All', option_order: 26, grouper: '')
 
+# Roles
+ForSelect.find_or_initialize_by_value('admin3').update_attributes(facility: '9999', code: 'Roles', value: 'admin3', text: 'admin3', option_order: 1, grouper: '')
+ForSelect.find_or_initialize_by_value('admin2').update_attributes(facility: '9999', code: 'Roles', value: 'admin2', text: 'admin2', option_order: 2, grouper: '')
+ForSelect.find_or_initialize_by_value('admin1').update_attributes(facility: '9999', code: 'Roles', value: 'admin1', text: 'admin1', option_order: 3, grouper: '')
+ForSelect.find_or_initialize_by_value('pat_crud').update_attributes(facility: '9999', code: 'Roles', value: 'pat_crud', text: 'pat_crud', option_order: 4, grouper: '')
+ForSelect.find_or_initialize_by_value('pat_cru').update_attributes(facility: '9999', code: 'Roles', value: 'pat_cru', text: 'pat_cru', option_order: 5, grouper: '')
+ForSelect.find_or_initialize_by_value('pat_r').update_attributes(facility: '9999', code: 'Roles', value: 'pat_r', text: 'pat_r', option_order: 6, grouper: '')
+ForSelect.find_or_initialize_by_value('trackers_r').update_attributes(facility: '9999', code: 'Roles', value: 'trackers_r', text: 'trackers_r', option_order: 7, grouper: '')
+ForSelect.find_or_initialize_by_value('bps_crud').update_attributes(facility: '9999', code: 'Roles', value: 'bps_crud', text: 'bps_crud', option_order: 8, grouper: '')
+ForSelect.find_or_initialize_by_value('bps_cru').update_attributes(facility: '9999', code: 'Roles', value: 'bps_cru', text: 'bps_cru', option_order: 9, grouper: '')
+ForSelect.find_or_initialize_by_value('r_and_d').update_attributes(facility: '9999', code: 'Roles', value: 'r_and_d', text: 'r_and_d', option_order: 10, grouper: '')
+
+
+
 #YesNo
 ForSelect.find_or_initialize_by_value('Y').update_attributes(facility: '9999', code: 'YesNo', value: 'Y', text: 'Yes', option_order: 1, grouper: '')
 ForSelect.find_or_initialize_by_value('N').update_attributes(facility: '9999', code: 'YesNo', value: 'N', text: 'Yes', option_order: 2, grouper: '')
@@ -62,12 +76,6 @@ ForSelect.find_or_initialize_by_value('0-8Weeks').update_attributes(facility: '9
 ForSelect.find_or_initialize_by_value('Gt8Weeks').update_attributes(facility: '9999', code: 'DrugsChanged', value: 'Gt8Weeks', text: 'Gt8Weeks', option_order: 2, grouper: '')
 ForSelect.find_or_initialize_by_value('0-3Months').update_attributes(facility: '9999', code: 'GroupsChanged', value: '0-3Months', text: '0-3Months', option_order: 1, grouper: '')
 ForSelect.find_or_initialize_by_value('Gt3Months').update_attributes(facility: '9999', code: 'GroupsChanged', value: 'Gt3Months', text: 'Gt3Months', option_order: 2, grouper: '')
-
-# Roles
-ForSelect.find_or_initialize_by_value('admin3').update_attributes(facility: '9999', code: 'Roles', value: 'admin3', text: 'admin3', option_order: 1, grouper: '')
-ForSelect.find_or_initialize_by_value('admin2').update_attributes(facility: '9999', code: 'Roles', value: 'admin2', text: 'admin2', option_order: 2, grouper: '')
-ForSelect.find_or_initialize_by_value('admin1').update_attributes(facility: '9999', code: 'Roles', value: 'admin1', text: 'admin1', option_order: 3, grouper: '')
-ForSelect.find_or_initialize_by_value('trash').update_attributes(facility: '9999', code: 'Roles', value: 'trash', text: 'trash', option_order: 4, grouper: '')
 
 
 # *****************************************

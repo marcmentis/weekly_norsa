@@ -2,23 +2,44 @@
 <div id="divHeaderPageWrapper">
 	<div id="layoutHeader">
 		<div id="layoutFig">
-			<a href="#"><%= image_tag 'rails.jpg', size: '20x28' %></a>
-			<span id='inpatient' style="color: white; font-weight: bold">INPATIENT</span>
+				<a href="#"><%= image_tag 'rails.jpg', size: '20x28' %></a>	
+				<div style="float: right; margin-left: 3px; text-align: center">
+					<span id='inpatient' style="color: #FBE72F; font-weight: bold">INPATIENT</span>
+			<span style="color: #FBE72F; font-weight: bold">Patient</span>
+				</div>
+						
 		</div>
+		<!-- <div id="layoutText">
+			div
+		</div> -->
+			
 		<div id="layoutNavigation">
 			<ul class="sf-menu" id="example">
 
-				<li class="current">			 
+				<li class="current">
+				<% if policy(MxAssessment).index? %>			 
 					<a href="#">notes</a>
+				<% end %>
 					<ul> <%#= if policy(MxAssessments).complex_search? %>
 						<li>
-							<%= link_to("BioPsychoSocial Assessment", mx_assessments_path) %>
+							<%= link_to("BioPsychoSocial Assessment", mx_assessments_path) if policy(MxAssessment).index? %>
+
 						</li>
 						<%# end %>
 						<li class="current">
-							<a href="#">long menu item sets sub width</a>
+							<a href="#">Mall Notes</a>
 							<ul>
-								<li class="current"><a href="#">menu item</a></li>
+								<li class="current"><a href="#">Group</a></li>
+								<li><a href="#">Comprehensive</a></li>
+								<li><a href="#">Individual</a></li>
+								<li><a href="#">menu item</a></li>
+								<li><a href="#">menu item</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">Ward Notes</a>
+							<ul>
+								<li><a href="#">menu item</a></li>
 								<li><a href="#">menu item</a></li>
 								<li><a href="#">menu item</a></li>
 								<li><a href="#">menu item</a></li>
@@ -26,17 +47,7 @@
 							</ul>
 						</li>
 						<li>
-							<a href="#">menu item</a>
-							<ul>
-								<li><a href="#">menu item</a></li>
-								<li><a href="#">menu item</a></li>
-								<li><a href="#">menu item</a></li>
-								<li><a href="#">menu item</a></li>
-								<li><a href="#">menu item</a></li>
-							</ul>
-						</li>
-						<li>
-							<a href="#">menu item</a>
+							<a href="#">A Long Name Stretches Out Menu</a>
 							<ul>
 								<li><a href="#">menu item</a></li>
 								<li><a href="#">menu item</a></li>
@@ -48,7 +59,9 @@
 					</ul>
 				</li>
 				<li class="current">
+					<% if policy(:mxa_tracker).index? %>
 					<a href="#">trackers</a>
+					<% end %>
 					<ul>
 						<li>
 							<%= link_to("BioPsychoSocial Assessment", mxa_tracker_index_path) %>
@@ -127,7 +140,7 @@
 					<ul>
 						<li><%= link_to('users', users_path) %></li>
 						<li><%= link_to('for_selects', for_selects_path) if policy(ForSelect).complex_search? %></li>
-						<li><%= link_to('widgets', widgets_path) %></li>
+						<li><%= link_to('widgets', widgets_path) if policy(:widget).index? %></li>
 					</ul>
 				</li>	
 				<li><%= link_to('home', root_path) %></li>

@@ -1,6 +1,7 @@
 <div id="divHomeWrapper">
 <div id="divHomeInnerWrapper">
 
+<% if policy(:widget).index? %>
 	<form id="fHome1">
 		<h2>How best to use this home page?</h2>
 		<div class="grid">
@@ -38,13 +39,10 @@
 			<div class="col-1-3">
 				<a href="#"><%= image_tag 'SandiMetz.jpg', class: 'style_image' %></a> 
 				
-			</div>
-			
-		</div>
-		
-		
-		
+			</div>			
+		</div>		
 	</form>
+<% end %>
 
 
 
