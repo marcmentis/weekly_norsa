@@ -136,9 +136,11 @@
 					</ul>
 				</li> -->
 				<li>
+					<% if policy(ForSelect).complex_search?%>
 					<a href="#">admin</a>
+					<% end %>
 					<ul>
-						<li><%= link_to('users', users_path) %></li>
+						<li><%= link_to('users', users_path) if policy(ForSelect).complex_search? %></li>
 						<li><%= link_to('for_selects', for_selects_path) if policy(ForSelect).complex_search? %></li>
 						<li><%= link_to('widgets', widgets_path) if policy(:widget).index? %></li>
 					</ul>

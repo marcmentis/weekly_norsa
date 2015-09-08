@@ -14,4 +14,6 @@ class MxAssessmentPolicy
 	end
 
 
+
+
 end

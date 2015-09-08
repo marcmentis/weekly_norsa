@@ -58,7 +58,7 @@ ForSelect.find_or_initialize_by_value('r_and_d').update_attributes(facility: '99
 
 #YesNo
 ForSelect.find_or_initialize_by_value('Y').update_attributes(facility: '9999', code: 'YesNo', value: 'Y', text: 'Yes', option_order: 1, grouper: '')
-ForSelect.find_or_initialize_by_value('N').update_attributes(facility: '9999', code: 'YesNo', value: 'N', text: 'Yes', option_order: 2, grouper: '')
+ForSelect.find_or_initialize_by_value('N').update_attributes(facility: '9999', code: 'YesNo', value: 'N', text: 'No', option_order: 2, grouper: '')
 
 #AllLatest
 ForSelect.find_or_initialize_by_value('All').update_attributes(facility: '9999', code: 'AllLatest', value: 'All', text: 'All', option_order: 1, grouper: '')

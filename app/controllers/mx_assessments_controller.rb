@@ -32,7 +32,7 @@ class MxAssessmentsController < ApplicationController
     facility = session[:facility]
     @all_lists = MxAssessment.get_pat_lists(mx_assessment_params, facility)
 
-    authorize MxAssessment
+    # authorize MxAssessment
     respond_to do |format|
       format.json {render json: @all_lists}
     end
