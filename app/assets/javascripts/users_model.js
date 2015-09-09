@@ -105,7 +105,7 @@
 			position:'last'
 		})
 		.navButtonAdd('#divPager', {
-			caption: 'Role',
+			caption: 'Priv',
 			buttonicon: '',
 			onClickButton: function(){	
 				ID = $('#hd_User_userID').val();
