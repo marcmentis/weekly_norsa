@@ -3,7 +3,7 @@ class ForSelectsController < ApplicationController
   before_action :set_for_select, only: [:show, :edit, :update, :destroy]
   # before_action :check_session
   # Pundit - make sure all actions have an 'authorize' helper
-  after_action :verify_authorized, except: [:index, :options_search]
+  # after_action :verify_authorized, except: [:index, :options_search]
   # def pundit_user
   #   current_user
   # end

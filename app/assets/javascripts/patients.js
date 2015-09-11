@@ -4,25 +4,25 @@ if ($('body.patients').length) {
 
 
 	// STYLING
+		//div
 		$('#divPatientPageWrapper')
 				.addClass('pad_3_sides')
-
-		$('#PatientAsideRtErrors').addClass('error_explanation')
-									.hide();
-
-		// Can't use .hide() as wont work with IE 10
-		$('#btnSubmit').addClass('move_off_page')
-		$('.error_message').hide();
-
-
 		$('#divPatientPageInnerWrapper')
 				.addClass('centered')
 				.css({'max-width': '980px'});
 		$('#divPatientAsideRt').addClass('form_container')
 								.hide();
+
+		$('#PatientAsideRtErrors').addClass('error_explanation')
+									.hide();
+		//form
 		$('#fPatientSearch')
 			.addClass('form_container')
 			.css({'width': '700px'});
+
+		// Can't use .hide() as wont work with IE 10
+		$('#btnSubmit').addClass('move_off_page')
+		$('.error_message').hide();
 
 
 		//button
@@ -94,7 +94,7 @@ if ($('body.patients').length) {
 				clearFields();
 			});
 
-		//Submit New, Edit from input form
+		//Submit New/Edit information from input form
 			$('#fPatientAsideRt').submit(function(e){		
 	 			e.preventDefault();
 	 			//VALIDATE that form properly filled out
