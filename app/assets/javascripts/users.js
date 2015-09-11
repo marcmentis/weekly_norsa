@@ -68,6 +68,9 @@ if($('body.users').length) {
 		});
 
 	//SELECTS
+		if ($('#session-admin3').val() !== 'true'){
+			$('#slt_user_S_facility, #slt_user_Rt_facility').attr("disabled", true)
+		};
 		$('#slt_User_roles').mjm_addOptions('Roles', {firstLine: 'add priv'});
 
 		$('#slt_User_roles').change(function(){
@@ -184,13 +187,14 @@ if($('body.users').length) {
 											complete: function(){
 												$('#slt_user_S_facility').val(''+facility+'');
 												user_complex_search1();
-												if ($('#session-admin3').val() !== 'true'){
-													$('#slt_user_S_facility').attr("disabled", true)
-												};
 											}
 										})
-		$('#slt_user_Rt_facility').mjm_addOptions('facility',{firstLine: 'All Facilities'})
-
+		$('#slt_user_Rt_facility').mjm_addOptions('facility',{
+					firstLine: 'All Facilities',
+					complete: function(){
+						$('#slt_user_Rt_facility').val(facility);
+					}
+				});
 
 
 };		//if($('#body.users').length) {
