@@ -9,7 +9,9 @@
 # TO DO  - STARTUP POPULATION OF USERS DATABASE
 # User make sure pgmdmjm in database
 User.find_or_initialize_by_authen('pgmdmjm').update_attributes(firstname: 'Marc', lastname: 'Mentis', authen: 'pgmdmjm', facility: '0013', email: 'marc.mentis@omh.ny.gov', firstinitial: 'M', middleinitial: 'J')
-User.find_or_initialize_by_authen('mmentis').update_attributes(firstname: 'Marc', lastname: 'Mentis', authen: 'mmentis', facility: '0013', email: 'marc.mentis@omh.ny.gov', firstinitial: 'M', middleinitial: 'J')
+User.find_or_initialize_by_authen('pgmdjs').update_attributes(firstname: 'Joe', lastname: 'Soap', authen: 'pgmdjs', facility: '0013', email: 'joe.soap@omh.ny.gov', firstinitial: 'J', middleinitial: 'L')
+User.find_or_initialize_by_authen('scmdmb').update_attributes(firstname: 'Mary', lastname: 'Board', authen: 'scmdmb', facility: '0025', email: 'mary.board@omh.ny.gov', firstinitial: 'M', middleinitial: 'R')
+User.find_or_initialize_by_authen('scmdtg').update_attributes(firstname: 'Tom', lastname: 'Gillins', authen: 'scmdtg', facility: '0025', email: 'Tom.Gillins@omh.ny.gov', firstinitial: 'T', middleinitial: 'S')
 
 
 # ********************************
