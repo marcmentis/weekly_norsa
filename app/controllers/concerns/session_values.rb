@@ -2,11 +2,11 @@ module SessionValues
 
 	def authorized_and_confirmed
 		if session[:confirmed] != 'authen_and_in_db'
-			if Rails.env == 'development' || Rails.env == 'test'
+			if Rails.env == 'development' || Rails.env == 'test' || Rails.env == 'production'
 				check_rsa_authorization_dev
 				# puts "NOT AUTHORIZED AND CONFIRMED YET"
-			elsif Rails.env == 'production'
-				check_rsa_authorization_prod
+			# elsif Rails.env == 'production'
+			# 	check_rsa_authorization_prod
 			end
 		end
 		# puts "AUTHORIZED AND CONFIRMED"
